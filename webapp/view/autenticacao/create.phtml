@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt-pt">
+<?php use ArmoredCore\WebObjects\Layout;
 
-<head>
-    <?php require_once("libs/head.php"); ?>
-    <script src="js/createaccount.js"></script>
-</head>
+Layout::includeLayout('header') ?>
 
-<body>
-    <div id="imagemlogin">
-        <div class="cxfloat">
-            <div class="cardtwo">
-                <ul class="firstline">
-                    <li class="textologin">Create account</li>
-                    <a href="#" onclick="Rotate('createaccount')">
-                        <li class="createaccount">Login</li>
-                    </a>
-                </ul>
-                <form class="formulario-todo" action="bd/create_account.php" method="post">
-                <input type="email" class="form-control form" name="email" title="Insira um email" placeholder="Email" oninvalid="InvalidMsg3(this);" 
-                   oninput="InvalidMsg1(this);" required>
-                    <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" oninvalid="InvalidMsg1(this);" 
-                   oninput="InvalidMsg1(this);" required>
-                    <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" oninvalid="InvalidMsg2(this);" 
-                   oninput="InvalidMsg2(this);" required>
-                    <span id="mensagem"></span>
-                    <input class="btn botaosignin" type="submit" value="sign up">
-                </form>
-                </ul>
-            </div>
+<script src="js/createaccount.js"></script>
+
+<div id="imagemlogin">
+    <div class="cxfloat">
+        <div class="cardtwo">
+            <ul class="firstline">
+                <li class="textologin">Create account</li>
+                <a href="#" onclick="Rotate('createaccount')">
+                    <li class="createaccount">Login</li>
+                </a>
+            </ul>
+            <form class="formulario-todo" action="bd/create_account.php" method="post">
+            <input type="email" class="form-control form" name="email" title="Insira um email" placeholder="Email" oninvalid="InvalidMsg3(this);"
+               oninput="InvalidMsg1(this);" required>
+                <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" oninvalid="InvalidMsg1(this);"
+               oninput="InvalidMsg1(this);" required>
+                <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" oninvalid="InvalidMsg2(this);"
+               oninput="InvalidMsg2(this);" required>
+                <span id="mensagem"></span>
+                <input class="btn botaosignin" type="submit" value="sign up">
+            </form>
+            </ul>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+<?php Layout::includeLayout('footer')?>

@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-pt">
+<?php use ArmoredCore\WebObjects\Layout;
 
-<head>
-    <?php require_once("libs/head.php"); ?>
-    <script src="js/login.js"></script>
-</head>
+Layout::includeLayout('header') ?>
 
-<body>
+<!--<script src="js/login.js"></script>-->
     <div id="imagemlogin">
         <div class="cxfloat">
             <div class="cardtwo">
@@ -17,9 +13,9 @@
                     </a>
                 </ul>
                 <form class="formulario-todo" action="bd/login_bd.php" method="post">
-                    <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" oninvalid="InvalidMsg1(this);" 
+                    <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" oninvalid="InvalidMsg1(this);"
                    oninput="InvalidMsg1(this);" required>
-                    <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" oninvalid="InvalidMsg2(this);" 
+                    <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" oninvalid="InvalidMsg2(this);"
                    oninput="InvalidMsg2(this);" required>
                     <span id="mensagem"></span>
                     <input class="btn botaosignin" type="submit" value="sign in">
@@ -33,6 +29,4 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
+<?php Layout::includeLayout('footer')?>

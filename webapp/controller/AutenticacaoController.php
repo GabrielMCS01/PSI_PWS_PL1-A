@@ -8,12 +8,12 @@ class AutenticacaoController extends BaseController implements ResourceControlle
 {
     public function index()
     {
-        return View::make('aeroporto.index');
+        return View::make('autenticacao.index');
     }
 
     public function create()
     {
-        return View::make('aeroporto.create');
+        return View::make('autenticacao.create');
     }
 
     public function store()
