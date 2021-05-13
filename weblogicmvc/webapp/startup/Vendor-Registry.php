@@ -13,7 +13,6 @@ require WL_VENDOR_BASE_DIR . '\\autoload.php';
 $psr4vendorMap = [
     'Stolz',
     'Symfony',
-    'Tracy',
     'Pd',
     'PetrKnap',
     'Netpromotion',

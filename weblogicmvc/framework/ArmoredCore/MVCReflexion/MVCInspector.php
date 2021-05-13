@@ -3,6 +3,7 @@
 namespace ArmoredCore\MVCReflexion;
 
 use ArmoredCore\FileReader;
+use function Symfony\Component\String\u;
 
 /**
  * Created by PhpStorm.
@@ -20,12 +21,42 @@ class MVCInspector
         $this->_fr = new FileReader();
     }
 
-    public function getModels()
+    public function getServerModules(): array
+    {
+        $moduleNames = array();
+        $fr = new FileReader();
+        $entries = $fr->getFilesFromDir(WL_SERVER_DIR);
+
+        foreach ($entries as $entry) {
+
+            if ( (!strpos($entry, '.') && (!u($entry)->startsWith('.')) )){
+
+                switch ($entry){
+                    case 'cache':
+                    case 'database':
+                    case 'docs':
+                    case 'framework':
+                    case 'lang':
+                    case 'middleware':
+                    case 'public':
+                    case 'vendor':
+                        break;
+                    default:
+                        array_push($moduleNames, $entry);
+                }
+            }
+        }
+
+        return $moduleNames;
+
+    }
+
+    public function getModels($serverModuleName): array
     {
         $modelNames = array();
 
         $fr = new FileReader();
-        $files = $fr->getFilesFromDir(WL_MODEL_BASE_DIR);
+        $files = $fr->getFilesFromDir(WL_SERVER_DIR . DIRECTORY_SEPARATOR . $serverModuleName . DIRECTORY_SEPARATOR . 'model');
 
         foreach ($files as $file) {
             $tokens = explode('.', $file);
@@ -40,13 +71,13 @@ class MVCInspector
     }
 
 
-    public function getControllers()
+    public function getControllers($serverModuleName): array
     {
 
         $controllerNames = array();
 
         $fr = new FileReader();
-        $files = $fr->getFilesFromDir(WL_CONTROLLER_BASE_DIR);
+        $files = $fr->getFilesFromDir(WL_SERVER_DIR . DIRECTORY_SEPARATOR . $serverModuleName . DIRECTORY_SEPARATOR . 'controller');
 
         foreach ($files as $file) {
             $tokens = explode('.', $file);
@@ -61,10 +92,10 @@ class MVCInspector
     }
 
 
-    public function getTaggedControllers()
+    public function getTaggedControllers($serverModuleName)
     {
 
-        $controllers = $this->getControllers();
+        $controllers = $this->getControllers($serverModuleName);
 
         return $this->tagControllers($controllers);
 
@@ -111,6 +142,5 @@ class MVCInspector
         return $taggedControllers;
 
     }
-
 
 }

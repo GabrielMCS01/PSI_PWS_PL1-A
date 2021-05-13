@@ -1,8 +1,9 @@
 <?php
-include 'helpers/config.php';
-require '../lib/Expressions.php';
+require_once __DIR__ . '/../lib/Expressions.php';
 
 use ActiveRecord\Expressions;
+use ActiveRecord\ConnectionManager;
+use ActiveRecord\DatabaseException;
 
 class ExpressionsTest extends SnakeCase_PHPUnit_Framework_TestCase
 {
@@ -81,6 +82,13 @@ class ExpressionsTest extends SnakeCase_PHPUnit_Framework_TestCase
 		$this->assert_equals(array(0),$a->values());
 	}
 
+	public function test_empty_array_variable()
+	{
+		$a = new Expressions(null,'id IN(?)',array());
+		$this->assert_equals('id IN(?)',$a->to_s());
+		$this->assert_equals(array(array()),$a->values());
+	}
+
 	public function test_ignore_invalid_parameter_marker()
 	{
 		$a = new Expressions(null,"question='Do you love backslashes?' and id in(?)",array(1,2));
@@ -131,7 +139,11 @@ class ExpressionsTest extends SnakeCase_PHPUnit_Framework_TestCase
 
 	public function test_substitute_escape_quotes_with_connections_escape_method()
 	{
-		$conn = ActiveRecord\ConnectionManager::get_connection();
+		try {
+			$conn = ConnectionManager::get_connection();
+		} catch (DatabaseException $e) {
+			$this->mark_test_skipped('failed to connect. '.$e->getMessage());
+		}
 		$a = new Expressions(null,'name=?',"Tito's Guild");
 		$a->set_connection($conn);
 		$escaped = $conn->escape("Tito's Guild");

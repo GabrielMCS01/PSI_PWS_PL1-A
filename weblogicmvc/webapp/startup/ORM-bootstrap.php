@@ -31,4 +31,3 @@ ActiveRecord\Config::initialize(function($cfg)
     $cfg->set_default_connection(WL_RUNNING_ENV);
 });
 
-

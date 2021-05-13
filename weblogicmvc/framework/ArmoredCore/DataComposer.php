@@ -5,6 +5,7 @@ use ArmoredCore\Interfaces\ComponentRegisterInterface;
 use ArmoredCore\Interfaces\DataComposerInterface;
 use Exception;
 use ArmoredCore\WebObjects\Session;
+use Tracy\Debugger;
 
 /**
  * Created by PhpStorm.
@@ -14,7 +15,7 @@ use ArmoredCore\WebObjects\Session;
  */
 class DataComposer implements DataComposerInterface, ComponentRegisterInterface
 {
-    protected $_viewData = '';
+    protected $_viewData = array();
 
     public function registerRequirements()
     {
@@ -34,6 +35,8 @@ class DataComposer implements DataComposerInterface, ComponentRegisterInterface
                 throw new Exception('Please use an associative array as data object for views');
             }
 
+            Debugger::barDump($assoc_array);
+            Debugger::barDump($this->_viewData);
             foreach ($assoc_array as $key => $data) {
                 $this->_viewData[$key] = $data;
             }

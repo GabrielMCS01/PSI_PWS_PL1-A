@@ -209,8 +209,6 @@ class FireWireRESTRouter implements RouterInterface, ComponentRegisterInterface
         $fullRouteName = $controller . $this->_parseDelimeter . $actionMethod;
 
 
-        Debugger::barDump($url, 'Url');
-
         if ($requestMethod == 'get') {
             if ($this->_getRouteTable == !null) {
                 //var_dump($this->_getRoutes);
@@ -298,13 +296,8 @@ class FireWireRESTRouter implements RouterInterface, ComponentRegisterInterface
 
 
             $controllerClassName = $routingRule[0];
-            //echo $controllerClassName;
 
             $methodInstanceName = $routingRule[1];
-
-            //echo $methodInstanceName;
-
-            //die();
 
         }
 

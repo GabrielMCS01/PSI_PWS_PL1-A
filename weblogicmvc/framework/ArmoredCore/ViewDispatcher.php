@@ -73,7 +73,7 @@ class ViewDispatcher implements ViewDispatcherInterface, ComponentRegisterInterf
     }
 
 
-    //make micro_protolor component
+    //make micro_protocol component
     private function FLEXProcessURL($url){
         return str_replace( FLEX_TEMPLATE_PROTOCOL . '://', '', $url);
     }
@@ -84,7 +84,6 @@ class ViewDispatcher implements ViewDispatcherInterface, ComponentRegisterInterf
     {
 
         //check if FLEX protocol is used
-
         //get instance from armoredcore
 
         if($this->isFLEXProtocolUsed($viewName)) {

@@ -9,6 +9,7 @@
 namespace ArmoredCore;
 
 use ArmoredCore\WebKernel\ArmoredCore;
+use Tracy\Debugger;
 
 
 class ViewRenderer
@@ -21,6 +22,7 @@ class ViewRenderer
     }
 
     public function attachSubview($placeHolder, $viewFileName, $viewData = []){
+
         ArmoredCore::get('Data')->set($viewData);
         $this->_subViews[$viewFileName] = $placeHolder;
     }

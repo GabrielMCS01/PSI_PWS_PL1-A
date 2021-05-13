@@ -1,10 +1,11 @@
 CREATE TABLE authors(
 	author_id INTEGER NOT NULL PRIMARY KEY,
 	parent_author_id INT,
+	publisher_id INT,
 	name VARCHAR  (25) NOT NULL DEFAULT default_name, -- don't touch those spaces
 	updated_at datetime,
 	created_at datetime,
-	some_date date,
+	some_Date date,
 	some_time time,
 	some_text text,
 	encrypted_password varchar(50),
@@ -20,6 +21,11 @@ CREATE TABLE books(
 	special NUMERIC(10,2) DEFAULT 0
 );
 
+CREATE TABLE publishers(
+	publisher_id INTEGER NOT NULL PRIMARY KEY,
+	name VARCHAR  (25) NOT NULL DEFAULT default_name -- don't touch those spaces
+);
+
 CREATE TABLE venues (
   Id INTEGER NOT NULL PRIMARY KEY,
   name varchar(50),
@@ -32,7 +38,7 @@ CREATE TABLE venues (
 
 CREATE TABLE events (
   id INTEGER NOT NULL PRIMARY KEY,
-  venue_id int NOT NULL,
+  venue_id int NULL,
   host_id int NOT NULL,
   title varchar(60) NOT NULL,
   description varchar(10),
@@ -40,7 +46,7 @@ CREATE TABLE events (
 );
 
 CREATE TABLE hosts(
-	id INTEGER NOT NULL PRIMARY KEY,
+	id INT NOT NULL PRIMARY KEY,
 	name VARCHAR(25)
 );
 
@@ -83,4 +89,24 @@ CREATE TABLE property_amenities(
   `id` INTEGER NOT NULL PRIMARY KEY,
   `amenity_id` INT NOT NULL,
   `property_id` INT NOT NULL
+);
+
+CREATE TABLE users (
+    id INTEGER NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE newsletters (
+    id INTEGER NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE user_newsletters (
+    id INTEGER NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    newsletter_id INTEGER NOT NULL
+);
+
+CREATE TABLE valuestore (
+  `id` INTEGER NOT NULL PRIMARY KEY,
+  `key` varchar(20) NOT NULL DEFAULT '',
+  `value` varchar(255) NOT NULL DEFAULT ''
 );

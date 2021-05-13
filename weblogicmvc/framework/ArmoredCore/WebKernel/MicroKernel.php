@@ -79,7 +79,7 @@ class MicroKernel implements ContainerInterface
      * @param string $id
      * @return mixed
      */
-    public function has($id)
+    public function has(string $id) : bool
     {
         return array_key_exists($id, $this->_components);
     }

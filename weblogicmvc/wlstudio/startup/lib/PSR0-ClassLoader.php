@@ -11,8 +11,6 @@
 // Auto-load class files from multiple directories using the SPL_AUTOLOAD_REGISTER method.
 
 
-
-
     spl_autoload_register(function($class) {
 
         $autoloadFolders = $GLOBALS['PSR0autoloadFolders'];

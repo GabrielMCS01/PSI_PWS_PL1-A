@@ -1,5 +1,4 @@
 <?php
-include 'helpers/config.php';
 
 class ActiveRecordTest extends DatabaseTest
 {
@@ -155,6 +154,15 @@ class ActiveRecordTest extends DatabaseTest
 		$venue->reload();
 		$this->assert_equals('NY', $venue->state);
 	}
+	
+	public function test_reload_protected_attribute()
+	{
+		$book = BookAttrAccessible::find(1);
+	
+		$book->name = "Should not stay";
+		$book->reload();
+		$this->assert_not_equals("Should not stay", $book->name);
+	}
 
 	public function test_active_record_model_home_not_set()
 	{
@@ -180,7 +188,44 @@ class ActiveRecordTest extends DatabaseTest
 	{
 		$model = new NamespaceTest\Book();
 		$table = ActiveRecord\Table::load(get_class($model));
+
 		$this->assert_equals($table->get_relationship('parent_book')->foreign_key[0], 'book_id');
+		$this->assert_equals($table->get_relationship('parent_book_2')->foreign_key[0], 'book_id');
+		$this->assert_equals($table->get_relationship('parent_book_3')->foreign_key[0], 'book_id');
+	}
+
+	public function test_namespaced_relationship_associates_correctly()
+	{
+		$model = new NamespaceTest\Book();
+		$table = ActiveRecord\Table::load(get_class($model));
+
+		$this->assert_not_null($table->get_relationship('parent_book'));
+		$this->assert_not_null($table->get_relationship('parent_book_2'));
+		$this->assert_not_null($table->get_relationship('parent_book_3'));
+
+		$this->assert_not_null($table->get_relationship('pages'));
+		$this->assert_not_null($table->get_relationship('pages_2'));
+
+		$this->assert_null($table->get_relationship('parent_book_4'));
+		$this->assert_null($table->get_relationship('pages_3'));
+
+		// Should refer to the same class
+		$this->assert_same(
+			ltrim($table->get_relationship('parent_book')->class_name, '\\'),
+			ltrim($table->get_relationship('parent_book_2')->class_name, '\\')
+		);
+
+		// Should refer to different classes
+		$this->assert_not_same(
+			ltrim($table->get_relationship('parent_book_2')->class_name, '\\'),
+			ltrim($table->get_relationship('parent_book_3')->class_name, '\\')
+		);
+
+		// Should refer to the same class
+		$this->assert_same(
+			ltrim($table->get_relationship('pages')->class_name, '\\'),
+			ltrim($table->get_relationship('pages_2')->class_name, '\\')
+		);
 	}
 
 	public function test_should_have_all_column_attributes_when_initializing_with_array()
@@ -257,7 +302,7 @@ class ActiveRecordTest extends DatabaseTest
 
 		try {
 			$book->save();
-			$this-fail('expected exception ActiveRecord\ReadonlyException');
+			$this->fail('expected exception ActiveRecord\ReadonlyException');
 		} catch (ActiveRecord\ReadonlyException $e) {
 		}
 
@@ -356,11 +401,33 @@ class ActiveRecordTest extends DatabaseTest
 		$this->assert_null($event->state);
 	}
 
-	public function test_delegate_setter()
+	public function test_delegate_set_attribute()
 	{
 		$event = Event::first();
 		$event->state = 'MEXICO';
 		$this->assert_equals('MEXICO',$event->venue->state);
+	}
+
+	public function test_delegate_getter_gh_98()
+	{
+		Venue::$use_custom_get_state_getter = true;
+
+		$event = Event::first();
+		$this->assert_equals('ny', $event->venue->state);
+		$this->assert_equals('ny', $event->state);
+
+		Venue::$use_custom_get_state_getter = false;
+	}
+
+	public function test_delegate_setter_gh_98()
+	{
+		Venue::$use_custom_set_state_setter = true;
+
+		$event = Event::first();
+		$event->state = 'MEXICO';
+		$this->assert_equals('MEXICO#',$event->venue->state);
+
+		Venue::$use_custom_set_state_setter = false;
 	}
 
 	public function test_table_name_with_underscores()
@@ -383,7 +450,6 @@ class ActiveRecordTest extends DatabaseTest
 
 	public function test_setter_with_same_name_as_an_attribute()
 	{
-		Author::$setters[] = 'name';
 		$author = new Author();
 		$author->name = 'bob';
 		$this->assert_equals('BOB',$author->name);
@@ -397,11 +463,11 @@ class ActiveRecordTest extends DatabaseTest
 
 	public function test_getter_with_same_name_as_an_attribute()
 	{
-		Book::$getters[] = 'name';
+		Book::$use_custom_get_name_getter = true;
 		$book = new Book;
 		$book->name = 'bob';
 		$this->assert_equals('BOB', $book->name);
-		Book::$getters = array();
+		Book::$use_custom_get_name_getter = false;
 	}
 
 	public function test_setting_invalid_date_should_set_date_to_null()
@@ -440,13 +506,40 @@ class ActiveRecordTest extends DatabaseTest
 		$author = new Author();
 		$author->flag_dirty('some_date');
 		$this->assert_has_keys('some_date', $author->dirty_attributes());
+		$this->assert_true($author->attribute_is_dirty('some_date'));
+		$author->save();
+		$this->assert_false($author->attribute_is_dirty('some_date'));
 	}
 
-	public function test_assigning_php_datetime_gets_converted_to_ar_datetime()
+	public function test_flag_dirty_attribute_which_does_not_exit()
+	{
+		$author = new Author();
+		$author->flag_dirty('some_inexistant_property');
+		$this->assert_null($author->dirty_attributes());
+		$this->assert_false($author->attribute_is_dirty('some_inexistant_property'));
+	}
+
+	public function test_gh245_dirty_attribute_should_not_raise_php_notice_if_not_dirty()
+	{
+		$event = new Event(array('title' => "Fun"));
+		$this->assert_false($event->attribute_is_dirty('description'));
+		$this->assert_true($event->attribute_is_dirty('title'));
+	}
+
+	public function test_assigning_php_datetime_gets_converted_to_date_class_with_defaults()
 	{
 		$author = new Author();
 		$author->created_at = $now = new \DateTime();
-		$this->assert_is_a("ActiveRecord\\DateTime",$author->created_at);
+		$this->assert_is_a("ActiveRecord\\DateTime", $author->created_at);
+		$this->assert_datetime_equals($now,$author->created_at);
+	}
+
+	public function test_assigning_php_datetime_gets_converted_to_date_class_with_custom_date_class()
+	{
+		ActiveRecord\Config::instance()->set_date_class('\\DateTime'); // use PHP built-in DateTime
+		$author = new Author();
+		$author->created_at = $now = new \DateTime();
+		$this->assert_is_a("DateTime", $author->created_at);
 		$this->assert_datetime_equals($now,$author->created_at);
 	}
 
@@ -462,6 +555,21 @@ class ActiveRecordTest extends DatabaseTest
 		$this->assert_equals('name', $venue->get_real_attribute_name('name'));
 		$this->assert_equals('name', $venue->get_real_attribute_name('marquee'));
 		$this->assert_equals(null, $venue->get_real_attribute_name('invalid_field'));
+	}
+
+	public function test_id_setter_works_with_table_without_pk_named_attribute()
+	{
+		$author = new Author(array('id' => 123));
+		$this->assert_equals(123,$author->author_id);
+	}
+
+	public function test_query()
+	{
+		$row = Author::query('SELECT COUNT(*) AS n FROM authors',null)->fetch();
+		$this->assert_true($row['n'] > 1);
+
+		$row = Author::query('SELECT COUNT(*) AS n FROM authors WHERE name=?',array('Tito'))->fetch();
+		$this->assert_equals(array('n' => 1), $row);
 	}
 };
 ?>

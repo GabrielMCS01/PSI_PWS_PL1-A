@@ -1,10 +1,11 @@
 CREATE TABLE authors(
 	author_id SERIAL PRIMARY KEY,
 	parent_author_id INT,
+	publisher_id INT,
 	name VARCHAR(25) NOT NULL DEFAULT 'default_name',
 	updated_at timestamp,
 	created_at timestamp,
-	some_date date,
+	"some_Date" date,
 	some_time time,
 	some_text text,
 	encrypted_password varchar(50),
@@ -13,15 +14,20 @@ CREATE TABLE authors(
 
 CREATE TABLE books(
 	book_id SERIAL PRIMARY KEY,
-	Author_Id INT,
+	author_id INT,
 	secondary_author_id INT,
 	name VARCHAR(50),
 	numeric_test VARCHAR(10) DEFAULT '0',
 	special NUMERIC(10,2) DEFAULT 0.0
 );
 
+CREATE TABLE publishers(
+	publisher_id SERIAL PRIMARY KEY,
+	name VARCHAR(25) NOT NULL DEFAULT 'default_name'
+);
+
 CREATE TABLE venues (
-	Id SERIAL PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name varchar(50),
 	city varchar(60),
 	state char(2),
@@ -32,7 +38,7 @@ CREATE TABLE venues (
 
 CREATE TABLE events (
 	id SERIAL PRIMARY KEY,
-	venue_id int NOT NULL,
+	venue_id int NULL,
 	host_id int NOT NULL,
 	title varchar(60) NOT NULL,
 	description varchar(10),
@@ -71,16 +77,39 @@ CREATE TABLE awesome_people(
 );
 
 CREATE TABLE amenities(
-  amenity_id serial primary key,
-  type varchar(40) NOT NULL
+	amenity_id serial primary key,
+	type varchar(40) NOT NULL
 );
 
 CREATE TABLE property(
-  property_id serial primary key
+	property_id serial primary key
 );
 
 CREATE TABLE property_amenities(
-  id serial primary key,
-  amenity_id int not null,
-  property_id int not null
+	id serial primary key,
+	amenity_id int not null,
+	property_id int not null
 );
+
+CREATE TABLE users(
+	id serial primary key
+);
+
+CREATE TABLE newsletters(
+	id serial primary key
+);
+
+CREATE TABLE user_newsletters(
+  id serial primary key,
+  user_id int not null,
+  newsletter_id int not null
+);
+
+CREATE TABLE valuestore (
+  id serial primary key,
+  key varchar(20) NOT NULL DEFAULT '',
+  value varchar(255) NOT NULL DEFAULT ''
+);
+
+-- reproduces issue GH-96 for testing
+CREATE INDEX user_newsletters_id_and_user_id_idx ON user_newsletters USING btree(id, user_id);

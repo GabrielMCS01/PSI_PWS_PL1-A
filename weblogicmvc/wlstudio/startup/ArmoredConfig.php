@@ -28,4 +28,5 @@ define ('WL_FRAMEWORK_DIR',              WL_SERVER_DIR . "framework\\");
 define ('WL_DEFAULT_VIEW_EXTENSION',     'phtml');
 define ('WL_LAYOUT_BASE_DIR',            WL_MOD_BASE_DIR . "view\\layout\\");
 define ('WL_MODEL_BASE_DIR',             WL_MOD_BASE_DIR . "model\\");
+define ('WL_LOGS_BASE_DIR',             WL_MOD_BASE_DIR . "logs\\");
 define ('WL_CONTROLLER_BASE_DIR',        WL_MOD_BASE_DIR . "controller\\");

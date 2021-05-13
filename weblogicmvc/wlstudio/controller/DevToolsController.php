@@ -3,6 +3,11 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\View;
 use ArmoredCore\MVCReflexion\MVCInspector;
 use ArmoredCore\WebKernel\ArmoredCore;
+use ArmoredCore\WebObjects\Post;
+use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\CodeBuilders\ResourceControllerBuilder;
+use Nette\PhpGenerator\Printer;
+
 
 /**
  * Created by PhpStorm.
@@ -14,17 +19,39 @@ class DevToolsController extends BaseController
 {
 
     public function index(){
-
+        $mvci = new MVCInspector();
+        $serverModules = $mvci->getServerModules();
+        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Resource Controller Builder']);
+        View::make('devtools.controllerBuilderModuleSelector', ['serverModules' => $serverModules]);
     }
 
-    public function RESTControllerForm(){
+    public function ControllerModelSelector(){
+
+        $serverModuleName = Post::get('servermodulename');
 
         $mvci = new MVCInspector();
-        $modelNames = $mvci->getModels();
-        $controllerNames = $mvci->getTaggedControllers();
 
-        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'REST/Resource Controller']);
-        View::make('devtools.restcontrollerform', ['modelnames' => $modelNames, 'controllernames' => $controllerNames]);
+        $modelNames = $mvci->getModels($serverModuleName);
+        $controllerNames = $mvci->getTaggedControllers($serverModuleName);
+
+        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Resource Controller Builder']);
+        View::make('devtools.controllerBuilderModelSelector', ['modelnames' => $modelNames, 'controllernames' => $controllerNames, 'servermodulename' => $serverModuleName]);
+    }
+
+    public function ControllerGenerator(){
+        if (Post::has('modelname')){
+            $modelName = Post::get('modelname');
+        } else {
+            Redirect::toRoute('devtools/index');
+        }
+        $serverModuleName = Post::get('servermodulename');
+
+        $classBuilder = new ResourceControllerBuilder($serverModuleName, $modelName);
+        $code = $classBuilder->buildClass();
+
+        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Class ' . $modelName . 'Controller']);
+        View::make('devtools.GeneratedClassCode', ['code' => $code]);
+
     }
 
     public function accomponents(){

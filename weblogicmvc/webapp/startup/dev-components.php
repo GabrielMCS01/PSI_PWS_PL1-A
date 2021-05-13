@@ -10,18 +10,6 @@
  * Developer components
  */
 
-use Tracy\Debugger;
-
-if (WL_DEBUG_ENABLED) {
-    //$handler = $GLOBALS['handler'];
-    //$handler->turnOff();
-    //unset($handler);
-    //unset($GLOBALS['handler']);
-    Debugger::$showBar = true;
-    Debugger::enable(Debugger::DEVELOPMENT);
-} else {
-    Debugger::enable(Debugger::PRODUCTION);
-}
 
 $db = $GLOBALS['defaultDbConnection'];
 
@@ -35,7 +23,7 @@ $dbp = [
 ];
 
 
-
+/*
 use Pd\Diagnostics\CacheInfoPanel;
 use Pd\Diagnostics\DatabaseInfoPanel;
 
@@ -56,6 +44,7 @@ if(isset($GLOBALS['cachedPage'])){
 
 }
 
+/*
     $cachePanel = new CacheInfoPanel($microtime);
     Debugger::getBar()->addPanel($cachePanel);
 
@@ -64,6 +53,9 @@ if(isset($GLOBALS['cachedPage'])){
     Debugger::getBar()->addPanel($dbPanel);
     $profiler = new Netpromotion\Profiler\Adapter\TracyBarAdapter();
     Debugger::getBar()->addPanel($profiler);
+*/
+
+
 
 /*
 $conn = Book::connection();
@@ -83,7 +75,7 @@ Debugger::getBar()->addPanel( $db1Panel );
 use Netpromotion\Profiler\Profiler;
 
 Profiler::enable();
-Debugger::$strictMode = true;
+//Debugger::$strictMode = true;
 
 /*
 Debugger::fireLog('Hello World'); // send string into FireLogger console

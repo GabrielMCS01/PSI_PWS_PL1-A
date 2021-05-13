@@ -13,5 +13,4 @@ class Book extends \ActiveRecord\Model
         array('isbn', 'message' => 'YooaaH it must be provided')
     );
 
-
 }

@@ -20,7 +20,7 @@ class HomeController extends BaseController
 
     public function start(){
 
-        //View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Quick Start']);
+        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Quick Start']);
         return View::make('home.start');
     }
 
@@ -31,7 +31,7 @@ class HomeController extends BaseController
 
     public function worksheet(){
 
-        View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'MVC Worksheet']);
+        //View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'MVC Worksheet']);
 
         return View::make('home.worksheet');
     }

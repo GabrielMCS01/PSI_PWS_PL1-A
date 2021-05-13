@@ -1,10 +1,11 @@
 <?php
-require_once 'DatabaseLoader.php';
+require_once __DIR__ . '/DatabaseLoader.php';
 
 class DatabaseTest extends SnakeCase_PHPUnit_Framework_TestCase
 {
 	protected $conn;
 	public static $log = false;
+	public static $db;
 
 	public function set_up($connection_name=null)
 	{
@@ -13,17 +14,24 @@ class DatabaseTest extends SnakeCase_PHPUnit_Framework_TestCase
 		$config = ActiveRecord\Config::instance();
 		$this->original_default_connection = $config->get_default_connection();
 
+		$this->original_date_class = $config->get_date_class();
+
 		if ($connection_name)
 			$config->set_default_connection($connection_name);
 
 		if ($connection_name == 'sqlite' || $config->get_default_connection() == 'sqlite')
 		{
 			// need to create the db. the adapter specifically does not create it for us.
-			$this->db = substr(ActiveRecord\Config::instance()->get_connection('sqlite'),9);
-			new SQLite3($this->db);
+			static::$db = substr(ActiveRecord\Config::instance()->get_connection('sqlite'),9);
+			new SQLite3(static::$db);
 		}
 
-		$this->conn = ActiveRecord\ConnectionManager::get_connection($connection_name);
+		$this->connection_name = $connection_name;
+		try {
+			$this->conn = ActiveRecord\ConnectionManager::get_connection($connection_name);
+		} catch (ActiveRecord\DatabaseException $e) {
+			$this->mark_test_skipped($connection_name . ' failed to connect. '.$e->getMessage());
+		}
 
 		$GLOBALS['ACTIVERECORD_LOG'] = false;
 
@@ -36,6 +44,7 @@ class DatabaseTest extends SnakeCase_PHPUnit_Framework_TestCase
 
 	public function tear_down()
 	{
+		ActiveRecord\Config::instance()->set_date_class($this->original_date_class);
 		if ($this->original_default_connection)
 			ActiveRecord\Config::instance()->set_default_connection($this->original_default_connection);
 	}
@@ -50,7 +59,7 @@ class DatabaseTest extends SnakeCase_PHPUnit_Framework_TestCase
 			$message = $e->getMessage();
 		}
 
-		$this->assert_true(strpos($message,$contains) !== false);
+		$this->assertContains($contains, $message);
 	}
 
 	/**
@@ -63,14 +72,14 @@ class DatabaseTest extends SnakeCase_PHPUnit_Framework_TestCase
 	{
 		$needle = str_replace(array('"','`'),'',$needle);
 		$haystack = str_replace(array('"','`'),'',$haystack);
-		return $this->assert_true(strpos($haystack,$needle) !== false);
+		return $this->assertContains($needle, $haystack);
 	}
 
 	public function assert_sql_doesnt_has($needle, $haystack)
 	{
 		$needle = str_replace(array('"','`'),'',$needle);
 		$haystack = str_replace(array('"','`'),'',$haystack);
-		return $this->assert_false(strpos($haystack,$needle) !== false);
+		return $this->assertNotContains($needle, $haystack);
 	}
 }
 ?>

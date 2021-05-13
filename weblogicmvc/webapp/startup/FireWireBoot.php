@@ -11,8 +11,10 @@ $time = microtime(true);
 
 // PSR-4 default Autoloader Class
 require ( 'lib/SplClassLoader.php' );
-//load user configs
-require ( 'User-Config.php' );
+//load module user configs
+require ( 'config/module.php' );
+//load user Database Connection config
+require ( 'config/db.php' );
 // setups environment global variables (context paths and urls)
 require ( 'ArmoredConfig.php' );
 // PSR-4 autoload map file
@@ -25,7 +27,8 @@ require ( 'Legacy-Registry.php' );
 require ( 'Vendor-Registry.php' );
 // include the header for the boot
 // require ( 'Head-boot.php');
-
+//load debug sub-system
+require ( 'debug-env.php' );
 
 // Loads the PSR-11 Micro Kernel
 // Registers PSR-4/0
@@ -41,7 +44,7 @@ require ( 'ORM-bootstrap.php' );
 // Template Engines bootstrap
 require ( 'TemplateEngine-Bootstrap.php' );
 
-// Startup the developers debug components
+// Startup the developers  components
 require ('dev-components.php');
 
 use \Netpromotion\Profiler\Profiler;
@@ -55,6 +58,9 @@ require ('ArmoredCore-boot.php');
 Profiler::finish('WL: Loading MVC Components');
 Profiler::start('WL: Loading Services');
 
+//load user Web Assets
+require 'config/assets.php';
+
 // Startup services
 require ('Service-Registry.php');
 
@@ -66,7 +72,7 @@ require (WL_MOD_BASE_DIR . DIRECTORY_SEPARATOR . 'router.php');
 Profiler::finish('WL: Loading Router');
 Profiler::finish('WL: Bootstrapping Armored Core');
 
-
+require 'debug-collectors.php';
 
 // Router Resolve
 use ArmoredCore\Facades\Router;
@@ -74,5 +80,6 @@ use ArmoredCore\Facades\Router;
 $url = $_SERVER['REQUEST_URI'];
 $view = Router::resolve($url);
 
+// Cache
 //$url = md5($url);
 //$cache->set($url, $view);

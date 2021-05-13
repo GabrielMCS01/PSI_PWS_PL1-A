@@ -27,9 +27,11 @@ ArmoredCore::set('Layout', 'ArmoredCore\LayoutManager');
 ArmoredCore::set('Session', 'ArmoredCore\SessionManager');
 ArmoredCore::set('Post', 'ArmoredCore\POSTManager');
 ArmoredCore::set('Redirector', 'ArmoredCore\HTTPRedirector');
+ArmoredCore::set('Debug', 'ArmoredCore\DebugAdapter');
 
 ArmoredCore::run();
 
 //session enabled for third party libraries
 // phpactiverecord requirement
+// Tracy requirement
 Session::start();

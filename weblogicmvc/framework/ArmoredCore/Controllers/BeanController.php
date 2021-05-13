@@ -8,8 +8,6 @@
 
 namespace ArmoredCore\Controllers;
 
-include 'lib/rb.php';
-
 use Nette\NotImplementedException;
 use Tracy\Debugger;
 
@@ -31,6 +29,6 @@ class BeanController
                             break;
         }
 
-        \R::setup( $connStr, $defaultDbConnection['USER'], $defaultDbConnection['PASSWORD'] );
+        //\R::setup( $connStr, $defaultDbConnection['USER'], $defaultDbConnection['PASSWORD'] );
     }
 }
