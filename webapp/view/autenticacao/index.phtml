@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+    <?php require_once("libs/head.php"); ?>
+    <script src="js/login.js"></script>
+</head>
+
+<body>
+    <div id="imagemlogin">
+        <div class="cxfloat">
+           
+    
+            <div class="cardtwo">
+                <ul class="firstline">
+                    <li class="textologin">LOGIN</li>
+                    <a href="#" onclick="Rotate('login')">
+                        <li class="createaccount">Create account</li>
+                    </a>
+                </ul>
+                <form class="formulario-todo" action="bd/login_bd.php" method="post">
+                    <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" oninvalid="InvalidMsg1(this);" 
+                   oninput="InvalidMsg1(this);" required>
+                    <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" oninvalid="InvalidMsg2(this);" 
+                   oninput="InvalidMsg2(this);" required>
+                    <span id="mensagem"></span>
+                    <input class="btn botaosignin" type="submit" value="sign in">
+                </form>
+
+                <ul class="Secondline">
+                    <a href="#">
+                        <li class="facebook" >
+                            <img class="imgface" src="img/facebook.png">
+                            Sign in
+                        </li>
+                    </a>
+                    <a href="#">
+                    <li class="forgotpass">Forgot your password?</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

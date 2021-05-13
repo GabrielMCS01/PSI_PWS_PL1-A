@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rancho&display=swap');
+
+$main-color:#7662BB;
+$secundary-color:#FFF;
+$Titulo1:5.61rem;
+$Titulo2:4.209rem;
+$Titulo3:3.157rem;
+$Titulo4:2.369rem;
+$Texto3:1.777rem;
+$Texto2:1.333rem;
+$Texto1:1rem;
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline:none;
+  text-decoration: none;
+  list-style: none;
+}
+
+:root{
+  font-size:1vw;
+}
+
+a:link{
+  text-decoration: none;
+}
