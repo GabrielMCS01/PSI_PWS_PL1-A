@@ -19,6 +19,7 @@ Router::get('home/start',	'HomeController/start');
 
 Router::get('test/index',  'TestController/index');
 
+Router::resource('autenticacao', 'AutenticacaoController');
 
 
 
