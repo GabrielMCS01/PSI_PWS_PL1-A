@@ -21,6 +21,7 @@ Router::get('test/index',  'TestController/index');
 
 Router::get('autenticacao/',  'AutenticacaoController/index');
 Router::get('autenticacao/index',  'AutenticacaoController/index');
+Router::get('autenticacao/create',  'AutenticacaoController/create');
 
 //Router::resource('autenticacao', 'AutenticacaoController');
 

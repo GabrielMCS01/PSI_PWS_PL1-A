@@ -1,15 +1,15 @@
 <?php use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('header') ?>
+Layout::includeLayout('loginheader') ?>
 
-<!--<script src="js/login.js"></script>-->
     <div id="imagemlogin">
         <div class="cxfloat">
             <div class="cardtwo">
                 <ul class="firstline">
                     <li class="textologin">LOGIN</li>
-                    <a href="#" onclick="Rotate('login')">
-                        <li class="createaccount">Create account</li>
+                    <a href="<?=Url::toRoute('autenticacao/create')?>">
+                        <li class="createaccount">Criar conta</li>
                     </a>
                 </ul>
                 <form class="formulario-todo" action="bd/login_bd.php" method="post">
@@ -29,4 +29,3 @@ Layout::includeLayout('header') ?>
             </div>
         </div>
     </div>
-<?php Layout::includeLayout('footer')?>
