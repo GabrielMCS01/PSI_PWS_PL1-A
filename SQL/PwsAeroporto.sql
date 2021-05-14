@@ -9,6 +9,7 @@ Create table if not exists Utilizadores(
 	Telefone VARCHAR(20) NOT NULL,
     Utilizador VARCHAR(100) NOT NULL,
     PasswordUtilizador VARCHAR(100) NOT NULL,
+    Perfil VARCHAR(100) NOT NULL,
 	CONSTRAINT pk_Utilizadores_IdUtilizador PRIMARY KEY(IdUtilizador)
 )ENGINE=InnoDB;
 
@@ -46,6 +47,8 @@ Create table if not exists ComprasVoo(
 IdCompraVoo INT UNSIGNED AUTO_INCREMENT,
 IdCliente int UNSIGNED not null,
 IdVoo int UNSIGNED not null,
+Preco int not null,
+DataCompra datetime not null,
 CONSTRAINT pk_ComprasVoo_IdCompraVoo PRIMARY KEY(IdCompraVoo),
 CONSTRAINT fk_ComprasVoo_IdCliente FOREIGN KEY(IdCliente) REFERENCES Utilizadores(IdUtilizador),
 CONSTRAINT fk_ComprasVoo_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)
