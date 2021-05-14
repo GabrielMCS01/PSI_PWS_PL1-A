@@ -12,7 +12,7 @@ Layout::includeLayout('loginheader') ?>
                         <li class="createaccount">Criar conta</li>
                     </a>
                 </ul>
-                <form class="formulario-todo" action="bd/login_bd.php" method="post">
+                <form class="formulario-todo" action="<?=Url::toRoute('autenticacao/show')?>" method="post">
                     <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" required>
                     <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" required>
                     <span id="mensagem"></span>

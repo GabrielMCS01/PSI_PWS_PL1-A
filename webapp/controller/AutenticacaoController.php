@@ -23,7 +23,7 @@ class AutenticacaoController extends BaseController implements ResourceControlle
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        \Tracy\Dumper::dump("olá");
     }
 
     public function edit($id)

@@ -42,7 +42,14 @@ a:link {
 
 .cardtwo {
   width: 30.3vw;
-  height: 21.02vw;
+  height: 41vh;
+  background-color: rgba(26, 29, 34, 0.7);
+  border-radius: 1vw;
+}
+
+.cardtwocreate {
+  width: 30.3vw;
+  height: 59vh;
   background-color: rgba(26, 29, 34, 0.7);
   border-radius: 1vw;
 }
