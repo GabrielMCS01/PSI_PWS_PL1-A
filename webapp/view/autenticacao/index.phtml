@@ -13,10 +13,8 @@ Layout::includeLayout('loginheader') ?>
                     </a>
                 </ul>
                 <form class="formulario-todo" action="bd/login_bd.php" method="post">
-                    <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" oninvalid="InvalidMsg1(this);"
-                   oninput="InvalidMsg1(this);" required>
-                    <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" oninvalid="InvalidMsg2(this);"
-                   oninput="InvalidMsg2(this);" required>
+                    <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" required>
+                    <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" required>
                     <span id="mensagem"></span>
                     <input class="btn botaosignin" type="submit" value="sign in">
                 </form>

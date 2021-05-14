@@ -3,7 +3,7 @@ USE PwsAeroporto;
 
 Create table if not exists Utilizadores(
 	IdUtilizador INT UNSIGNED AUTO_INCREMENT,
-    NomeComleto VARCHAR(100) NOT NULL,
+    NomeCompleto VARCHAR(100) NOT NULL,
     DataNascimento Date NOT NULL,
 	Email VARCHAR(100) NOT NULL,
 	Telefone VARCHAR(20) NOT NULL,
