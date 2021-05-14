@@ -2,18 +2,20 @@
 
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
+use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\View;
+use Tracy\Dumper;
 
 class AutenticacaoController extends BaseController implements ResourceControllerInterface
 {
     public function index()
     {
-        return View::make('autenticacao.index');
+        return View::make('utilizadores.index');
     }
 
     public function create()
     {
-        return View::make('autenticacao.create');
+        return View::make('utilizadores.create');
     }
 
     public function store()
@@ -23,7 +25,7 @@ class AutenticacaoController extends BaseController implements ResourceControlle
 
     public function show($id)
     {
-        \Tracy\Dumper::dump("olá");
+        $autenticacao = new Autenticacao(Post::getAll());
     }
 
     public function edit($id)

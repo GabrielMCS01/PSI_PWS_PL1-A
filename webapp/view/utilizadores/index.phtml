@@ -8,11 +8,11 @@ Layout::includeLayout('loginheader') ?>
             <div class="cardtwo">
                 <ul class="firstline">
                     <li class="textologin">LOGIN</li>
-                    <a href="<?=Url::toRoute('autenticacao/create')?>">
+                    <a href="<?=Url::toRoute('utilizadores/create')?>">
                         <li class="createaccount">Criar conta</li>
                     </a>
                 </ul>
-                <form class="formulario-todo" action="<?=Url::toRoute('autenticacao/show')?>" method="post">
+                <form class="formulario-todo" method="post" action="<?=Url::toRoute('utilizadores/show', "passageiro")?>">
                     <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" required>
                     <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" required>
                     <span id="mensagem"></span>

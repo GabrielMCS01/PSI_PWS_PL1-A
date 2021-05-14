@@ -12,19 +12,20 @@ use ArmoredCore\Facades\Router;
  *  Use convention: controllerName/methodActionName
  ****************************************************************************/
 
-Router::get('/',			'HomeController/index');
+/*Router::get('/',			'HomeController/index');
 Router::get('home/',		'HomeController/index');
 Router::get('home/index',	'HomeController/index');
 Router::get('home/start',	'HomeController/start');
 
 Router::get('test/index',  'TestController/index');
+*/
+Router::get('/',  'AutenticacaoController/index');
+Router::get('utilizadores/',  'AutenticacaoController/index');
+Router::get('utilizadores/index',  'AutenticacaoController/index');
+Router::get('utilizadores/create',  'AutenticacaoController/create');
+Router::post('utilizadores/show',  'AutenticacaoController/show');
 
-Router::get('autenticacao/',  'AutenticacaoController/index');
-Router::get('autenticacao/index',  'AutenticacaoController/index');
-Router::get('autenticacao/create',  'AutenticacaoController/create');
-Router::post('autenticacao/show',  'AutenticacaoController/show');
-
-//Router::resource('autenticacao', 'AutenticacaoController');
+//Router::resource('utilizadores', 'AutenticacaoController');
 
 
 
