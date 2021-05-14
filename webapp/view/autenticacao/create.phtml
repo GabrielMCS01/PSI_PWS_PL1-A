@@ -1,19 +1,23 @@
 <?php use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('header') ?>
+Layout::includeLayout('loginheader') ?>
 
 <div id="imagemlogin">
     <div class="cxfloat">
         <div class="cardtwo">
             <ul class="firstline">
                 <li class="textologin">Create account</li>
-                <a href="#" onclick="Rotate('createaccount')">
+                <a href="<?=Url::toRoute('autenticacao/')?>">
                     <li class="createaccount">Login</li>
                 </a>
             </ul>
             <form class="formulario-todo" action="bd/create_account.php" method="post">
-            <input type="email" class="form-control form" name="email" title="Insira um email" placeholder="Email" required>
                 <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" required>
+                <input type="text" class="form-control form" name="nomecompleto" title="Insira o nome completo" placeholder="Nome completo" required>
+                <input type="date" class="form-control form" name="nascimento" title="Insira a sua data de nascimento" placeholder="Data de nascimento" required>
+                <input type="email" class="form-control form" name="email" title="Insira o seu email" placeholder="Email" required>
+                <input type="number" class="form-control form" name="telefone" title="Insira o seu telefone" placeholder="Telefone" required>
                 <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" required>
                 <span id="mensagem"></span>
                 <input class="btn botaosignin" type="submit" value="sign up">
@@ -22,4 +26,3 @@ Layout::includeLayout('header') ?>
         </div>
     </div>
 </div>
-<?php Layout::includeLayout('footer')?>
