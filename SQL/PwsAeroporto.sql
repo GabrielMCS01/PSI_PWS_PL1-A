@@ -31,10 +31,10 @@ Create table if not exists Voos(
 	IdVoo INT UNSIGNED AUTO_INCREMENT,
     DataHoraPartida datetime not null,
     DataHoraChegada datetime not null,
-    IdAeroportoOrigem int not null,
-	IdAeroportoDestino int not null,
-    IdVooEscala int,
-    IdAviao int not null,
+    IdAeroportoOrigem int UNSIGNED not null,
+	IdAeroportoDestino int UNSIGNED not null,
+    IdVooEscala int UNSIGNED,
+    IdAviao int UNSIGNED not null,
 	CONSTRAINT pk_Voos_IdVoo PRIMARY KEY(IdVoo),
 	CONSTRAINT fk_Voos_IdAeroportoOrigem FOREIGN KEY(IdAeroportoOrigem) REFERENCES Aeroportos(IdAeroporto),
 	CONSTRAINT fk_Voos_IdAeroportoDestino FOREIGN KEY(IdAeroportoDestino) REFERENCES Aeroportos(IdAeroporto),
@@ -44,9 +44,10 @@ Create table if not exists Voos(
 
 Create table if not exists ComprasVoo(
 IdCompraVoo INT UNSIGNED AUTO_INCREMENT,
-IdCliente int not null,
-IdVoo int not null,
+IdCliente int UNSIGNED not null,
+IdVoo int UNSIGNED not null,
 CONSTRAINT pk_ComprasVoo_IdCompraVoo PRIMARY KEY(IdCompraVoo),
 CONSTRAINT fk_ComprasVoo_IdCliente FOREIGN KEY(IdCliente) REFERENCES Utilizadores(IdUtilizador),
 CONSTRAINT fk_ComprasVoo_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)
 )ENGINE=InnoDB;
+
