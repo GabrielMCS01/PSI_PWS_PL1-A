@@ -7,18 +7,18 @@ Layout::includeLayout('loginheader') ?>
     <div class="cxfloat">
         <div class="cardtwocreate">
             <ul class="firstline">
-                <li class="textologin">Create account</li>
+                <li class="textologin">Criar conta</li>
                 <a href="<?=Url::toRoute('utilizadores/')?>">
                     <li class="createaccount">Login</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="bd/create_account.php" method="post">
-                <input type="text" class="form-control form" name="username" title="Insira um username" placeholder="Username" required>
-                <input type="text" class="form-control form" name="nomecompleto" title="Insira o nome completo" placeholder="Nome completo" required>
-                <input type="date" class="form-control form" name="nascimento" title="Insira a sua data de nascimento" placeholder="Data de nascimento" required>
-                <input type="email" class="form-control form" name="email" title="Insira o seu email" placeholder="Email" required>
-                <input type="number" class="form-control form" name="telefone" title="Insira o seu telefone" placeholder="Telefone" required>
-                <input type="password" class="form-control form" name="password" title="Insira uma password" placeholder="Password" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('utilizadores/store')?>" method="post">
+                <input type="text" class="form-control form" name="Utilizador" title="Insira um username" placeholder="Username" required>
+                <input type="text" class="form-control form" name="NomeCompleto" title="Insira o nome completo" placeholder="Nome completo" required>
+                <input type="date" class="form-control form" name="DataNascimento" title="Insira a sua data de nascimento" placeholder="Data de nascimento" required>
+                <input type="email" class="form-control form" name="Email" title="Insira o seu email" placeholder="Email" required>
+                <input type="number" class="form-control form" name="Telefone" title="Insira o seu telefone" placeholder="Telefone" required>
+                <input type="password" class="form-control form" name="PasswordUtilizador" title="Insira uma password" placeholder="Password" required>
                 <span id="mensagem"></span>
                 <input class="btn botaosignin" type="submit" value="sign up">
             </form>

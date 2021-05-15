@@ -4,9 +4,10 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\View;
+use Carbon\Traits\Date;
 use Tracy\Dumper;
 
-class AutenticacaoController extends BaseController implements ResourceControllerInterface
+class UtilizadoresController extends BaseController implements ResourceControllerInterface
 {
     public function index()
     {
@@ -20,12 +21,24 @@ class AutenticacaoController extends BaseController implements ResourceControlle
 
     public function store()
     {
-        // TODO: Implement store() method.
+        $dados = [
+            'Utilizador' => Post::get('Utilizador'),
+            'NomeCompleto' => Post::get('NomeCompleto'),
+            /*'DataNascimento' => '2000-01-01',*/
+            'Email' => Post::get('Email'),
+            'Telefone' => Post::get('Telefone'),
+            'PasswordUtilizador' => Post::get('PasswordUtilizador'),
+            'Perfil' => 'passageiro'
+            ];
+        $utilizador = new Utilizadores($dados);
+        $utilizador->save();
+        return View::make('utilizadores.index');
     }
 
     public function show($id)
     {
-        $autenticacao = new Autenticacao(Post::getAll());
+        $utilizador = new Utilizadores();
+        $utilizador->Login($id, Post::getAll());
     }
 
     public function edit($id)

@@ -19,13 +19,14 @@ Router::get('home/start',	'HomeController/start');
 
 Router::get('test/index',  'TestController/index');
 */
-Router::get('/',  'AutenticacaoController/index');
-Router::get('utilizadores/',  'AutenticacaoController/index');
-Router::get('utilizadores/index',  'AutenticacaoController/index');
-Router::get('utilizadores/create',  'AutenticacaoController/create');
-Router::post('utilizadores/show',  'AutenticacaoController/show');
+Router::get('/',  'UtilizadoresController/index');
+Router::get('utilizadores/',  'UtilizadoresController/index');
+Router::get('utilizadores/index',  'UtilizadoresController/index');
+Router::get('utilizadores/create',  'UtilizadoresController/create');
+Router::post('utilizadores/show',  'UtilizadoresController/show');
+Router::post('utilizadores/store',  'UtilizadoresController/store');
 
-//Router::resource('utilizadores', 'AutenticacaoController');
+//Router::resource('utilizadores', 'UtilizadoresController');
 
 
 
