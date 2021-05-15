@@ -15,13 +15,13 @@ Layout::includeLayout('loginheader') ?>
                 <form class="formulario-todo" method="post" action="<?=Url::toRoute('utilizadores/show', "passageiro")?>">
                     <input type="text" class="form-control form" name="Utilizador" title="Insira um username" placeholder="Username" required>
                     <input type="password" class="form-control form" name="PasswordUtilizador" title="Insira uma password" placeholder="Password" required>
-                    <span id="mensagem"></span>
-                    <input class="btn botaosignin" type="submit" value="sign in">
+                    <span id="mensagem"><?=(isset($_SERVER['mensagem']))?$_SERVER['mensagem']:""?></span>
+                    <input class="btn botaosignin" type="submit" value="Entrar  ">
                 </form>
 
                 <ul class="Secondline">
                     <a href="#">
-                    <li class="forgotpass">Forgot your password?</li>
+                    <li class="forgotpass">Esqueceu a sua password?</li>
                     </a>
                 </ul>
             </div>

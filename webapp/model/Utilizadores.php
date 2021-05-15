@@ -2,6 +2,7 @@
 
 use ActiveRecord\Model;
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\View;
 use Tracy\Dumper;
 
 class Utilizadores extends Model
@@ -18,8 +19,9 @@ class Utilizadores extends Model
                     $_SESSION['username'] = $login['Utilizador'];
                     $_SESSION['tipoUser'] = $id;
                 }else{
-                    Dumper::dump("Não entrou!");
-                    session_destroy();
+                    session_unset();
+                    $_SERVER['mensagem'] = "Username ou Password incorreto";
+                    return View::make('utilizadores.index');
                 }
                 break;
             default:
