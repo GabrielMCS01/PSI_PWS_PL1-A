@@ -20,13 +20,8 @@ Router::get('home/start',	'HomeController/start');
 Router::get('test/index',  'TestController/index');
 */
 Router::get('/',  'UtilizadoresController/index');
-Router::get('utilizadores/',  'UtilizadoresController/index');
-Router::get('utilizadores/index',  'UtilizadoresController/index');
-Router::get('utilizadores/create',  'UtilizadoresController/create');
-Router::post('utilizadores/show',  'UtilizadoresController/show');
-Router::post('utilizadores/store',  'UtilizadoresController/store');
 
-//Router::resource('utilizadores', 'UtilizadoresController');
+Router::resource('utilizadores', 'UtilizadoresController');
 
 
 
