@@ -69,3 +69,5 @@ CONSTRAINT fk_ComprasVoo_IdCliente FOREIGN KEY(IdCliente) REFERENCES Utilizadore
 CONSTRAINT fk_ComprasVoo_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)
 )ENGINE=InnoDB;
 
+INSERT INTO Utilizadores
+VALUES (null, 'Admin Master', '2000-01-01', 'adminmaster@localhost.com', '912345678', 'adminmaster', 'adminmaster', 'administrador');
