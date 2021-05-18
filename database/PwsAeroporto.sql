@@ -34,14 +34,29 @@ Create table if not exists Voos(
     DataHoraChegada datetime not null,
     IdAeroportoOrigem int UNSIGNED not null,
 	IdAeroportoDestino int UNSIGNED not null,
-    IdVooEscala int UNSIGNED,
     IdAviao int UNSIGNED not null,
 	CONSTRAINT pk_Voos_IdVoo PRIMARY KEY(IdVoo),
 	CONSTRAINT fk_Voos_IdAeroportoOrigem FOREIGN KEY(IdAeroportoOrigem) REFERENCES Aeroportos(IdAeroporto),
 	CONSTRAINT fk_Voos_IdAeroportoDestino FOREIGN KEY(IdAeroportoDestino) REFERENCES Aeroportos(IdAeroporto),
-	CONSTRAINT fk_Voos_IdVooEscala FOREIGN KEY(IdVooEscala) REFERENCES Voos(IdVoo),
     CONSTRAINT fk_Voos_IdAviao FOREIGN KEY(IdAviao) REFERENCES Avioes(IdAviao)
 )ENGINE=InnoDB;
+
+
+Create table if not exists Escalas(
+	IdEscala INT UNSIGNED AUTO_INCREMENT,
+    DataHoraPartida datetime not null,
+    DataHoraChegada datetime not null,
+    IdAeroportoOrigem int UNSIGNED not null,
+	IdAeroportoDestino int UNSIGNED not null,
+    IdAviao int UNSIGNED not null,
+    IdVoo int UNSIGNED not null,
+	CONSTRAINT pk_Escalas_IdVoo PRIMARY KEY(IdEscala),
+	CONSTRAINT fk_Escalas_IdAeroportoOrigem FOREIGN KEY(IdAeroportoOrigem) REFERENCES Aeroportos(IdAeroporto),
+	CONSTRAINT fk_Escalas_IdAeroportoDestino FOREIGN KEY(IdAeroportoDestino) REFERENCES Aeroportos(IdAeroporto),
+    CONSTRAINT fk_Escalas_IdAviao FOREIGN KEY(IdAviao) REFERENCES Avioes(IdAviao),
+    CONSTRAINT fk_Escalas_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)
+)ENGINE=InnoDB;
+
 
 Create table if not exists ComprasVoo(
 IdCompraVoo INT UNSIGNED AUTO_INCREMENT,
