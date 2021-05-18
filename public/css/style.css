@@ -22,7 +22,7 @@ a:link {
 }
 
 /* =================================================================
-                    LOGIN
+                    UTILIZADORES
 ================================================================*/
 #imagemlogin {
   width: 100%;
@@ -34,7 +34,7 @@ a:link {
   margin-top: 0;
 }
 
-.cxfloat, .cxfloatcreate {
+.cxfloat, .cxfloatavioescreate, .cxfloatavioes, .cxfloatcreate {
   border-radius: 5%;
   margin-left: 34.5vw;
   padding-top: 30vh;
@@ -44,7 +44,7 @@ a:link {
   padding-top: 20vh;
 }
 
-.cardtwo, .cardtwocreate {
+.cardtwo, .cardavioescreate, .cardavioes, .cardtwocreate {
   width: 30.3vw;
   height: 37vh;
   background-color: rgba(26, 29, 34, 0.7);
@@ -61,7 +61,7 @@ a:link {
   margin: 0 0.5vw 0.5vh 0.5vw;
 }
 
-.textologin {
+.textologin, .textoAviao {
   color: #FFF;
   font-family: "Roboto", sans-serif;
   font-size: 1.777rem;
@@ -71,14 +71,14 @@ a:link {
   margin-bottom: 3vh;
 }
 
-.createaccount {
+.createaccount, .adicionaraviao {
   color: #FFF;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 1rem;
   margin-top: 2vw;
   margin-right: 3vw;
 }
-.createaccount:hover {
+.createaccount:hover, .adicionaraviao:hover {
   opacity: 80%;
 }
 
@@ -127,6 +127,37 @@ a:link {
 #mensagem {
   margin-left: 3.5vw;
   color: red;
+}
+
+/* =================================================================
+                    AVIOES
+================================================================*/
+.cxfloatavioes {
+  padding-top: 8vh;
+}
+
+.cardavioes {
+  padding-left: 2vw;
+  padding-right: 2vw;
+  padding-bottom: 2vh;
+  height: 100%;
+}
+
+.cxfloatavioescreate {
+  padding-top: 8vh;
+}
+
+.table {
+  background-color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+thead {
+  background-color: rgba(158, 158, 158, 0.7);
+}
+
+th {
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */

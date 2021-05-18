@@ -1,7 +1,6 @@
 <?php
 
 use ActiveRecord\Model;
-use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\View;
 use Tracy\Dumper;
 

@@ -23,6 +23,11 @@ Router::get('/',  'UtilizadoresController/index');
 
 Router::resource('utilizadores', 'UtilizadoresController');
 
+Router::get('avioes/index', 'AvioesController/index');
+Router::get('avioes/create', 'AvioesController/create');
+Router::post('avioes/store', 'AvioesController/store');
+Router::post('avioes/edit', 'AvioesController/edit');
+
 
 
 

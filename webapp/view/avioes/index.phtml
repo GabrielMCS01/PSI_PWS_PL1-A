@@ -1,0 +1,51 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: smendes
+ * Date: 19-04-2017
+ * Time: 18:57
+ */
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+?>
+
+<?=Layout::includeLayout('header')?>
+
+<?php $avioes = Data::get('avioes');
+?>
+
+<div class="cxfloatavioes">
+    <div class="cardavioes">
+        <ul class="firstline">
+            <li class="textoAviao">Aviões</li>
+            <a href="<?=Url::toRoute('avioes/create')?>">
+                <li class="adicionaraviao">Adicionar avião</li>
+            </a>
+        </ul>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Nome do avião</th>
+                <th scope="col">Transportadora</th>
+                <th scope="col">Editar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($avioes as $dados){ ?>
+                <tr>
+                    <td><?=$dados->nomeaviao?></td>
+                    <td><?=$dados->transportadora?></td>
+                    <td><a href="<?=Url::toRoute('avioes/edit', $dados->id)?>"><img src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>
+
