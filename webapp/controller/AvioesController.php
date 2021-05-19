@@ -44,7 +44,6 @@ class AvioesController extends BaseController implements ResourceControllerInter
         $aviao = Avioes::find([$id]);
         $aviao->update_attributes(Post::getAll());
         $aviao->save();
-
         Redirect::toRoute('avioes/index');
     }
 
