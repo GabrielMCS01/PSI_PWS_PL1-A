@@ -21,7 +21,9 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     public function create()
     {
         if(isset($_SESSION['username'])) {
-            return View::make('voos.create');
+            $aeroportos = Aeroportos::all();
+            $avioes = Avioes::all();
+            return View::make('voos.create', ['aeroportos' => $aeroportos, 'avioes' => $avioes]);
         }else{
             Redirect::toRoute('utilizadores/index');
         }
@@ -48,7 +50,8 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     {
         if(isset($_SESSION['username'])) {
             $voo = Voos::find([$id]);
-            return View::make('voos.edit', ['voo' => [$voo]]);
+            $aeroportos = Aeroportos::all();
+            return View::make('voos.edit', ['voo' => [$voo], 'aeroportos' => [$aeroportos]]);
         }else{
             Redirect::toRoute('utilizadores/index');
         }

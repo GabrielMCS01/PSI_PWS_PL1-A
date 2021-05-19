@@ -26,28 +26,30 @@ use ArmoredCore\WebObjects\URL;
                 <li class="adicionaraviao">Adicionar Aeroporto</li>
             </a>
         </ul>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Nome do Aeroporto</th>
-                <th scope="col">País</th>
-                <th scope="col">Cidade</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($aeroportos as $dados){ ?>
+        <div class="tabelaPlace">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td><?=$dados->nomeaeroporto?></td>
-                    <td><?=$dados->pais?></td>
-                    <td><?=$dados->cidade?></td>
-                    <td><a href="<?=Url::toRoute('aeroportos/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                    <td><a href="<?=Url::toRoute('aeroportos/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                    <th scope="col">Nome do Aeroporto</th>
+                    <th scope="col">País</th>
+                    <th scope="col">Cidade</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
-            <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <?php foreach ($aeroportos as $dados){ ?>
+                    <tr>
+                        <td><?=$dados->nomeaeroporto?></td>
+                        <td><?=$dados->pais?></td>
+                        <td><?=$dados->cidade?></td>
+                        <td><a href="<?=Url::toRoute('aeroportos/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a href="<?=Url::toRoute('aeroportos/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

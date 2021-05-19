@@ -1,7 +1,4 @@
-.textoAdicionarAeroporto{
-  @extend .textoAdicionarAviao;
-}
-
-.veraeroportos{
-  @extend .veravioes;
+.cxfloataeroportoscreate{
+  @extend .cxfloatavioescreate;
+  padding-top: 5vh;
 }

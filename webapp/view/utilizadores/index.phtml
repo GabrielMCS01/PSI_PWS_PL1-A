@@ -13,7 +13,7 @@ Layout::includeLayout('loginheader') ?>
                     <li class="createaccount">Criar conta</li>
                 </a>
             </ul>
-            <form class="formulario-todo" method="post" action="<?=Url::toRoute('utilizadores/show', "passageiro")?>">
+            <form class="formulario-todo" method="post" action="<?=Url::toRoute('utilizadores/login', "passageiro")?>">
                 <input type="text" class="form-control form" name="Utilizador" title="Insira um username" placeholder="Username" required>
                 <input type="password" class="form-control form" name="PasswordUtilizador" title="Insira uma password" placeholder="Password" required>
                 <span id="mensagem"><?=(isset($_SERVER['mensagem']))?$_SERVER['mensagem']:""?></span>

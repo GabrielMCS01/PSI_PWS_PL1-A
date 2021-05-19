@@ -15,32 +15,42 @@ use ArmoredCore\WebObjects\URL;
 
 <?=Layout::includeLayout('header')?>
 
-<?php $avioes = Data::get('avioes');
+<?php $utilizadores = Data::get('utilizadores');
 ?>
 
-<div class="cxfloatavioes">
+<div class="cxfloatshowall">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Aviões</li>
-            <a href="<?=Url::toRoute('avioes/create')?>">
-                <li class="adicionaraviao">Adicionar avião</li>
+            <li class="textoAviao">Utilizadores</li>
+            <a href="<?=Url::toRoute('utilizadores/create')?>">
+                <li class="adicionaraviao">Adicionar Utilizador</li>
             </a>
         </ul>
         <div class="tabelaPlace">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Nome do avião</th>
-                    <th scope="col">Transportadora</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Data de nascimento</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Utilizador</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Perfil</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($avioes as $dados){ ?>
+                <?php foreach ($utilizadores as $dados){ ?>
                     <tr>
-                        <td><?=$dados->nomeaviao?></td>
-                        <td><?=$dados->transportadora?></td>
+                        <td><?=$dados->nomecompleto?></td>
+                        <td><?=$dados->datanascimento?></td>
+                        <td><?=$dados->email?></td>
+                        <td><?=$dados->telefone?></td>
+                        <td><?=$dados->utilizador?></td>
+                        <td><?=$dados->passwordutilizador?></td>
+                        <td><?=$dados->perfil?></td>
                         <td><a href="<?=Url::toRoute('avioes/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                         <td><a href="<?=Url::toRoute('avioes/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                     </tr>
@@ -52,4 +62,3 @@ use ArmoredCore\WebObjects\URL;
 </div>
 
 <?=Layout::includeLayout('footer')?>
-

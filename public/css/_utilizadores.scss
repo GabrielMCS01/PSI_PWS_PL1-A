@@ -106,3 +106,10 @@
   margin-left: 3.5vw;
   color: red;
 }
+
+.cxfloatshowall{
+  @extend .cxfloat;
+  padding-top: 3vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}

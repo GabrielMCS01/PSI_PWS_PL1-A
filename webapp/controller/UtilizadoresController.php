@@ -26,7 +26,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
         $dados = [
             'Utilizador' => Post::get('Utilizador'),
             'NomeCompleto' => Post::get('NomeCompleto'),
-            /*'DataNascimento' => '2000-01-01',*/
+            'DataNascimento' => Post::get('DataNascimento'),
             'Email' => Post::get('Email'),
             'Telefone' => Post::get('Telefone'),
             'PasswordUtilizador' => Post::get('PasswordUtilizador'),
@@ -39,7 +39,36 @@ class UtilizadoresController extends BaseController implements ResourceControlle
 
     public function show($id)
     {
-        $utilizador = new Utilizadores();
+
+    }
+
+    public function edit($id)
+    {
+        // TODO: Implement edit() method.
+    }
+
+    public function update($id)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function destroy($id)
+    {
+        // TODO: Implement destroy() method.
+    }
+
+    public function showall()
+    {
+        if(isset($_SESSION['username'])) {
+            $utilizadores = Utilizadores::all();
+            return View::make('utilizadores.showall', ['utilizadores' => $utilizadores]);
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
+    }
+
+    public function login($id)
+    {
         switch($id) {
             case 'passageiro':
                 $utilizadores = Utilizadores::find(Post::getAll());
@@ -57,21 +86,6 @@ class UtilizadoresController extends BaseController implements ResourceControlle
                 //Dumper::dump("Não é passageiro");
                 break;
         }
-    }
-
-    public function edit($id)
-    {
-        // TODO: Implement edit() method.
-    }
-
-    public function update($id)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function destroy($id)
-    {
-        // TODO: Implement destroy() method.
     }
 
     public function sair()

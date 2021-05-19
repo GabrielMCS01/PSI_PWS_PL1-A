@@ -18,7 +18,7 @@ use ArmoredCore\WebObjects\URL;
 <?php $voos = Data::get('voos');
 ?>
 
-<div class="cxfloatavioes">
+<div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
             <li class="textoAviao">Voos</li>
@@ -26,32 +26,34 @@ use ArmoredCore\WebObjects\URL;
                 <li class="adicionaraviao">Adicionar Voo</li>
             </a>
         </ul>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Data de Partida</th>
-                <th scope="col">Data de Chegada</th>
-                <th scope="col">Aeroporto de Origem</th>
-                <th scope="col">Aeroporto de Chegada</th>
-                <th scope="col">Avião</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($voos as $dados){ ?>
+        <div class="tabelaPlace">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td><?=$dados->datahorapartida?></td>
-                    <td><?=$dados->datahorachegada?></td>
-                    <td><?=$dados->idaeroportoorigem?></td>
-                    <td><?=$dados->idaeroportodestino?></td>
-                    <td><?=$dados->idaviao?></td>
-                    <td><a href="<?=Url::toRoute('voos/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                    <td><a href="<?=Url::toRoute('voos/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                    <th scope="col">Data de Partida</th>
+                    <th scope="col">Data de Chegada</th>
+                    <th scope="col">Aeroporto de Origem</th>
+                    <th scope="col">Aeroporto de Chegada</th>
+                    <th scope="col">Avião</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
-            <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <?php foreach ($voos as $dados){ ?>
+                    <tr>
+                        <td><?=$dados->datahorapartida?></td>
+                        <td><?=$dados->datahorachegada?></td>
+                        <td><?=$dados->idaeroportoorigem?></td>
+                        <td><?=$dados->idaeroportodestino?></td>
+                        <td><?=$dados->idaviao?></td>
+                        <td><a href="<?=Url::toRoute('voos/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a href="<?=Url::toRoute('voos/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
