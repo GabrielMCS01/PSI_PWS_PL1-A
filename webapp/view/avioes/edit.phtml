@@ -12,14 +12,14 @@ $aviao = Data::get('aviao');
     <div class="cxfloatavioescreate">
         <div class="cardavioescreate">
             <ul class="firstline">
-                <li class="textoAviao">Alterar Avião</li>
+                <li class="textoAdicionarAviao">Alterar Avião</li>
                 <a href="<?=Url::toRoute('avioes/index')?>">
-                    <li class="adicionaraviao">Ver aviões</li>
+                    <li class="veravioes">Ver aviões</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('avioes/update', $aviao['id'])?>" method="post">
-                <input type="text" class="form-control form" value="<?=$aviao['nomeaviao']?>" name="NomeAviao" title="Insira um nome para o avião" placeholder="Nome" required>
-                <input type="text" class="form-control form" value="<?=$aviao['transportadora']?>" name="Transportadora" title="Insira o nome da transportadora" placeholder="Transportadora" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('avioes/update', $aviao[0]->idaviao)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$aviao[0]->nomeaviao?>" name="NomeAviao" title="Insira um nome para o avião" placeholder="Nome" required>
+                <input type="text" class="form-control form" value="<?=$aviao[0]->transportadora?>" name="Transportadora" title="Insira o nome da transportadora" placeholder="Transportadora" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

@@ -35,14 +35,8 @@ class AvioesController extends BaseController implements ResourceControllerInter
 
     public function edit($id)
     {
-        $procura = ['IdAviao' => $id];
-        $aviaoprocurar = Avioes::find($procura);
-        $aviao = [
-            'id' => $aviaoprocurar->idaviao,
-            'nomeaviao' => $aviaoprocurar->nomeaviao,
-            'transportadora' => $aviaoprocurar->transportadora
-        ];
-        return View::make('avioes.edit', ['aviao' => $aviao]);
+        $aviao = Avioes::find([$id]);
+        return View::make('avioes.edit', ['aviao' => [$aviao]]);
     }
 
     public function update($id)
