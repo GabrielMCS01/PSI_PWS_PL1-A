@@ -29,7 +29,6 @@ use ArmoredCore\WebObjects\URL;
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Data de Partida</th>
                 <th scope="col">Data de Chegada</th>
                 <th scope="col">Aeroporto de Origem</th>
@@ -42,8 +41,11 @@ use ArmoredCore\WebObjects\URL;
             <tbody>
             <?php foreach ($voos as $dados){ ?>
                 <tr>
-                    <td><?=$dados->nomeaviao?></td>
-                    <td><?=$dados->transportadora?></td>
+                    <td><?=$dados->datahorapartida?></td>
+                    <td><?=$dados->datahorachegada?></td>
+                    <td><?=$dados->idaeroportoorigem?></td>
+                    <td><?=$dados->idaeroportodestino?></td>
+                    <td><?=$dados->idaviao?></td>
                     <td><a href="<?=Url::toRoute('voos/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                     <td><a href="<?=Url::toRoute('voos/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                 </tr>
