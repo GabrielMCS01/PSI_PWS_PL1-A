@@ -7,27 +7,6 @@ use Tracy\Dumper;
 
 class Utilizadores extends Model
 {
-    /**
-     * @throws \ActiveRecord\RecordNotFound
-     */
-    public function Login($id, $login){
-        switch($id) {
-            case 'passageiro':
-                $utilizadores = Utilizadores::find($login);
-                if($utilizadores != null){
-                    $_SESSION['username'] = $login['Utilizador'];
-                    $_SESSION['tipoUser'] = $id;
-                    Redirect::toRoute('avioes/index');
-                }else{
-                    session_unset();
-                    $_SERVER['mensagem'] = "Username ou Password incorreto";
-                    return View::make('utilizadores.index');
-                }
-                break;
-            default:
-                //Dumper::dump("Não é passageiro");
-                break;
-        }
-    }
+
 }
 ?>

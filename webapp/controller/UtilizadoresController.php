@@ -39,7 +39,23 @@ class UtilizadoresController extends BaseController implements ResourceControlle
     public function show($id)
     {
         $utilizador = new Utilizadores();
-        $utilizador->Login($id, Post::getAll());
+        switch($id) {
+            case 'passageiro':
+                $utilizadores = Utilizadores::find(Post::getAll());
+                if($utilizadores != null){
+                    $_SESSION['username'] = Post::get('Utilizador');
+                    $_SESSION['tipoUser'] = $id;
+                    Redirect::toRoute('avioes/index');
+                }else{
+                    session_unset();
+                    $_SERVER['mensagem'] = "Username ou Password incorreto";
+                    return View::make('utilizadores.index');
+                }
+                break;
+            default:
+                //Dumper::dump("Não é passageiro");
+                break;
+        }
     }
 
     public function edit($id)
