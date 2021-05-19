@@ -1,0 +1,26 @@
+<?php use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('header') ?>
+
+<div class="cxfloatavioescreate">
+    <div class="cardavioescreate">
+        <ul class="firstline">
+            <li class="textoAdicionarAeroporto">Adicionar Aeroporto</li>
+            <a href="<?=Url::toRoute('aeroportos/index')?>">
+                <li class="veraeroportos">Ver Aeroportos</li>
+            </a>
+        </ul>
+        <form class="formulario-todo" action="<?=Url::toRoute('aeroportos/store')?>" method="post">
+            <input type="text" class="form-control form" name="NomeAeroporto" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
+            <input type="text" class="form-control form" name="Pais" title="Insira o nome do País" placeholder="País" required>
+            <input type="text" class="form-control form" name="Cidade" title="Insira o nome da Cidade" placeholder="Cidade" required>
+            <input class="btn botaosignin" type="submit" value="Adicionar">
+        </form>
+        </ul>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>

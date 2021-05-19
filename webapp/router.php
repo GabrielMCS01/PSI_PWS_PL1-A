@@ -25,7 +25,7 @@ Router::resource('utilizadores', 'UtilizadoresController');
 
 Router::resource('avioes', 'AvioesController');
 
-
+Router::resource('aeroportos', 'AeroportosController');
 
 
 

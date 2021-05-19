@@ -28,3 +28,35 @@ $Texto1:1rem;
 a:link{
   text-decoration: none;
 }
+
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $main-color;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $main-color;
+}
+
+
+
+
+
+
+
+
+

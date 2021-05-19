@@ -28,6 +28,8 @@
 
 .cardavioescreate{
   @extend .card;
+  height: 100%;
+  padding-bottom: 13vh;
 }
 
 .textoAdicionarAviao{
