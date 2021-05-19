@@ -4,6 +4,7 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
 use Carbon\Traits\Date;
 use Tracy\Dumper;
@@ -71,6 +72,12 @@ class UtilizadoresController extends BaseController implements ResourceControlle
     public function destroy($id)
     {
         // TODO: Implement destroy() method.
+    }
+
+    public function sair()
+    {
+        Session::destroy();
+        Redirect::toRoute('utilizadores/index');
     }
 }
 ?>
