@@ -3,6 +3,7 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 use Carbon\Traits\Date;
 use Tracy\Dumper;
@@ -32,7 +33,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
             ];
         $utilizador = new Utilizadores($dados);
         $utilizador->save();
-        return View::make('utilizadores.index');
+        Redirect::toRoute('utilizadores/index');
     }
 
     public function show($id)

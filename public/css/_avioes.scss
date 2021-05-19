@@ -4,11 +4,21 @@
 }
 
 .cardavioes{
-  @extend .cardtwo;
+  @extend .card;
   padding-left: 2vw;
   padding-right: 2vw;
   padding-bottom: 2vh;
   height: 100%;
+}
+
+.textoAviao{
+  @extend .textologin;
+  margin-left: 0;
+}
+
+.adicionaraviao{
+  @extend .createaccount;
+  margin-right: 0;
 }
 
 .cxfloatavioescreate{
@@ -17,11 +27,15 @@
 }
 
 .cardavioescreate{
-  @extend .cardtwo;
+  @extend .card;
 }
 
-.textoAviao{
+.textoAdicionarAviao{
   @extend .textologin;
+}
+
+.veravioes{
+  @extend .createaccount;
 }
 
 .table{

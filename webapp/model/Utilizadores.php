@@ -1,6 +1,7 @@
 <?php
 
 use ActiveRecord\Model;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 use Tracy\Dumper;
 
@@ -14,9 +15,9 @@ class Utilizadores extends Model
             case 'passageiro':
                 $utilizadores = Utilizadores::find($login);
                 if($utilizadores != null){
-                    Dumper::dump("Entrou!");
                     $_SESSION['username'] = $login['Utilizador'];
                     $_SESSION['tipoUser'] = $id;
+                    Redirect::toRoute('avioes/index');
                 }else{
                     session_unset();
                     $_SERVER['mensagem'] = "Username ou Password incorreto";

@@ -3,6 +3,7 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
 class AvioesController extends BaseController implements ResourceControllerInterface{
@@ -23,8 +24,7 @@ class AvioesController extends BaseController implements ResourceControllerInter
         $aviao = Post::getAll();
         $avioes = new Avioes($aviao);
         $avioes->save();
-        $avioes = Avioes::all();
-        return View::make('avioes.index', ['avioes' => $avioes]);
+        Redirect::toRoute('avioes/index');
 
     }
 
@@ -35,17 +35,30 @@ class AvioesController extends BaseController implements ResourceControllerInter
 
     public function edit($id)
     {
-        return View::make('avioes.edit', $id);
+        $procura = ['IdAviao' => $id];
+        $aviaoprocurar = Avioes::find($procura);
+        $aviao = [
+            'id' => $aviaoprocurar->idaviao,
+            'nomeaviao' => $aviaoprocurar->nomeaviao,
+            'transportadora' => $aviaoprocurar->transportadora
+        ];
+        return View::make('avioes.edit', ['aviao' => $aviao]);
     }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
+        $aviao = Avioes::find([$id]);
+        $aviao->update_attributes(Post::getAll());
+        $aviao->save();
+
+        Redirect::toRoute('avioes/index');
     }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $aviao = Avioes::find([$id]);
+        $aviao->delete();
+        Redirect::toRoute('avioes/index');
     }
 }
 ?>

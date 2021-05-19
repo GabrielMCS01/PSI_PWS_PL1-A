@@ -44,14 +44,14 @@ a:link {
   padding-top: 20vh;
 }
 
-.cardtwo, .cardavioescreate, .cardavioes, .cardtwocreate {
+.card, .cardavioescreate, .cardavioes, .cardcreate {
   width: 30.3vw;
   height: 37vh;
   background-color: rgba(26, 29, 34, 0.7);
   border-radius: 1vw;
 }
 
-.cardtwocreate {
+.cardcreate {
   height: 60vh;
 }
 
@@ -61,7 +61,7 @@ a:link {
   margin: 0 0.5vw 0.5vh 0.5vw;
 }
 
-.textologin, .textoAviao {
+.textologin, .textoAdicionarAviao, .textoAviao {
   color: #FFF;
   font-family: "Roboto", sans-serif;
   font-size: 1.777rem;
@@ -71,14 +71,14 @@ a:link {
   margin-bottom: 3vh;
 }
 
-.createaccount, .adicionaraviao {
+.createaccount, .veravioes, .adicionaraviao {
   color: #FFF;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 1rem;
-  margin-top: 2vw;
+  margin-top: 4vh;
   margin-right: 3vw;
 }
-.createaccount:hover, .adicionaraviao:hover {
+.createaccount:hover, .veravioes:hover, .adicionaraviao:hover {
   opacity: 80%;
 }
 
@@ -141,6 +141,14 @@ a:link {
   padding-right: 2vw;
   padding-bottom: 2vh;
   height: 100%;
+}
+
+.textoAviao {
+  margin-left: 0;
+}
+
+.adicionaraviao {
+  margin-right: 0;
 }
 
 .cxfloatavioescreate {

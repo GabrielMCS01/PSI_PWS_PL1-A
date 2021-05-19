@@ -31,7 +31,8 @@ use ArmoredCore\WebObjects\URL;
             <tr>
                 <th scope="col">Nome do avião</th>
                 <th scope="col">Transportadora</th>
-                <th scope="col">Editar</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -39,7 +40,8 @@ use ArmoredCore\WebObjects\URL;
                 <tr>
                     <td><?=$dados->nomeaviao?></td>
                     <td><?=$dados->transportadora?></td>
-                    <td><a href="<?=Url::toRoute('avioes/edit', $dados->id)?>"><img src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                    <td><a href="<?=Url::toRoute('avioes/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                    <td><a href="<?=Url::toRoute('avioes/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                 </tr>
             <?php } ?>
             </tbody>

@@ -19,15 +19,15 @@
   padding-top: 20vh;
 }
 
-.cardtwo {
+.card {
   width: 30.3vw;
   height: 37vh;
   background-color: rgb(26, 29, 34, 0.7);
   border-radius: 1.0vw;
 }
 
-.cardtwocreate {
-  @extend .cardtwo;
+.cardcreate {
+  @extend .card;
   height: 60vh;
 }
 
@@ -51,7 +51,7 @@
   color: $secundary-color;
   font-family: 'Roboto Condensed', sans-serif;
   font-size: $Texto1;
-  margin-top: 2vw;
+  margin-top: 4vh;
   margin-right: 3vw;
 
   &:hover {

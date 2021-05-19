@@ -1,3 +1,29 @@
-<?php
-\Tracy\Dumper::dump("ola");
+<?php use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('header');
+
+$aviao = Data::get('aviao');
 ?>
+
+    <div class="cxfloatavioescreate">
+        <div class="cardavioescreate">
+            <ul class="firstline">
+                <li class="textoAviao">Alterar Avião</li>
+                <a href="<?=Url::toRoute('avioes/index')?>">
+                    <li class="adicionaraviao">Ver aviões</li>
+                </a>
+            </ul>
+            <form class="formulario-todo" action="<?=Url::toRoute('avioes/update', $aviao['id'])?>" method="post">
+                <input type="text" class="form-control form" value="<?=$aviao['nomeaviao']?>" name="NomeAviao" title="Insira um nome para o avião" placeholder="Nome" required>
+                <input type="text" class="form-control form" value="<?=$aviao['transportadora']?>" name="Transportadora" title="Insira o nome da transportadora" placeholder="Transportadora" required>
+                <input class="btn botaosignin" type="submit" value="Alterar">
+            </form>
+            </ul>
+        </div>
+    </div>
+
+<?=Layout::includeLayout('footer')?>
