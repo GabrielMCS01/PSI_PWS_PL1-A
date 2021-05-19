@@ -10,22 +10,33 @@ class AeroportosController extends BaseController implements ResourceControllerI
 
     public function index()
     {
-        $aeroportos = Aeroportos::all();
-        return View::make('aeroportos.index', ['aeroportos' => $aeroportos]);
+        if(isset($_SESSION['username'])) {
+            $aeroportos = Aeroportos::all();
+            return View::make('aeroportos.index', ['aeroportos' => $aeroportos]);
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function create()
     {
-        return View::make('aeroportos.create');
+        if(isset($_SESSION['username'])) {
+            return View::make('aeroportos.create');
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function store()
     {
-        $aeroporto = Post::getAll();
-        $aeroportos = new Aeroportos($aeroporto);
-        $aeroportos->save();
-        Redirect::toRoute('aeroportos/index');
-
+        if(isset($_SESSION['username'])) {
+            $aeroporto = Post::getAll();
+            $aeroportos = new Aeroportos($aeroporto);
+            $aeroportos->save();
+            Redirect::toRoute('aeroportos/index');
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function show($id)
@@ -35,23 +46,35 @@ class AeroportosController extends BaseController implements ResourceControllerI
 
     public function edit($id)
     {
-        $aeroporto = Aeroportos::find([$id]);
-        return View::make('aeroportos.edit', ['aeroporto' => [$aeroporto]]);
+        if(isset($_SESSION['username'])) {
+            $aeroporto = Aeroportos::find([$id]);
+            return View::make('aeroportos.edit', ['aeroporto' => [$aeroporto]]);
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function update($id)
     {
-        $aeroporto = Aeroportos::find([$id]);
-        $aeroporto->update_attributes(Post::getAll());
-        $aeroporto->save();
-        Redirect::toRoute('aeroportos/index');
+        if(isset($_SESSION['username'])) {
+            $aeroporto = Aeroportos::find([$id]);
+            $aeroporto->update_attributes(Post::getAll());
+            $aeroporto->save();
+            Redirect::toRoute('aeroportos/index');
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function destroy($id)
     {
-        $aeroporto = Aeroportos::find([$id]);
-        $aeroporto->delete();
-        Redirect::toRoute('aeroportos/index');
+        if(isset($_SESSION['username'])) {
+            $aeroporto = Aeroportos::find([$id]);
+            $aeroporto->delete();
+            Redirect::toRoute('aeroportos/index');
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 }
 ?>
