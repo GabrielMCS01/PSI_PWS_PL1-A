@@ -1,0 +1,28 @@
+<?php use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('header') ?>
+
+<div class="cxfloatavioescreate">
+    <div class="cardavioescreate">
+        <ul class="firstline">
+            <li class="textoAdicionarAviao">Adicionar Voos</li>
+            <a href="<?=Url::toRoute('voos/index')?>">
+                <li class="veravioes">Ver Voos</li>
+            </a>
+        </ul>
+        <form class="formulario-todo" action="<?=Url::toRoute('voos/store')?>" method="post">
+            <input type="date" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+            <input type="date" class="form-control form" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
+            <input type="text" class="form-control form" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
+            <input type="text" class="form-control form" name="IdAeroportoDestino" title="Insira o aeroporto de destino" placeholder="Aeroporto de destino" required>
+            <input type="text" class="form-control form" name="IdAviao" title="Insira o avião" placeholder="Avião" required>
+            <input class="btn botaosignin" type="submit" value="Adicionar">
+        </form>
+        </ul>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>
