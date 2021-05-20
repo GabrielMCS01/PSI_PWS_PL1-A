@@ -18,36 +18,38 @@ $avioes = Data::get('avioes');
                 <li class="veravioes">Ver Voos</li>
             </a>
         </ul>
-        <form class="formulario-todo" action="<?=Url::toRoute('voos/store')?>" method="post">
+        <div class="tabelaPlace">
+            <form class="formulario-todo" action="<?=Url::toRoute('voos/store')?>" method="post">
 
-            <input type="date" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+                <input type="datetime-local" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
 
-            <input type="date" class="form-control form" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
+                <input type="datetime-local" class="form-control form" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
 
-            <select class="form-control form" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" required>
-                <option disabled selected>Aeroporto de Origem</option>
-                <?php foreach ($aeroportos as $dados){ ?>
-                    <option value="<?=$dados->idaeroporto?>"><?=$dados->nomeaeroporto?></option>
-                <?php } ?>
-            </select>
+                <select class="form-control form" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" required>
+                    <option disabled selected>Aeroporto de Origem</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->idaeroporto?>"><?=$dados->nomeaeroporto?></option>
+                    <?php } ?>
+                </select>
 
-            <select class="form-control form" name="IdAeroportoDestino" title="Insira o aeroporto de destino" required>
-                <option disabled selected>Aeroporto de Destino</option>
-                <?php foreach ($aeroportos as $dados){ ?>
-                    <option value="<?=$dados->idaeroporto?>"><?=$dados->nomeaeroporto?></option>
-                <?php } ?>
-            </select>
+                <select class="form-control form" name="IdAeroportoDestino" title="Insira o aeroporto de destino" required>
+                    <option disabled selected>Aeroporto de Destino</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->idaeroporto?>"><?=$dados->nomeaeroporto?></option>
+                    <?php } ?>
+                </select>
 
-            <select class="form-control form" name="IdAviao" title="Insira o avião" required>
-                <option disabled selected>Avião</option>
-                <?php foreach ($avioes as $dados){ ?>
-                    <option value="<?=$dados->idaviao?>"><?=$dados->nomeaviao?></option>
-                <?php } ?>
-            </select>
+                <select class="form-control form" name="IdAviao" title="Insira o avião" required>
+                    <option disabled selected>Avião</option>
+                    <?php foreach ($avioes as $dados){ ?>
+                        <option value="<?=$dados->idaviao?>"><?=$dados->nomeaviao?></option>
+                    <?php } ?>
+                </select>
 
-            <input class="btn botaosignin" type="submit" value="Adicionar">
+                <input class="btn botaosignin" type="submit" value="Adicionar">
 
-        </form>
+            </form>
+        </div>
         </ul>
     </div>
 </div>

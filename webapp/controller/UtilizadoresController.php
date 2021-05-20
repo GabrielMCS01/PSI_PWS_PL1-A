@@ -6,8 +6,6 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
-use Carbon\Traits\Date;
-use Tracy\Dumper;
 
 class UtilizadoresController extends BaseController implements ResourceControllerInterface
 {
@@ -44,12 +42,26 @@ class UtilizadoresController extends BaseController implements ResourceControlle
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
+        if(isset($_SESSION['username'])) {
+            $utilizador = Utilizadores::find([$id]);
+            return View::make('utilizadores.edit', ['utilizador' => [$utilizador]]);
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
+        if(isset($_SESSION['username'])) {
+            $user = Utilizadores::find([$id]);
+            $user->update_attributes(Post::getAll());
+            $user->save();
+            if($_SESSION['tipoUser'] == 'administrador') {
+                Redirect::toRoute('utilizadores/showall');
+            }else{
+                Redirect::toRoute('utilizadores/perfil', ['id' => $id]);
+            }
+        }
     }
 
     public function destroy($id)
@@ -59,7 +71,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
 
     public function showall()
     {
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] == 'administrador') {
             $utilizadores = Utilizadores::all();
             return View::make('utilizadores.showall', ['utilizadores' => $utilizadores]);
         }else{
@@ -74,7 +86,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
                 $utilizadores = Utilizadores::find(Post::getAll());
                 if($utilizadores != null){
                     $_SESSION['username'] = Post::get('Utilizador');
-                    $_SESSION['tipoUser'] = $id;
+                    $_SESSION['tipoUser'] = $utilizadores->perfil;
                     Redirect::toRoute('avioes/index');
                 }else{
                     session_unset();

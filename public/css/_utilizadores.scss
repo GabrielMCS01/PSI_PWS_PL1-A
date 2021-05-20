@@ -113,3 +113,8 @@
   margin-left: 10vw;
   margin-right: 10vw;
 }
+
+.cxfloatutilizadoredit{
+  @extend .cxfloat;
+  padding-top: 5vh;
+}

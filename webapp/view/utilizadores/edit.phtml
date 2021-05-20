@@ -9,17 +9,28 @@ Layout::includeLayout('header');
 $utilizador = Data::get('utilizador');
 ?>
 
-    <div class="cxfloatavioescreate">
+    <div class="cxfloatutilizadoredit">
         <div class="cardavioescreate">
             <ul class="firstline">
                 <li class="textoAdicionarAviao">Alterar Utilizador</li>
-                <a href="<?=Url::toRoute('avioes/index')?>">
-                    <li class="veravioes">Ver aviões</li>
-                </a>
+                <?php if($_SESSION['tipoUser'] == 'administrador'){ ?>
+                    <a href="<?=Url::toRoute('utilizadores/showall')?>">
+                        <li class="veravioes">Ver utilizadores</li>
+                    </a>
+                <?php }else{ ?>
+                    <a href="<?=Url::toRoute('voos/index')?>">
+                        <li class="veravioes">Voltar</li>
+                    </a>
+                <?php } ?>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('avioes/update', $aviao[0]->idaviao)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$aviao[0]->nomeaviao?>" name="NomeAviao" title="Insira um nome para o avião" placeholder="Nome" required>
-                <input type="text" class="form-control form" value="<?=$aviao[0]->transportadora?>" name="Transportadora" title="Insira o nome da transportadora" placeholder="Transportadora" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('utilizadores/update', $utilizador[0]->idutilizador)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$utilizador[0]->nomecompleto?>" name="NomeCompleto" title="Insira o seu nome" placeholder="Nome" required>
+                <input type="date" class="form-control form" value="<?=date('Y-m-d',strtotime($utilizador[0]->datanascimento))?>" name="DataNascimento" title="Insira a sua data de nascimento" required>
+                <input type="email" class="form-control form" value="<?=$utilizador[0]->email?>" name="Email" title="Insira o seu email" placeholder="Email" required>
+                <input type="number" class="form-control form" value="<?=$utilizador[0]->telefone?>" name="Telefone" title="Insira o seu telefone" placeholder="Telefone" required>
+                <input type="text" class="form-control form" value="<?=$utilizador[0]->utilizador?>" name="Utilizador" title="Insira o seu nome de utilizador" placeholder="Username" required>
+                <input type="password" class="form-control form" value="<?=$utilizador[0]->passwordutilizador?>" name="PasswordUtilizador" title="Insira a sua password" placeholder="Password" required>
+                <input type="text" class="form-control form" value="<?=$utilizador[0]->nomecompleto?>" name="NomeCompleto" title="Insira o seu nome" placeholder="Nome" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

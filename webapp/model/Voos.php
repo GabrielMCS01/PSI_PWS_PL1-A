@@ -5,7 +5,7 @@ use ActiveRecord\Model;
 class Voos extends Model{
 
     public function FormatarData($dado){
-        return date('d/m/Y', strtotime($dado));
+        return date('d/m/Y H:i', strtotime($dado));
     }
 
     public function NomeAeroporto($dado){
