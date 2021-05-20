@@ -66,7 +66,13 @@ class UtilizadoresController extends BaseController implements ResourceControlle
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] == 'administrador') {
+            $user = Utilizadores::find([$id]);
+            $user->delete();
+            Redirect::toRoute('utilizadores/showall');
+        }else{
+            Redirect::toRoute('utilizadores/index');
+        }
     }
 
     public function showall()

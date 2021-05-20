@@ -31,6 +31,13 @@ $utilizador = Data::get('utilizador');
                 <input type="text" class="form-control form" value="<?=$utilizador[0]->utilizador?>" name="Utilizador" title="Insira o seu nome de utilizador" placeholder="Username" required>
                 <input type="password" class="form-control form" value="<?=$utilizador[0]->passwordutilizador?>" name="PasswordUtilizador" title="Insira a sua password" placeholder="Password" required>
                 <input type="text" class="form-control form" value="<?=$utilizador[0]->nomecompleto?>" name="NomeCompleto" title="Insira o seu nome" placeholder="Nome" required>
+                <?php if($_SESSION['tipoUser'] == 'administrador'){ ?>
+                    <select class="form-control form">
+                        <option value="administrador" <?=($utilizador[0]->perfil == "administrador")?'selected':''?>>administrador</option>
+                        <option value="funcionario" <?=($utilizador[0]->perfil == "funcionario")?'selected':''?>>funcionario</option>
+                        <option value="utilizador" <?=($utilizador[0]->perfil == "passageiro")?'selected':''?>>passageiro</option>
+                    </select>
+                <?php } ?>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>
