@@ -44,6 +44,7 @@ class VoosController extends BaseController implements ResourceControllerInterfa
 
     public function store()
     {
+        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $voo = Post::getAll();
             $voos = new Voos($voo);
@@ -72,6 +73,7 @@ class VoosController extends BaseController implements ResourceControllerInterfa
 
     public function update($id)
     {
+        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $voo = Voos::find([$id]);
             $voo->update_attributes(Post::getAll());

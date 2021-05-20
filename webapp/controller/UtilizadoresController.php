@@ -21,6 +21,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
 
     public function store()
     {
+        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         $dados = [
             'Utilizador' => Post::get('Utilizador'),
             'NomeCompleto' => Post::get('NomeCompleto'),
@@ -52,6 +53,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
 
     public function update($id)
     {
+        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $user = Utilizadores::find([$id]);
             $user->update_attributes(Post::getAll());
