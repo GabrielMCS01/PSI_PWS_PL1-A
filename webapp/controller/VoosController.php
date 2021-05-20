@@ -12,7 +12,20 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     {
         if(isset($_SESSION['username'])) {
             $voos = Voos::all();
-            return View::make('voos.index', ['voos' => $voos]);
+            $voosModel = new Voos();
+            $voosMostrar = [];
+            foreach ($voos as $dados){
+                $voosMostrarr = [
+                    'id' => $dados->idvoo,
+                    'datahorapartida' => $voosModel->FormatarData($dados->datahorapartida),
+                    'datahorachegada' => $voosModel->FormatarData($dados->datahorachegada),
+                    'aeroportoorigem' => $voosModel->NomeAeroporto($dados->idaeroportoorigem),
+                    'aeroportodestino' => $voosModel->NomeAeroporto($dados->idaeroportodestino),
+                    'aviao' => $voosModel->NomeAviao($dados->idaviao)
+                ];
+                array_push($voosMostrar, $voosMostrarr);
+            }
+            return View::make('voos.index', ['voos' => $voosMostrar]);
         }else{
             Redirect::toRoute('voos/index');
         }

@@ -13,6 +13,12 @@
   list-style: none;
 }
 
+.home {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
 :root {
   font-size: 1vw;
 }
@@ -219,8 +225,8 @@ th {
                     VOOS
 ================================================================*/
 .cxfloatvoos {
-  margin-right: 32vw;
-  margin-left: 32vw;
+  margin-right: 25vw;
+  margin-left: 25vw;
 }
 
 .cxfloatvooscreate {
