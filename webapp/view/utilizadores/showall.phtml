@@ -45,14 +45,14 @@ use ArmoredCore\WebObjects\URL;
                 <?php foreach ($utilizadores as $dados){ ?>
                     <tr>
                         <td><?=$dados->nomecompleto?></td>
-                        <td><?=$dados->datanascimento?></td>
+                        <td><?=date('d/m/Y', strtotime($dados->datanascimento))?></td>
                         <td><?=$dados->email?></td>
                         <td><?=$dados->telefone?></td>
                         <td><?=$dados->utilizador?></td>
                         <td><?=$dados->passwordutilizador?></td>
                         <td><?=$dados->perfil?></td>
-                        <td><a href="<?=Url::toRoute('avioes/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                        <td><a href="<?=Url::toRoute('avioes/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <td><a href="<?=Url::toRoute('utilizadores/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a href="<?=Url::toRoute('utilizadores/destroy', $dados->id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                     </tr>
                 <?php } ?>
                 </tbody>
