@@ -89,7 +89,7 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     public function destroy($id)
     {
         if(isset($_SESSION['username'])) {
-            $voo = Aeroportos::first([$id]);
+            $voo = Voos::first([$id]);
             $voo->delete();
             Redirect::toRoute('voos/index');
         }else{

@@ -90,7 +90,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
     public function destroy($id)
     {
         if(isset($_SESSION['username'])) {
-            $escala = Aeroportos::first([$id]);
+            $escala = Escalas::first([$id]);
             $escala->delete();
             Redirect::toRoute('escalas/index');
         }else{
