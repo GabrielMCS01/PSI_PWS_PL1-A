@@ -35,7 +35,6 @@ use ArmoredCore\WebObjects\URL;
                     <th scope="col">Email</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Utilizador</th>
-                    <th scope="col">Password</th>
                     <th scope="col">Perfil</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
@@ -49,7 +48,6 @@ use ArmoredCore\WebObjects\URL;
                         <td><?=$dados->email?></td>
                         <td><?=$dados->telefone?></td>
                         <td><?=$dados->utilizador?></td>
-                        <td><?=$dados->passwordutilizador?></td>
                         <td><?=$dados->perfil?></td>
                         <td><a href="<?=Url::toRoute('utilizadores/edit', $dados->id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                         <?php if($dados->perfil != 'administrador'){ ?>
