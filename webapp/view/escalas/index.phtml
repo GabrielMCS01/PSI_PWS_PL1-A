@@ -1,0 +1,63 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: smendes
+ * Date: 19-04-2017
+ * Time: 18:57
+ */
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+?>
+
+<?=Layout::includeLayout('header')?>
+
+<?php $escalas = Data::get('escalas');
+?>
+
+<div class="cxfloatvoos">
+    <div class="cardavioes">
+        <ul class="firstline">
+            <li class="textoAviao">Voos</li>
+            <a href="<?=Url::toRoute('escalas/create')?>">
+                <li class="adicionaraviao">Adicionar Escala</li>
+            </a>
+        </ul>
+        <div class="tabelaPlace">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Data de Partida</th>
+                    <th scope="col">Data de Chegada</th>
+                    <th scope="col">Aeroporto de Origem</th>
+                    <th scope="col">Aeroporto de Chegada</th>
+                    <th scope="col">Avião</th>
+                    <th scope="col">Voo</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($escalas as $dados){ ?>
+                    <tr>
+                        <td><?=$dados['datahorapartida']?></td>
+                        <td><?=$dados['datahorachegada']?></td>
+                        <td><?=$dados['aeroportoorigem']?></td>
+                        <td><?=$dados['aeroportodestino']?></td>
+                        <td><?=$dados['aviao']?></td>
+                        <td><?=$dados['voo']?></td>
+                        <td><a href="<?=Url::toRoute('escalas/edit', $dados['id'])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a href="<?=Url::toRoute('escalas/destroy', $dados['id'])?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>
+
