@@ -30,11 +30,13 @@ Create table if not exists Avioes(
 
 Create table if not exists Voos(
 	IdVoo INT UNSIGNED AUTO_INCREMENT,
+    NomeVoo varchar(100) not null,
     DataHoraPartida datetime not null,
     DataHoraChegada datetime not null,
     IdAeroportoOrigem int UNSIGNED not null,
 	IdAeroportoDestino int UNSIGNED not null,
     IdAviao int UNSIGNED not null,
+    Preco int UNSIGNED not null,
 	CONSTRAINT pk_Voos_IdVoo PRIMARY KEY(IdVoo),
 	CONSTRAINT fk_Voos_IdAeroportoOrigem FOREIGN KEY(IdAeroportoOrigem) REFERENCES Aeroportos(IdAeroporto),
 	CONSTRAINT fk_Voos_IdAeroportoDestino FOREIGN KEY(IdAeroportoDestino) REFERENCES Aeroportos(IdAeroporto),
@@ -44,6 +46,7 @@ Create table if not exists Voos(
 
 Create table if not exists Escalas(
 	IdEscala INT UNSIGNED AUTO_INCREMENT,
+	NomeVoo varchar(100) not null,
     DataHoraPartida datetime not null,
     DataHoraChegada datetime not null,
     IdAeroportoOrigem int UNSIGNED not null,
@@ -64,6 +67,7 @@ IdCliente int UNSIGNED not null,
 IdVoo int UNSIGNED not null,
 Preco int not null,
 DataCompra datetime not null,
+LugarAviao varchar(100) not null,
 CONSTRAINT pk_ComprasVoo_IdCompraVoo PRIMARY KEY(IdCompraVoo),
 CONSTRAINT fk_ComprasVoo_IdCliente FOREIGN KEY(IdCliente) REFERENCES Utilizadores(IdUtilizador),
 CONSTRAINT fk_ComprasVoo_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)

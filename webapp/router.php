@@ -29,6 +29,8 @@ Router::resource('aeroportos', 'AeroportosController');
 
 Router::resource('voos', 'VoosController');
 
+Router::resource('escalas', 'EscalasController');
+
 Router::resource('comprasvoo', 'ComprasVooController');
 
 
