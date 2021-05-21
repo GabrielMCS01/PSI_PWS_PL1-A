@@ -17,11 +17,13 @@ class VoosController extends BaseController implements ResourceControllerInterfa
             foreach ($voos as $dados){
                 $voosMostrarr = [
                     'id' => $dados->idvoo,
+                    'nomevoo' => $dados->nomevoo,
                     'datahorapartida' => $voosModel->FormatarData($dados->datahorapartida),
                     'datahorachegada' => $voosModel->FormatarData($dados->datahorachegada),
                     'aeroportoorigem' => $voosModel->NomeAeroporto($dados->idaeroportoorigem),
                     'aeroportodestino' => $voosModel->NomeAeroporto($dados->idaeroportodestino),
-                    'aviao' => $voosModel->NomeAviao($dados->idaviao)
+                    'aviao' => $voosModel->NomeAviao($dados->idaviao),
+                    'preco' => $dados->preco
                 ];
                 array_push($voosMostrar, $voosMostrarr);
             }

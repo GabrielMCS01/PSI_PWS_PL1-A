@@ -21,6 +21,7 @@ $voos = Data::get('voos');
         </ul>
         <div class="tabelaPlace">
             <form class="formulario-todo" action="<?=Url::toRoute('escalas/store')?>" method="post">
+                <input type="text" class="form-control form" name="NomeVoo" title="Insira a o nome da escala" placeholder="Nome da Escala" required>
 
                 <input type="datetime-local" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
 

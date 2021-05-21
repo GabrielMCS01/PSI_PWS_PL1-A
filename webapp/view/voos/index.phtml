@@ -30,11 +30,13 @@ use ArmoredCore\WebObjects\URL;
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th scope="col">Voo</th>
                     <th scope="col">Data de Partida</th>
                     <th scope="col">Data de Chegada</th>
                     <th scope="col">Aeroporto de Origem</th>
                     <th scope="col">Aeroporto de Chegada</th>
                     <th scope="col">Avião</th>
+                    <th scope="col">Preço</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -42,11 +44,13 @@ use ArmoredCore\WebObjects\URL;
                 <tbody>
                 <?php foreach ($voos as $dados){ ?>
                     <tr>
+                        <td><?=$dados['nomevoo']?></td>
                         <td><?=$dados['datahorapartida']?></td>
                         <td><?=$dados['datahorachegada']?></td>
                         <td><?=$dados['aeroportoorigem']?></td>
                         <td><?=$dados['aeroportodestino']?></td>
                         <td><?=$dados['aviao']?></td>
+                        <td><?=$dados['preco'].'€'?></td>
                         <td><a href="<?=Url::toRoute('voos/edit', $dados['id'])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                         <td><a href="<?=Url::toRoute('voos/destroy', $dados['id'])?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                     </tr>

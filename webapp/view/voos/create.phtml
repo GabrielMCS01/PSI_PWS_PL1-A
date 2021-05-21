@@ -21,6 +21,8 @@ $avioes = Data::get('avioes');
         <div class="tabelaPlace">
             <form class="formulario-todo" action="<?=Url::toRoute('voos/store')?>" method="post">
 
+                <input type="text" class="form-control form" name="NomeVoo" title="Insira o nome do voo" placeholder="Nome do Voo" required>
+
                 <input type="datetime-local" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
 
                 <input type="datetime-local" class="form-control form" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
@@ -45,6 +47,8 @@ $avioes = Data::get('avioes');
                         <option value="<?=$dados->idaviao?>"><?=$dados->nomeaviao?></option>
                     <?php } ?>
                 </select>
+
+                <input type="text" class="form-control form" name="Preco" title="Insira o preço do voo" placeholder="Preço da Viajem" required>
 
                 <input class="btn botaosignin" type="submit" value="Adicionar">
 

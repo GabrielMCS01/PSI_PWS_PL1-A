@@ -17,7 +17,8 @@ $escala = Data::get('escala');
                     <li class="veravioes">Ver Escalas</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('voos/update', $escala[0]->idvoo)?>" method="post">
+            <form class="formulario-todo" action="<?=Url::toRoute('escalas/update', $escala[0]->idvoo)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$escala[0]->nomevoo?>" name="NomeVoo" title="Insira o nome da escala" placeholder="Escala" required>
                 <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($escala[0]->datahorapartida))?>T<?=date('H:i',strtotime($escala[0]->datahorapartida))?>" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
                 <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($escala[0]->datahorachegada))?>T<?=date('H:i',strtotime($escala[0]->datahorachegada))?>" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
                 <input type="text" class="form-control form" value="<?=$escala[0]->idaeroportoorigem?>" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>

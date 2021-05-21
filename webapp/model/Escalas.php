@@ -26,7 +26,7 @@ class Escalas extends Model{
         if (isset($dado)) {
             $voo = Voos::find(['idVoo' => $dado]);
         }
-        return $voo->idvoo;
+        return $voo->nomevoo;
     }
 }
 ?>

@@ -17,6 +17,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
             foreach ($escalas as $dados){
                 $escalasMostrarr = [
                     'id' => $dados->idescala,
+                    'nomevoo' =>  $dados->nomevoo,
                     'datahorapartida' => $escalasModel->FormatarData($dados->datahorapartida),
                     'datahorachegada' => $escalasModel->FormatarData($dados->datahorachegada),
                     'aeroportoorigem' => $escalasModel->NomeAeroporto($dados->idaeroportoorigem),
