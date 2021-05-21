@@ -47,7 +47,7 @@ class AeroportosController extends BaseController implements ResourceControllerI
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $aeroporto = Aeroportos::find([$id]);
+            $aeroporto = Aeroportos::first([$id]);
             return View::make('aeroportos.edit', ['aeroporto' => [$aeroporto]]);
         }else{
             Redirect::toRoute('utilizadores/index');
@@ -57,7 +57,7 @@ class AeroportosController extends BaseController implements ResourceControllerI
     public function update($id)
     {
         if(isset($_SESSION['username'])) {
-            $aeroporto = Aeroportos::find([$id]);
+            $aeroporto = Aeroportos::first([$id]);
             $aeroporto->update_attributes(Post::getAll());
             $aeroporto->save();
             Redirect::toRoute('aeroportos/index');
@@ -69,7 +69,7 @@ class AeroportosController extends BaseController implements ResourceControllerI
     public function destroy($id)
     {
         if(isset($_SESSION['username'])) {
-            $aeroporto = Aeroportos::find([$id]);
+            $aeroporto = Aeroportos::first([$id]);
             $aeroporto->delete();
             Redirect::toRoute('aeroportos/index');
         }else{

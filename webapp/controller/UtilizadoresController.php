@@ -44,7 +44,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $utilizador = Utilizadores::find([$id]);
+            $utilizador = Utilizadores::first([$id]);
             return View::make('utilizadores.edit', ['utilizador' => [$utilizador]]);
         }else{
             Redirect::toRoute('utilizadores/index');
@@ -55,7 +55,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
     {
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
-            $user = Utilizadores::find([$id]);
+            $user = Utilizadores::first([$id]);
             $user->update_attributes(Post::getAll());
             $user->save();
             if($_SESSION['tipoUser'] == 'administrador') {
@@ -69,7 +69,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
     public function destroy($id)
     {
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] == 'administrador') {
-            $user = Utilizadores::find([$id]);
+            $user = Utilizadores::first([$id]);
             $user->delete();
             Redirect::toRoute('utilizadores/showall');
         }else{
@@ -91,7 +91,7 @@ class UtilizadoresController extends BaseController implements ResourceControlle
     {
         switch($id) {
             case 'passageiro':
-                $utilizadores = Utilizadores::find(Post::getAll());
+                $utilizadores = Utilizadores::first(Post::getAll());
                 if($utilizadores != null){
                     $_SESSION['username'] = Post::get('Utilizador');
                     $_SESSION['tipoUser'] = $utilizadores->perfil;

@@ -47,7 +47,7 @@ class AvioesController extends BaseController implements ResourceControllerInter
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $aviao = Avioes::find([$id]);
+            $aviao = Avioes::first([$id]);
             return View::make('avioes.edit', ['aviao' => [$aviao]]);
         }else{
             Redirect::toRoute('utilizadores/index');
@@ -57,7 +57,7 @@ class AvioesController extends BaseController implements ResourceControllerInter
     public function update($id)
     {
         if(isset($_SESSION['username'])) {
-            $aviao = Avioes::find([$id]);
+            $aviao = Avioes::first([$id]);
             $aviao->update_attributes(Post::getAll());
             $aviao->save();
             Redirect::toRoute('avioes/index');
@@ -69,7 +69,7 @@ class AvioesController extends BaseController implements ResourceControllerInter
     public function destroy($id)
     {
         if(isset($_SESSION['username'])) {
-            $aviao = Avioes::find([$id]);
+            $aviao = Avioes::first([$id]);
             $aviao->delete();
             Redirect::toRoute('avioes/index');
         }else{

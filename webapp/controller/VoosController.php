@@ -63,7 +63,7 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $voo = Voos::find([$id]);
+            $voo = Voos::first([$id]);
             $aeroportos = Aeroportos::all();
             return View::make('voos.edit', ['voo' => [$voo], 'aeroportos' => [$aeroportos]]);
         }else{
@@ -75,7 +75,7 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     {
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
-            $voo = Voos::find([$id]);
+            $voo = Voos::first([$id]);
             $voo->update_attributes(Post::getAll());
             $voo->save();
             Redirect::toRoute('voos/index');
@@ -87,7 +87,7 @@ class VoosController extends BaseController implements ResourceControllerInterfa
     public function destroy($id)
     {
         if(isset($_SESSION['username'])) {
-            $voo = Aeroportos::find([$id]);
+            $voo = Aeroportos::first([$id]);
             $voo->delete();
             Redirect::toRoute('voos/index');
         }else{
