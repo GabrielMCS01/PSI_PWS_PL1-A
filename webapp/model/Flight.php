@@ -2,7 +2,9 @@
 
 use ActiveRecord\Model;
 
-class Escalas extends Model{
+class Flight extends Model{
+
+    static $belongs_to = [['airplane']];
 
     public function FormatarData($dado){
         return date('d/m/Y H:i', strtotime($dado));
@@ -17,16 +19,9 @@ class Escalas extends Model{
 
     public function NomeAviao($dado){
         if (isset($dado)) {
-            $aviao = Avioes::find(['airplane_id' => $dado]);
+            $aviao = Airplane::find(['airplanes_id' => $dado]);
         }
         return $aviao->nomeaviao;
-    }
-
-    public function Voo($dado){
-        if (isset($dado)) {
-            $voo = Flight::find(['flights_id' => $dado]);
-        }
-        return $voo->nomevoo;
     }
 }
 ?>

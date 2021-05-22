@@ -1,0 +1,66 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('header');
+
+$aeroportos = Data::get('airports');
+$avioes = Data::get('airplanes');
+$voos = Data::get('flights');
+?>
+
+<div class="cxfloatvooscreate">
+    <div class="cardavioescreate">
+        <ul class="firstline">
+            <li class="textoAdicionarAviao">Adicionar Escalas</li>
+            <a href="<?=Url::toRoute('scales/index')?>">
+                <li class="veravioes">Ver Escalas</li>
+            </a>
+        </ul>
+        <div class="tabelaPlace">
+            <form class="formulario-todo" action="<?=Url::toRoute('scales/store')?>" method="post">
+                <input type="text" class="form-control form" name="NomeVoo" title="Insira a o nome da escala" placeholder="Nome da Escala" required>
+
+                <input type="datetime-local" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+
+                <input type="datetime-local" class="form-control form" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
+
+                <select class="form-control form" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" required>
+                    <option disabled selected>Aeroporto de Origem</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->idaeroporto?>"><?=$dados->nomeaeroporto?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="IdAeroportoDestino" title="Insira o aeroporto de destino" required>
+                    <option disabled selected>Aeroporto de Destino</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->idaeroporto?>"><?=$dados->nomeaeroporto?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="IdAviao" title="Insira o avião" required>
+                    <option disabled selected>Avião</option>
+                    <?php foreach ($avioes as $dados){ ?>
+                        <option value="<?=$dados->idaviao?>"><?=$dados->nomeaviao?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="IdVoo" title="Insira o voo" required>
+                    <option disabled selected>Voo</option>
+                    <?php foreach ($voos as $dados){ ?>
+                        <option value="<?=$dados->idvoo?>"><?=$dados->idvoo?></option>
+                    <?php } ?>
+                </select>
+
+                <input class="btn botaosignin" type="submit" value="Adicionar">
+
+            </form>
+        </div>
+        </ul>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>

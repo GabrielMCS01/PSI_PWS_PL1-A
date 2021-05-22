@@ -1,0 +1,46 @@
+<?php use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('header');
+
+$utilizador = Data::get('utilizador');
+?>
+
+    <div class="cxfloatutilizadoredit">
+        <div class="cardavioescreate">
+            <ul class="firstline">
+                <li class="textoAdicionarAviao">Alterar Utilizador</li>
+                <?php if($_SESSION['tipoUser'] == 'administrador'){ ?>
+                    <a href="<?=Url::toRoute('users/showall')?>">
+                        <li class="veravioes">Ver utilizadores</li>
+                    </a>
+                <?php }else{ ?>
+                    <a href="<?=Url::toRoute('flights/index')?>">
+                        <li class="veravioes">Voltar</li>
+                    </a>
+                <?php } ?>
+            </ul>
+            <form class="formulario-todo" action="<?=Url::toRoute('users/update', $utilizador[0]->users_id)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$utilizador[0]->fullname?>" name="fullname" title="Insira o seu nome" placeholder="Nome" required>
+                <input type="date" class="form-control form" value="<?=date('Y-m-d',strtotime($utilizador[0]->birthdate))?>" name="birthdate" title="Insira a sua data de nascimento" required>
+                <input type="email" class="form-control form" value="<?=$utilizador[0]->email?>" name="Email" title="Insira o seu email" placeholder="email" required>
+                <input type="number" class="form-control form" value="<?=$utilizador[0]->phonenumber?>" name="phonenumber" title="Insira o seu telefone" placeholder="Telefone" required>
+                <input type="text" class="form-control form" value="<?=$utilizador[0]->username?>" name="username" title="Insira o seu nome de utilizador" placeholder="Username" required>
+                <input type="password" class="form-control form" value="<?=$utilizador[0]->userpassword?>" name="userpassword" title="Insira a sua password" placeholder="Password" required>
+                <?php if($_SESSION['tipoUser'] == 'administrador'){ ?>
+                    <select class="form-control form" name="userprofile" title="Indique o tipo de perfil">
+                        <option value="administrador" <?=($utilizador[0]->userprofile == "administrador")?'selected':''?>>administrador</option>
+                        <option value="funcionario" <?=($utilizador[0]->userprofile == "funcionario")?'selected':''?>>funcionario</option>
+                        <option value="utilizador" <?=($utilizador[0]->userprofile == "passageiro")?'selected':''?>>passageiro</option>
+                    </select>
+                <?php } ?>
+                <input class="btn botaosignin" type="submit" value="Alterar">
+            </form>
+            </ul>
+        </div>
+    </div>
+
+<?=Layout::includeLayout('footer')?>

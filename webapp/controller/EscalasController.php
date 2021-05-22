@@ -27,21 +27,21 @@ class EscalasController extends BaseController implements ResourceControllerInte
                 ];
                 array_push($escalasMostrar, $escalasMostrarr);
             }
-            return View::make('escalas.index', ['escalas' => $escalasMostrar]);
+            return View::make('scales.index', ['scales' => $escalasMostrar]);
         }else{
-            Redirect::toRoute('escalas/index');
+            Redirect::toRoute('scales/index');
         }
     }
 
     public function create()
     {
         if(isset($_SESSION['username'])) {
-            $aeroportos = Aeroportos::all();
+            $aeroportos = Airport::all();
             $avioes = Avioes::all();
-            $voos = Voos::all();
-            return View::make('escalas.create', ['aeroportos' => $aeroportos, 'avioes' => $avioes, 'voos' => $voos]);
+            $voos = Flight::all();
+            return View::make('scales.create', ['airports' => $aeroportos, 'airplanes' => $avioes, 'flights' => $voos]);
         }else{
-            Redirect::toRoute('utilizadores/index');
+            Redirect::toRoute('users/index');
         }
     }
 
@@ -52,9 +52,9 @@ class EscalasController extends BaseController implements ResourceControllerInte
             $escala = Post::getAll();
             $escalas = new Escalas($escala);
             $escalas->save();
-            Redirect::toRoute('escalas/index');
+            Redirect::toRoute('scales/index');
         }else{
-            Redirect::toRoute('utilizadores/index');
+            Redirect::toRoute('users/index');
         }
     }
 
@@ -67,10 +67,10 @@ class EscalasController extends BaseController implements ResourceControllerInte
     {
         if(isset($_SESSION['username'])) {
             $escala = Escalas::first([$id]);
-            $aeroportos = Aeroportos::all();
-            return View::make('escalas.edit', ['escala' => [$escala], 'aeroportos' => [$aeroportos]]);
+            $aeroportos = Airport::all();
+            return View::make('scales.edit', ['escala' => [$escala], 'airports' => [$aeroportos]]);
         }else{
-            Redirect::toRoute('utilizadores/index');
+            Redirect::toRoute('users/index');
         }
     }
 
@@ -81,9 +81,9 @@ class EscalasController extends BaseController implements ResourceControllerInte
             $escala = Escalas::first([$id]);
             $escala->update_attributes(Post::getAll());
             $escala->save();
-            Redirect::toRoute('escalas/index');
+            Redirect::toRoute('scales/index');
         }else{
-            Redirect::toRoute('utilizadores/index');
+            Redirect::toRoute('users/index');
         }
     }
 
@@ -92,9 +92,9 @@ class EscalasController extends BaseController implements ResourceControllerInte
         if(isset($_SESSION['username'])) {
             $escala = Escalas::first([$id]);
             $escala->delete();
-            Redirect::toRoute('escalas/index');
+            Redirect::toRoute('scales/index');
         }else{
-            Redirect::toRoute('utilizadores/index');
+            Redirect::toRoute('users/index');
         }
     }
 }

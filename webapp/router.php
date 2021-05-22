@@ -19,19 +19,19 @@ Router::get('home/start',	'HomeController/start');
 
 Router::get('test/index',  'TestController/index');
 */
-Router::get('/',  'UtilizadoresController/index');
+Router::get('/',  'UserController/index');
 
-Router::resource('utilizadores', 'UtilizadoresController');
+Router::resource('users', 'UserController');
 
-Router::resource('avioes', 'AvioesController');
+Router::resource('airplanes', 'AirplaneController');
 
-Router::resource('aeroportos', 'AeroportosController');
+Router::resource('airports', 'AirportController');
 
-Router::resource('voos', 'VoosController');
+Router::resource('flights', 'FlightController');
 
-Router::resource('escalas', 'EscalasController');
+Router::resource('scales', 'EscalasController');
 
-Router::resource('comprasvoo', 'ComprasVooController');
+Router::resource('purchasesflights', 'PurchasesFlightController');
 
 
 

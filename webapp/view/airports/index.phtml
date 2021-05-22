@@ -1,0 +1,57 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: smendes
+ * Date: 19-04-2017
+ * Time: 18:57
+ */
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+?>
+
+<?=Layout::includeLayout('header')?>
+
+<?php $aeroportos = Data::get('airports');
+?>
+
+<div class="cxfloatavioes">
+    <div class="cardavioes">
+        <ul class="firstline">
+            <li class="textoAviao">Aeroportos</li>
+            <a href="<?=Url::toRoute('airports/create')?>">
+                <li class="adicionaraviao">Adicionar Aeroporto</li>
+            </a>
+        </ul>
+        <div class="tabelaPlace">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nome do Aeroporto</th>
+                    <th scope="col">País</th>
+                    <th scope="col">Cidade</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($aeroportos as $dados){ ?>
+                    <tr>
+                        <td><?=$dados->airportname?></td>
+                        <td><?=$dados->country?></td>
+                        <td><?=$dados->city?></td>
+                        <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a href="<?=Url::toRoute('airports/destroy', $dados->airports_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>
+

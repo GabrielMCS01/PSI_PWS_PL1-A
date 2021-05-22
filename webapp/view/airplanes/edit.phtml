@@ -1,0 +1,29 @@
+<?php use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+
+Layout::includeLayout('header');
+
+$aviao = Data::get('airplane');
+?>
+
+    <div class="cxfloatavioescreate">
+        <div class="cardavioescreate">
+            <ul class="firstline">
+                <li class="textoAdicionarAviao">Alterar Avião</li>
+                <a href="<?=Url::toRoute('airplanes/index')?>">
+                    <li class="veravioes">Ver aviões</li>
+                </a>
+            </ul>
+            <form class="formulario-todo" action="<?=Url::toRoute('airplanes/update', $aviao[0]->airplanes_id)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$aviao[0]->airplanename?>" name="NomeAviao" title="Insira um nome para o avião" placeholder="Nome" required>
+                <input type="text" class="form-control form" value="<?=$aviao[0]->shippingcompany?>" name="Transportadora" title="Insira o nome da transportadora" placeholder="Transportadora" required>
+                <input class="btn botaosignin" type="submit" value="Alterar">
+            </form>
+            </ul>
+        </div>
+    </div>
+
+<?=Layout::includeLayout('footer')?>

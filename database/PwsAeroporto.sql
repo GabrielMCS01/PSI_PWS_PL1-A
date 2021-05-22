@@ -1,77 +1,77 @@
 CREATE DATABASE PwsAeroporto;
 USE PwsAeroporto;
 
-Create table if not exists Utilizadores(
-	IdUtilizador INT UNSIGNED AUTO_INCREMENT,
-    NomeCompleto VARCHAR(100) NOT NULL,
-    DataNascimento Date NOT NULL,
-	Email VARCHAR(100) NOT NULL,
-	Telefone VARCHAR(20) NOT NULL,
-    Utilizador VARCHAR(100) NOT NULL,
-    PasswordUtilizador VARCHAR(100) NOT NULL,
-    Perfil VARCHAR(100) NOT NULL,
-	CONSTRAINT pk_Utilizadores_IdUtilizador PRIMARY KEY(IdUtilizador)
+Create table if not exists users(
+	users_id INT UNSIGNED AUTO_INCREMENT,
+    fullname VARCHAR(100) NOT NULL,
+    birthdate Date NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	phonenumber VARCHAR(20) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    userpassword VARCHAR(100) NOT NULL,
+    userprofile VARCHAR(100) NOT NULL,
+	CONSTRAINT pk_users_users_id PRIMARY KEY(users_id)
 )ENGINE=InnoDB;
 
-Create table if not exists Aeroportos(
-	IdAeroporto INT UNSIGNED AUTO_INCREMENT,
-    NomeAeroporto varchar(100) not null,
-    Pais varchar(100) not null,
-    Cidade varchar(100) not null,
-	CONSTRAINT pk_Aeroportos_IdVoo PRIMARY KEY(IdAeroporto)
+Create table if not exists airports(
+	airports_id INT UNSIGNED AUTO_INCREMENT,
+    airportname varchar(100) not null,
+    country varchar(100) not null,
+    city varchar(100) not null,
+	CONSTRAINT pk_airports_airports_id PRIMARY KEY(airports_id)
 )ENGINE=InnoDB;
 
-Create table if not exists Avioes(
-	IdAviao INT UNSIGNED AUTO_INCREMENT,
-    NomeAviao varchar(100) not null,
-    Transportadora varchar(100) not null,
-	CONSTRAINT pk_Avioes_IdAviao PRIMARY KEY(IdAviao)
+Create table if not exists airplanes(
+	airplanes_id INT UNSIGNED AUTO_INCREMENT,
+    airplanename varchar(100) not null,
+    shippingcompany varchar(100) not null,
+	CONSTRAINT pk_airplane_airplane_id PRIMARY KEY(airplane_id)
 )ENGINE=InnoDB;
 
-Create table if not exists Voos(
-	IdVoo INT UNSIGNED AUTO_INCREMENT,
-    NomeVoo varchar(100) not null,
-    DataHoraPartida datetime not null,
-    DataHoraChegada datetime not null,
-    IdAeroportoOrigem int UNSIGNED not null,
-	IdAeroportoDestino int UNSIGNED not null,
-    IdAviao int UNSIGNED not null,
-    Preco int UNSIGNED not null,
-	CONSTRAINT pk_Voos_IdVoo PRIMARY KEY(IdVoo),
-	CONSTRAINT fk_Voos_IdAeroportoOrigem FOREIGN KEY(IdAeroportoOrigem) REFERENCES Aeroportos(IdAeroporto),
-	CONSTRAINT fk_Voos_IdAeroportoDestino FOREIGN KEY(IdAeroportoDestino) REFERENCES Aeroportos(IdAeroporto),
-    CONSTRAINT fk_Voos_IdAviao FOREIGN KEY(IdAviao) REFERENCES Avioes(IdAviao)
-)ENGINE=InnoDB;
-
-
-Create table if not exists Escalas(
-	IdEscala INT UNSIGNED AUTO_INCREMENT,
-	NomeVoo varchar(100) not null,
-    DataHoraPartida datetime not null,
-    DataHoraChegada datetime not null,
-    IdAeroportoOrigem int UNSIGNED not null,
-	IdAeroportoDestino int UNSIGNED not null,
-    IdAviao int UNSIGNED not null,
-    IdVoo int UNSIGNED not null,
-	CONSTRAINT pk_Escalas_IdVoo PRIMARY KEY(IdEscala),
-	CONSTRAINT fk_Escalas_IdAeroportoOrigem FOREIGN KEY(IdAeroportoOrigem) REFERENCES Aeroportos(IdAeroporto),
-	CONSTRAINT fk_Escalas_IdAeroportoDestino FOREIGN KEY(IdAeroportoDestino) REFERENCES Aeroportos(IdAeroporto),
-    CONSTRAINT fk_Escalas_IdAviao FOREIGN KEY(IdAviao) REFERENCES Avioes(IdAviao),
-    CONSTRAINT fk_Escalas_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)
+Create table if not exists flights(
+	flights_id INT UNSIGNED AUTO_INCREMENT,
+    flightname varchar(100) not null,
+    datehourdeparture datetime not null,
+    datehourarrival datetime not null,
+    originairport_id int UNSIGNED not null,
+	destinationairport_id int UNSIGNED not null,
+    airplane_id int UNSIGNED not null,
+    price int UNSIGNED not null,
+	CONSTRAINT pk_flights_flights_id PRIMARY KEY(flights_id),
+	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(originairport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destinationairport_id) REFERENCES airports(airports_id),
+    CONSTRAINT fk_flights_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplane_id)
 )ENGINE=InnoDB;
 
 
-Create table if not exists ComprasVoo(
-IdCompraVoo INT UNSIGNED AUTO_INCREMENT,
-IdCliente int UNSIGNED not null,
-IdVoo int UNSIGNED not null,
-Preco int not null,
-DataCompra datetime not null,
-LugarAviao varchar(100) not null,
-CONSTRAINT pk_ComprasVoo_IdCompraVoo PRIMARY KEY(IdCompraVoo),
-CONSTRAINT fk_ComprasVoo_IdCliente FOREIGN KEY(IdCliente) REFERENCES Utilizadores(IdUtilizador),
-CONSTRAINT fk_ComprasVoo_IdVoo FOREIGN KEY(IdVoo) REFERENCES Voos(IdVoo)
+Create table if not exists scales(
+	scales_id INT UNSIGNED AUTO_INCREMENT,
+	flightname varchar(100) not null,
+    datehourdeparture datetime not null,
+    datehourarrival datetime not null,
+    originairport_id int UNSIGNED not null,
+	destinationairport_id int UNSIGNED not null,
+    airplane_id int UNSIGNED not null,
+    flight_id int UNSIGNED not null,
+	CONSTRAINT pk_scales_scales_id PRIMARY KEY(scales_id),
+	CONSTRAINT fk_scales_originairport_id FOREIGN KEY(originairport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_scales_destinationairport_id FOREIGN KEY(destinationairport_id) REFERENCES airports(airports_id),
+    CONSTRAINT fk_scales_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplane_id),
+    CONSTRAINT fk_scales_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id)
 )ENGINE=InnoDB;
 
-INSERT INTO Utilizadores
+
+Create table if not exists purchasesflights(
+purchasesflights_id INT UNSIGNED AUTO_INCREMENT,
+client_id int UNSIGNED not null,
+flight_id int UNSIGNED not null,
+price int not null,
+purchasedate datetime not null,
+planeplace varchar(100) not null,
+CONSTRAINT pk_purchasesflights_purchasesflights_id PRIMARY KEY(purchasesflights_id),
+CONSTRAINT fk_purchasesflights_client_id FOREIGN KEY(client_id) REFERENCES users(users_id),
+CONSTRAINT fk_purchasesflights_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id)
+)ENGINE=InnoDB;
+
+INSERT INTO users
 VALUES (null, 'Admin Master', '2000-01-01', 'adminmaster@localhost.com', '912345678', 'adminmaster', 'adminmaster', 'administrador');

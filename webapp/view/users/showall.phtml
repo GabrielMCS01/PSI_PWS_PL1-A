@@ -1,0 +1,64 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: smendes
+ * Date: 19-04-2017
+ * Time: 18:57
+ */
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+?>
+
+<?=Layout::includeLayout('header')?>
+
+<?php $utilizadores = Data::get('users');
+?>
+
+<div class="cxfloatshowall">
+    <div class="cardavioes">
+        <ul class="firstline">
+            <li class="textoAviao">Utilizadores</li>
+            <a href="<?=Url::toRoute('users/create')?>">
+                <li class="adicionaraviao">Adicionar Utilizador</li>
+            </a>
+        </ul>
+        <div class="tabelaPlace">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Data de nascimento</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Utilizador</th>
+                    <th scope="col">Perfil</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($utilizadores as $dados){ ?>
+                    <tr>
+                        <td><?=$dados->fullname?></td>
+                        <td><?=$dados->birthdate?></td>
+                        <td><?=$dados->email?></td>
+                        <td><?=$dados->phonenumber?></td>
+                        <td><?=$dados->username?></td>
+                        <td><?=$dados->userprofile?></td>
+                        <td><a href="<?=Url::toRoute('users/edit', $dados->users_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <?php if($dados->userprofile != 'administrador'){ ?>
+                            <td><a href="<?=Url::toRoute('users/destroy', $dados->users_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <?php } ?>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>
