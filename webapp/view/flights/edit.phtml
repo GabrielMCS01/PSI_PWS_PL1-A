@@ -17,7 +17,7 @@ $voo = Data::get('voo');
                     <li class="veravioes">Ver Voos</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('flights/update', $voo[0]->idvoo)?>" method="post">
+            <form class="formulario-todo" action="<?=Url::toRoute('flights/update', $voo[0]->flights_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$voo[0]->nomevoo?>" name="NomeVoo" title="Insira o nome do Voo" placeholder="Voo" required>
                 <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo[0]->datahorapartida))?>T<?=date('H:i',strtotime($voo[0]->datahorapartida))?>" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
                 <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo[0]->datahorachegada))?>T<?=date('H:i',strtotime($voo[0]->datahorachegada))?>" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>

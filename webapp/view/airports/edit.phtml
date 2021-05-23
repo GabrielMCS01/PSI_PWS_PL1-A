@@ -17,10 +17,10 @@ $aeroporto = Data::get('aeroporto');
                     <li class="veravioes">Ver Aeroportos</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('airports/update', $aeroporto[0]->idaeroporto)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$aeroporto[0]->airportname?>" name="NomeAeroporto" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
-                <input type="text" class="form-control form" value="<?=$aeroporto[0]->country?>" name="Pais" title="Insira o nome do País" placeholder="País" required>
-                <input type="text" class="form-control form" value="<?=$aeroporto[0]->city?>" name="Cidade" title="Insira o nome da Cidade" placeholder="Cidade" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('airports/update', $aeroporto[0]->airports_id)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$aeroporto[0]->airportname?>" name="airportname" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
+                <input type="text" class="form-control form" value="<?=$aeroporto[0]->country?>" name="country" title="Insira o nome do País" placeholder="País" required>
+                <input type="text" class="form-control form" value="<?=$aeroporto[0]->city?>" name="city" title="Insira o nome da Cidade" placeholder="Cidade" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

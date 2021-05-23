@@ -2,7 +2,7 @@
 
 use ActiveRecord\Model;
 
-class Escalas extends Model{
+class Scale extends Model{
 
     public function FormatarData($dado){
         return date('d/m/Y H:i', strtotime($dado));

@@ -4,24 +4,14 @@ use ActiveRecord\Model;
 
 class Flight extends Model{
 
-    static $belongs_to = [['airplane']];
+    static $belongs_to = [
+        ['airplane'],
+        ['origin_airport', 'foreign_key' =>'origin_airport_id', 'class_name' => 'Airport'],
+        ['destination_airport', 'foreign_key' =>'destination_airport_id', 'class_name' => 'Airport']
+    ];
 
     public function FormatarData($dado){
         return date('d/m/Y H:i', strtotime($dado));
-    }
-
-    public function NomeAeroporto($dado){
-        if (isset($dado)) {
-            $aeroporto = Airport::find(['airports_id' => $dado]);
-        }
-        return $aeroporto->nomeaeroporto;
-    }
-
-    public function NomeAviao($dado){
-        if (isset($dado)) {
-            $aviao = Airplane::find(['airplanes_id' => $dado]);
-        }
-        return $aviao->nomeaviao;
     }
 }
 ?>

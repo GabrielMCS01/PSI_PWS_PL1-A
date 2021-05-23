@@ -6,13 +6,13 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class EscalasController extends BaseController implements ResourceControllerInterface{
+class ScalesController extends BaseController implements ResourceControllerInterface{
 
     public function index()
     {
         if(isset($_SESSION['username'])) {
-            $escalas = Escalas::all();
-            $escalasModel = new Escalas();
+            $escalas = Scale::all();
+            $escalasModel = new Scale();
             $escalasMostrar = [];
             foreach ($escalas as $dados){
                 $escalasMostrarr = [
@@ -37,7 +37,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
     {
         if(isset($_SESSION['username'])) {
             $aeroportos = Airport::all();
-            $avioes = Avioes::all();
+            $avioes = Airplane::all();
             $voos = Flight::all();
             return View::make('scales.create', ['airports' => $aeroportos, 'airplanes' => $avioes, 'flights' => $voos]);
         }else{
@@ -50,7 +50,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $escala = Post::getAll();
-            $escalas = new Escalas($escala);
+            $escalas = new Scale($escala);
             $escalas->save();
             Redirect::toRoute('scales/index');
         }else{
@@ -66,7 +66,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $escala = Escalas::first([$id]);
+            $escala = Scale::first([$id]);
             $aeroportos = Airport::all();
             return View::make('scales.edit', ['escala' => [$escala], 'airports' => [$aeroportos]]);
         }else{
@@ -78,7 +78,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
     {
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
-            $escala = Escalas::first([$id]);
+            $escala = Scale::first([$id]);
             $escala->update_attributes(Post::getAll());
             $escala->save();
             Redirect::toRoute('scales/index');
@@ -90,7 +90,7 @@ class EscalasController extends BaseController implements ResourceControllerInte
     public function destroy($id)
     {
         if(isset($_SESSION['username'])) {
-            $escala = Escalas::first([$id]);
+            $escala = Scale::first([$id]);
             $escala->delete();
             Redirect::toRoute('scales/index');
         }else{

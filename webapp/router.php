@@ -29,7 +29,7 @@ Router::resource('airports', 'AirportController');
 
 Router::resource('flights', 'FlightController');
 
-Router::resource('scales', 'EscalasController');
+Router::resource('scales', 'ScalesController');
 
 Router::resource('purchasesflights', 'PurchasesFlightController');
 

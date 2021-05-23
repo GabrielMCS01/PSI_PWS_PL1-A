@@ -41,7 +41,7 @@ class PurchasesFlightController extends BaseController implements ResourceContro
     public function show($id)
     {
         if(isset($_SESSION['username'])) {
-            $compra = Purchasesflight::first(['IdCompraVoo' => $id]);
+            $compra = Purchasesflight::first([$id]);
 
             return View::make('purchasesflights.show', ['compra' => $compra]);
         }else{
@@ -52,7 +52,7 @@ class PurchasesFlightController extends BaseController implements ResourceContro
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $compra = Purchasesflight::first(['IdCompraVoo' => $id]);
+            $compra = Purchasesflight::first([$id]);
 
             $aeroportos = Airport::all();
             return View::make('purchasesflights.edit', ['compra' => [$compra], 'airports' => [$aeroportos]]);

@@ -17,14 +17,14 @@ $escala = Data::get('escala');
                     <li class="veravioes">Ver Escalas</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala[0]->idvoo)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$escala[0]->nomevoo?>" name="NomeVoo" title="Insira o nome da escala" placeholder="Escala" required>
-                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($escala[0]->datahorapartida))?>T<?=date('H:i',strtotime($escala[0]->datahorapartida))?>" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
-                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($escala[0]->datahorachegada))?>T<?=date('H:i',strtotime($escala[0]->datahorachegada))?>" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
-                <input type="text" class="form-control form" value="<?=$escala[0]->idaeroportoorigem?>" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
-                <input type="text" class="form-control form" value="<?=$escala[0]->idaeroportodestino?>" name="IdAeroportoDestino" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
-                <input type="text" class="form-control form" value="<?=$escala[0]->idaviao?>" name="IdAviao" title="Insira o avião" placeholder="Avião" required>
-                <input type="text" class="form-control form" value="<?=$escala[0]->idvoo?>" name="IdVoo" title="Insira o voo" placeholder="Voo" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala[0]->flight_id)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$escala[0]->flightname?>" name="flightname" title="Insira o nome da escala" placeholder="Escala" required>
+                <input type="datetime-local" class="form-control form" value="<?=$escala[0]->datehourdeparture?>T<?=$escala[0]->datehourdeparture?>" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+                <input type="datetime-local" class="form-control form" value="<?=$escala[0]->datahoraarrival?>T<?=$escala[0]->datehourarrival?>" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
+                <input type="text" class="form-control form" value="<?=$escala[0]->originairport_id?>" name="originairport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
+                <input type="text" class="form-control form" value="<?=$escala[0]->destinationairport_id?>" name="destinationairport_id" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
+                <input type="text" class="form-control form" value="<?=$escala[0]->airplane_id?>" name="airplane_id" title="Insira o avião" placeholder="Avião" required>
+                <input type="text" class="form-control form" value="<?=$escala[0]->flight_id?>" name="flight_id" title="Insira o voo" placeholder="Voo" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

@@ -11,27 +11,11 @@ class FlightController extends BaseController implements ResourceControllerInter
     public function index()
     {
         if(isset($_SESSION['username'])) {
-            $voos = Flight::first();
-            \Tracy\Dumper::dump($voos->airport);
-            /*$voosModel = new Flight();
-            $voosMostrar = [];
-            foreach ($flights as $dados){
-                $voosMostrarr = [
-                    'id' => $dados->idvoo,
-                    'nomevoo' => $dados->nomevoo,
-                    'datahorapartida' => $voosModel->FormatarData($dados->datahorapartida),
-                    'datahorachegada' => $voosModel->FormatarData($dados->datahorachegada),
-                    'aeroportoorigem' => $voosModel->NomeAeroporto($dados->idaeroportoorigem),
-                    'aeroportodestino' => $voosModel->NomeAeroporto($dados->idaeroportodestino),
-                    'aviao' => $voosModel->NomeAviao($dados->idaviao),
-                    'preco' => $dados->preco
-                ];
-                array_push($voosMostrar, $voosMostrarr);
-            }
-            return View::make('flights.index', ['flights' => $voosMostrar]);
+            $voos = Flight::all();
+            return View::make('flights.index', ['voos' => $voos]);
         }else{
             Redirect::toRoute('flights/index');
-        */}
+        }
     }
 
     public function create()
