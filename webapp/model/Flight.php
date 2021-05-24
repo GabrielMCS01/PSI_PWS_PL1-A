@@ -10,8 +10,6 @@ class Flight extends Model{
         ['destination_airport', 'foreign_key' =>'destination_airport_id', 'class_name' => 'Airport']
     ];
 
-    public function FormatarData($dado){
-        return date('d/m/Y H:i', strtotime($dado));
-    }
+    static $has_many = [['scale']];
 }
 ?>

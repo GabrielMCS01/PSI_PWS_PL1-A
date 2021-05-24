@@ -70,7 +70,7 @@ a:link {
   padding-top: 20vh;
 }
 
-.card, .cardavioescreate, .cardavioes, .cardcreate {
+.card, .cardavioescreate, .cardvooscreate, .cardavioes, .cardcreate {
   width: 30.3vw;
   height: 37vh;
   background-color: rgba(26, 29, 34, 0.7);
@@ -194,7 +194,7 @@ a:link {
   padding-top: 12vh;
 }
 
-.cardavioescreate {
+.cardavioescreate, .cardvooscreate {
   height: 100%;
   padding-bottom: 13vh;
 }
@@ -213,7 +213,7 @@ th {
   text-align: center;
 }
 
-.tabelaPlace {
+.tabelaPlace, .tabelaPlaceVoos {
   height: 30vh;
   overflow-y: scroll;
 }
@@ -229,12 +229,20 @@ th {
                     VOOS
 ================================================================*/
 .cxfloatvoos {
-  margin-right: 25vw;
-  margin-left: 25vw;
+  margin-right: 20vw;
+  margin-left: 20vw;
 }
 
 .cxfloatvooscreate {
   padding-top: 2vh;
+}
+
+.cardvooscreate {
+  padding-bottom: 4vh;
+}
+
+.tabelaPlaceVoos {
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -12,14 +12,14 @@ $voos = Data::get('flights');
 ?>
 
 <div class="cxfloatvooscreate">
-    <div class="cardavioescreate">
+    <div class="cardvooscreate">
         <ul class="firstline">
             <li class="textoAdicionarAviao">Adicionar Escalas</li>
             <a href="<?=Url::toRoute('scales/index')?>">
                 <li class="veravioes">Ver Escalas</li>
             </a>
         </ul>
-        <div class="tabelaPlace">
+        <div class="tabelaPlaceVoos">
             <form class="formulario-todo" action="<?=Url::toRoute('scales/store')?>" method="post">
                 <input type="text" class="form-control form" name="flightname" title="Insira a o nome da escala" placeholder="Nome da Escala" required>
 

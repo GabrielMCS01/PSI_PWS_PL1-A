@@ -1,10 +1,20 @@
 .cxfloatvoos{
   @extend .cxfloatavioes;
-  margin-right: 25vw;
-  margin-left: 25vw;
+  margin-right: 20vw;
+  margin-left: 20vw;
 }
 
 .cxfloatvooscreate{
   @extend .cxfloatavioescreate;
   padding-top: 2vh;
+}
+
+.cardvooscreate{
+  @extend .cardavioescreate;
+  padding-bottom: 4vh;
+}
+
+.tabelaPlaceVoos{
+  @extend .tabelaPlace;
+  height: 100%;
 }

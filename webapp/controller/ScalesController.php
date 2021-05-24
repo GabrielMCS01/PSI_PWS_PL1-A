@@ -12,22 +12,7 @@ class ScalesController extends BaseController implements ResourceControllerInter
     {
         if(isset($_SESSION['username'])) {
             $escalas = Scale::all();
-            $escalasModel = new Scale();
-            $escalasMostrar = [];
-            foreach ($escalas as $dados){
-                $escalasMostrarr = [
-                    'id' => $dados->idescala,
-                    'nomevoo' =>  $dados->nomevoo,
-                    'datahorapartida' => $escalasModel->FormatarData($dados->datahorapartida),
-                    'datahorachegada' => $escalasModel->FormatarData($dados->datahorachegada),
-                    'aeroportoorigem' => $escalasModel->NomeAeroporto($dados->idaeroportoorigem),
-                    'aeroportodestino' => $escalasModel->NomeAeroporto($dados->idaeroportodestino),
-                    'aviao' => $escalasModel->NomeAviao($dados->idaviao),
-                    'voo' => $escalasModel->Voo($dados->idvoo)
-                ];
-                array_push($escalasMostrar, $escalasMostrarr);
-            }
-            return View::make('scales.index', ['scales' => $escalasMostrar]);
+            return View::make('scales.index', ['scales' => $escalas]);
         }else{
             Redirect::toRoute('scales/index');
         }

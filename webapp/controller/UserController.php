@@ -23,12 +23,12 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         $dados = [
-            'username' => Post::get('Utilizador'),
-            'fullname' => Post::get('NomeCompleto'),
-            'birthdate' => Post::get('DataNascimento'),
-            'email' => Post::get('Email'),
-            'phonenumber' => Post::get('Telefone'),
-            'userpassword' => Post::get('PasswordUtilizador'),
+            'username' => Post::get('username'),
+            'fullname' => Post::get('fullname'),
+            'birthdate' => Post::get('birthdate'),
+            'email' => Post::get('email'),
+            'phonenumber' => Post::get('phonenumber'),
+            'userpassword' => Post::get('userpassword'),
             'userprofile' => 'passageiro'
             ];
         $utilizador = new User($dados);

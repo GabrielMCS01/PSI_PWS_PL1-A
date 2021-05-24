@@ -11,14 +11,14 @@ $avioes = Data::get('airplanes');
 ?>
 
 <div class="cxfloatvooscreate">
-    <div class="cardavioescreate">
+    <div class="cardvooscreate">
         <ul class="firstline">
             <li class="textoAdicionarAviao">Adicionar Voos</li>
             <a href="<?=Url::toRoute('flights/index')?>">
                 <li class="veravioes">Ver Voos</li>
             </a>
         </ul>
-        <div class="tabelaPlace">
+        <div class="tabelaPlaceVoos">
             <form class="formulario-todo" action="<?=Url::toRoute('flights/store')?>" method="post">
 
                 <input type="text" class="form-control form" name="flightname" title="Insira o nome do voo" placeholder="Nome do Voo" required>
