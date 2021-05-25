@@ -15,13 +15,21 @@ use ArmoredCore\WebObjects\URL;
 
 <?=Layout::includeLayout('header')?>
 
-<?php $utilizadores = Data::get('users');
+<?php
+$utilizadores = Data::get('users');
+$searchbar = Data::get('searchbar');
 ?>
 
 <div class="cxfloatshowall">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Utilizadores</li>
+            <li class="textoAviao"><a href="<?=Url::toRoute('users/showall')?>">Utilizadores</a></li>
+            <li>
+                <form class="formSearch" method="post" action="<?=Url::toRoute('users/search')?>">
+                    <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
+                    <input type="submit" class="btn botaosearch" value="Procurar">
+                </form>
+            </li>
             <a href="<?=Url::toRoute('users/create')?>">
                 <li class="adicionaraviao">Adicionar Utilizador</li>
             </a>
@@ -44,7 +52,7 @@ use ArmoredCore\WebObjects\URL;
                 <?php foreach ($utilizadores as $dados){ ?>
                     <tr>
                         <td><?=$dados->fullname?></td>
-                        <td><?=$dados->birthdate?></td>
+                        <td><?=date('d/m/Y', strtotime($dados->birthdate))?></td>
                         <td><?=$dados->email?></td>
                         <td><?=$dados->phonenumber?></td>
                         <td><?=$dados->username?></td>

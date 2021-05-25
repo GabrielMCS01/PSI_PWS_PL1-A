@@ -17,6 +17,12 @@
 .textoAviao{
   @extend .textologin;
   margin-left: 0;
+  a{
+    color: $secundary-color;
+    &:hover{
+      color: $main-color;
+    }
+  }
 }
 
 .adicionaraviao{

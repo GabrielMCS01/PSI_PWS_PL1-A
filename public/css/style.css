@@ -119,7 +119,7 @@ a:link {
   margin-left: 3vw;
 }
 
-.botaosignin {
+.botaosignin, .botaosearch {
   border-radius: 0.97vw;
   background-color: #a1a1a1;
   color: #FFF;
@@ -131,6 +131,11 @@ a:link {
   float: right;
   font-family: "Roboto Condensed", sans-serif;
   padding: 0;
+}
+
+.botaosearch {
+  margin-top: 0;
+  margin-right: 0;
 }
 
 .Secondline {
@@ -165,6 +170,15 @@ a:link {
   padding-top: 5vh;
 }
 
+.formSearch {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* =================================================================
                     AVIOES
 ================================================================*/
@@ -184,6 +198,12 @@ a:link {
 
 .textoAviao {
   margin-left: 0;
+}
+.textoAviao a {
+  color: #FFF;
+}
+.textoAviao a:hover {
+  color: #a1a1a1;
 }
 
 .adicionaraviao {

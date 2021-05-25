@@ -84,6 +84,12 @@
   padding: 0;
 }
 
+.botaosearch{
+  @extend .botaosignin;
+  margin-top: 0;
+  margin-right: 0;
+}
+
 .Secondline {
   display: flex;
   justify-content: space-between;
@@ -117,4 +123,14 @@
 .cxfloatutilizadoredit{
   @extend .cxfloat;
   padding-top: 5vh;
+}
+
+.formSearch{
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
 }

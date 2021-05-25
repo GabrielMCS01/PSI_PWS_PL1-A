@@ -26,7 +26,7 @@ $utilizador = Data::get('utilizador');
             <form class="formulario-todo" action="<?=Url::toRoute('users/update', $utilizador[0]->users_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$utilizador[0]->fullname?>" name="fullname" title="Insira o seu nome" placeholder="Nome" required>
                 <input type="date" class="form-control form" value="<?=date('Y-m-d',strtotime($utilizador[0]->birthdate))?>" name="birthdate" title="Insira a sua data de nascimento" required>
-                <input type="email" class="form-control form" value="<?=$utilizador[0]->email?>" name="Email" title="Insira o seu email" placeholder="email" required>
+                <input type="email" class="form-control form" value="<?=$utilizador[0]->email?>" name="email" title="Insira o seu email" placeholder="email" required>
                 <input type="number" class="form-control form" value="<?=$utilizador[0]->phonenumber?>" name="phonenumber" title="Insira o seu telefone" placeholder="Telefone" required>
                 <input type="text" class="form-control form" value="<?=$utilizador[0]->username?>" name="username" title="Insira o seu nome de utilizador" placeholder="Username" required>
                 <input type="password" class="form-control form" value="<?=$utilizador[0]->userpassword?>" name="userpassword" title="Insira a sua password" placeholder="Password" required>

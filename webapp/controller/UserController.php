@@ -81,7 +81,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] == 'administrador') {
             $utilizadores = User::all();
-            return View::make('users.showall', ['users' => $utilizadores]);
+            return View::make('users.showall', ['users' => $utilizadores, 'searchbar' => '']);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -93,7 +93,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
             case 'passageiro':
                 $utilizadores = User::first(Post::getAll());
                 if($utilizadores != null){
-                        $_SESSION['username'] = Post::get('username');
+                    $_SESSION['username'] = Post::get('username');
                     $_SESSION['tipoUser'] = $utilizadores->userprofile;
                     Redirect::toRoute('airplanes/index');
                 }else{
@@ -106,6 +106,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 //Dumper::dump("Não é passageiro");
                 break;
         }
+    }
+
+    public function search()
+    {
+        $searching = Post::get('search');
+        $search = User::find_all_by_fullname_or_birthdate_or_email_or_phonenumber_or_username_or_userprofile($searching, date('Y-m-d', strtotime($searching)), $searching, $searching, $searching, $searching);
+        return View::make('users.showall', ['users' => $search, 'searchbar' => $searching]);
     }
 
     public function sair()
