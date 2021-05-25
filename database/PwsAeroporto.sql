@@ -25,7 +25,7 @@ Create table if not exists airplanes(
 	airplanes_id INT UNSIGNED AUTO_INCREMENT,
     airplanename varchar(100) not null,
     shippingcompany varchar(100) not null,
-	CONSTRAINT pk_airplane_airplane_id PRIMARY KEY(airplane_id)
+	CONSTRAINT pk_airplane_airplanes_id PRIMARY KEY(airplanes_id)
 )ENGINE=InnoDB;
 
 Create table if not exists flights(
@@ -40,7 +40,7 @@ Create table if not exists flights(
 	CONSTRAINT pk_flights_flights_id PRIMARY KEY(flights_id),
 	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(originairport_id) REFERENCES airports(airports_id),
 	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destinationairport_id) REFERENCES airports(airports_id),
-    CONSTRAINT fk_flights_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplane_id)
+    CONSTRAINT fk_flights_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplanes_id)
 )ENGINE=InnoDB;
 
 
@@ -56,7 +56,7 @@ Create table if not exists scales(
 	CONSTRAINT pk_scales_scales_id PRIMARY KEY(scales_id),
 	CONSTRAINT fk_scales_originairport_id FOREIGN KEY(originairport_id) REFERENCES airports(airports_id),
 	CONSTRAINT fk_scales_destinationairport_id FOREIGN KEY(destinationairport_id) REFERENCES airports(airports_id),
-    CONSTRAINT fk_scales_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplane_id),
+    CONSTRAINT fk_scales_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplanes_id),
     CONSTRAINT fk_scales_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id)
 )ENGINE=InnoDB;
 
