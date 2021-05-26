@@ -3,10 +3,24 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-
-Layout::includeLayout('header');
+switch ($_SESSION['tipoUser']) {
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    case 'passageiro':
+        Layout::includeLayout('passageiroheader');
+        break;
+    case 'gestordevoo':
+        Layout::includeLayout('header');
+        break;
+    case 'operadordecheckin':
+        Layout::includeLayout('header');
+        break;
+}
 
 $voo = Data::get('voo');
+$aeroportos = Data::get('airports');
+$avioes = Data::get('airplanes');
 ?>
 
     <div class="cxfloatvooscreate">
@@ -17,14 +31,32 @@ $voo = Data::get('voo');
                     <li class="veravioes">Ver Voos</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('flights/update', $voo[0]->flights_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$voo[0]->nomevoo?>" name="NomeVoo" title="Insira o nome do Voo" placeholder="Voo" required>
-                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo[0]->datahorapartida))?>T<?=date('H:i',strtotime($voo[0]->datahorapartida))?>" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
-                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo[0]->datahorachegada))?>T<?=date('H:i',strtotime($voo[0]->datahorachegada))?>" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->idaeroportoorigem?>" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->idaeroportodestino?>" name="IdAeroportoDestino" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->idaviao?>" name="IdAviao" title="Insira o avião" placeholder="Avião" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->preco?>" name="Preco" title="Insira o preço da viagem" placeholder="Preço" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('flights/update', $voo->flights_id)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$voo->flightname?>" name="flightname" title="Insira o nome do Voo" placeholder="Voo" required>
+                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo->datehourdeparture))?>T<?=date('H:i',strtotime($voo->datehourdeparture))?>" name="datehourdeparture" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo->datehourarrival))?>T<?=date('H:i',strtotime($voo->datehourarrival))?>" name="datehourarrival" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
+                <select class="form-control form" name="origin_airport_id" title="Insira o aeroporto de origem" required>
+                    <option disabled selected>Aeroporto de Origem</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->airports_id?>" <?=($voo->origin_airport->airports_id == $dados->airports_id)?'selected':''?>><?=$dados->airportname?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="destination_airport_id" title="Insira o aeroporto de destino" required>
+                    <option disabled selected>Aeroporto de Destino</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->airports_id?>" <?=($voo->destination_airport->airports_id == $dados->airports_id)?'selected':''?>><?=$dados->airportname?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="airplane_id" title="Insira o avião" required>
+                    <option disabled selected>Avião</option>
+                    <?php foreach ($avioes as $dados){ ?>
+                        <option value="<?=$dados->airplanes_id?>" <?=($voo->airplane->airplanes_id == $dados->airplanes_id)?'selected':''?>><?=$dados->airplanename?></option>
+                    <?php } ?>
+                </select>
+
+                <input type="text" class="form-control form" value="<?=$voo->price?>" name="price" title="Insira o preço da viagem" placeholder="Preço" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

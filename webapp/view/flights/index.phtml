@@ -11,17 +11,38 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-?>
+switch ($_SESSION['tipoUser']) {
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    case 'passageiro':
+        Layout::includeLayout('passageiroheader');
+        break;
+    case 'gestordevoo':
+        Layout::includeLayout('header');
+        break;
+    case 'operadordecheckin':
+        Layout::includeLayout('header');
+        break;
+    default:
+        Redirect::toRoute('users/index');
+        break;
+}
 
-<?=Layout::includeLayout('header')?>
-
-<?php $voos = Data::get('voos');
+$voos = Data::get('voos');
+$searchbar = Data::get('searchbar');
 ?>
 
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Voos</li>
+            <li class="textoAviao"><a href="<?=Url::toRoute('flights/index')?>">Voos</a></li>
+            <li>
+                <form class="formSearch" method="post" action="<?=Url::toRoute('flights/search')?>">
+                    <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
+                    <input type="submit" class="btn botaosearch" value="Procurar">
+                </form>
+            </li>
             <a href="<?=Url::toRoute('flights/create')?>">
                 <li class="adicionaraviao">Adicionar Voo</li>
             </a>

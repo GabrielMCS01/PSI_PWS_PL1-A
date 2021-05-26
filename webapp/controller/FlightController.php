@@ -12,7 +12,7 @@ class FlightController extends BaseController implements ResourceControllerInter
     {
         if(isset($_SESSION['username'])) {
             $voos = Flight::all();
-            return View::make('flights.index', ['voos' => $voos]);
+            return View::make('flights.index', ['voos' => $voos, 'searchbar' => '']);
         }else{
             Redirect::toRoute('flights/index');
         }
@@ -52,7 +52,8 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(isset($_SESSION['username'])) {
             $voo = Flight::first([$id]);
             $aeroportos = Airport::all();
-            return View::make('flights.edit', ['voo' => [$voo], 'airports' => [$aeroportos]]);
+            $avioes = Airplane::all();
+            return View::make('flights.edit', ['voo' => $voo, 'airports' => $aeroportos, 'airplanes' => $avioes]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -80,6 +81,18 @@ class FlightController extends BaseController implements ResourceControllerInter
         }else{
             Redirect::toRoute('users/index');
         }
+    }
+
+    public function search()
+    {
+        $searching = Post::get('search');
+        $airport = Airport::first(['airportname' => $searching]);
+        $airportid = (isset($airport))?$airport->airports_id:'';
+        $aviao = Airplane::first(['airplanename' => $searching]);
+        $aviaoid = (isset($aviao))?$aviao->airplanes_id:'';
+        $search = Flight::find_all_by_flightname_or_datehourdeparture_or_datehourarrival_or_origin_airport_id_or_destination_airport_id_or_airplane_id_or_price
+        ($searching, date('Y-m-d H:i', strtotime($searching)), date('Y-m-d H:i', strtotime($searching)), $airportid, $airportid, $aviaoid, $searching);
+        return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching]);
     }
 }
 ?>

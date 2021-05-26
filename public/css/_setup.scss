@@ -31,8 +31,14 @@ $Texto1:1rem;
   font-size:1vw;
 }
 
-a:link{
-  text-decoration: none;
+a {
+  color: $main-color !important;
+  &:link{
+    text-decoration: none;
+  }
+  &:hover{
+    color: $secundary-color !important;
+  }
 }
 
 

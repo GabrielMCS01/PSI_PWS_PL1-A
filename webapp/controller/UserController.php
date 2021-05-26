@@ -45,7 +45,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         if(isset($_SESSION['username'])) {
             $utilizador = User::first([$id]);
-            return View::make('users.edit', ['utilizador' => [$utilizador]]);
+            return View::make('users.edit', ['utilizador' => $utilizador]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -61,7 +61,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
             if($_SESSION['tipoUser'] == 'administrador') {
                 Redirect::toRoute('users/showall');
             }else{
-                Redirect::toRoute('users/perfil', ['id' => $id]);
+                Redirect::toRoute('flights/index');
             }
         }
     }
@@ -89,22 +89,29 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function login($id)
     {
-        switch($id) {
-            case 'passageiro':
-                $utilizadores = User::first(Post::getAll());
-                if($utilizadores != null){
-                    $_SESSION['username'] = Post::get('username');
-                    $_SESSION['tipoUser'] = $utilizadores->userprofile;
-                    Redirect::toRoute('airplanes/index');
-                }else{
-                    session_unset();
-                    $_SERVER['mensagem'] = "Username ou Password incorreto";
-                    return View::make('users.index');
+        if($id == 'logged') {
+            $utilizadores = User::first(Post::getAll());
+            if ($utilizadores != null) {
+                $_SESSION['username'] = Post::get('username');
+                $_SESSION['userid'] = $utilizadores->users_id;
+                $_SESSION['tipoUser'] = $utilizadores->userprofile;
+                switch ($_SESSION['tipoUser']) {
+                    case "passageiro":
+                        Redirect::toRoute('flights/index');
+                        break;
+                    case "administrador":
+                        Redirect::toRoute('airports/index');
+                        break;
                 }
-                break;
-            default:
-                //Dumper::dump("Não é passageiro");
-                break;
+            } else {
+                session_unset();
+                $_SERVER['mensagem'] = "Username ou Password incorreto";
+                return View::make('users.index');
+            }
+        }else{
+            session_unset();
+            $_SERVER['mensagem'] = "Username ou Password incorreto";
+            return View::make('users.index');
         }
     }
 
