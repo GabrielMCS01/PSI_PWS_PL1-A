@@ -9,11 +9,18 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\URL;
 
+switch ($_SESSION['tipoUser']) {
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    default:
+        Redirect::toRoute('users/index');
+        break;
+}
 ?>
-
-<?=Layout::includeLayout('header')?>
 
 <?php
 $utilizadores = Data::get('users');

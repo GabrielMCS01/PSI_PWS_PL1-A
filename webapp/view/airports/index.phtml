@@ -11,9 +11,21 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
+switch ($_SESSION['tipoUser']) {
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    case 'passageiro':
+        Layout::includeLayout('passageiroheader');
+        break;
+    case 'gestordevoo':
+        Layout::includeLayout('header');
+        break;
+    case 'operadordecheckin':
+        Layout::includeLayout('header');
+        break;
+}
 ?>
-
-<?=Layout::includeLayout('header')?>
 
 <?php $aeroportos = Data::get('airports');
 ?>
