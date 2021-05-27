@@ -17,7 +17,6 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('header');
         break;
 }
-?>
 
 $aviao = Data::get('airplane');
 ?>
@@ -30,9 +29,9 @@ $aviao = Data::get('airplane');
                     <li class="veravioes">Ver aviões</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('airplanes/update', $aviao[0]->airplanes_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$aviao[0]->airplanename?>" name="NomeAviao" title="Insira um nome para o avião" placeholder="Nome" required>
-                <input type="text" class="form-control form" value="<?=$aviao[0]->shippingcompany?>" name="Transportadora" title="Insira o nome da transportadora" placeholder="Transportadora" required>
+            <form class="formulario-todo" action="<?=Url::toRoute('airplanes/update', $aviao->airplanes_id)?>" method="post">
+                <input type="text" class="form-control form" value="<?=$aviao->airplanename?>" name="airplanename" title="Insira um nome para o avião" placeholder="Nome" required>
+                <input type="text" class="form-control form" value="<?=$aviao->shippingcompany?>" name="shippingcompany" title="Insira o nome da transportadora" placeholder="Transportadora" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

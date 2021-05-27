@@ -43,8 +43,11 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // A variável recebe os dados que foram enviados do formulário para criar o avião
             $aviao = Post::getAll();
 
-            // Cria um novo avião com os dados que foram colocados na variável e guarda o avião na Base de Dados
-            Airplane($aviao)->save();
+            // Cria um novo avião com os dados que foram colocados na variável
+            $aviao = new Airplane($aviao);
+
+            // Guarda o avião na Base de Dados
+            $aviao->save();
 
             // Redireciona o administrador para a View de Visualização de todos os aviões
             Redirect::toRoute('airplanes/index');
@@ -67,7 +70,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             $aviao = Airplane::first([$id]);
 
             // Retorna a View para editar o avião, com os dados do avião selecionado
-            return View::make('airplanes.edit', ['airplane' => [$aviao]]);
+            return View::make('airplanes.edit', ['airplane' => $aviao]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -99,8 +102,15 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // A variável recebe os atributos do Avião com o ID selecionado
             $aviao = Airplane::first([$id]);
 
-            // Apaga o avião selecionado anteriormente
-            $aviao->delete();
+            $mensagemErro = "";
+
+            if($aviao->flight == null) {
+                // Apaga o avião selecionado anteriormente
+                $aviao->delete();
+            }else{
+                \Tracy\Dumper::dump("Elimina primeiros os voos caralho!");
+                $mensagemErro = "Não foi possivel eliminar o avião porque tem voos associados.";
+            }
 
             // Retorna a View (index) para se visualizar todos os aviões
             Redirect::toRoute('airplanes/index');
