@@ -31,6 +31,7 @@ switch ($_SESSION['tipoUser']) {
 ?>
 
 <?php $avioes = Data::get('airplanes');
+//$mensagemErro = Data::get('mensagemErro');
 ?>
 
 <div class="cxfloatavioes">
@@ -62,6 +63,9 @@ switch ($_SESSION['tipoUser']) {
                 <?php } ?>
                 </tbody>
             </table>
+            <?php
+            //<?=($mensagemErro != "")?'<p class="nenhumVoo">'.$mensagemErro.'</p>':''
+            ?>
         </div>
     </div>
 </div>
