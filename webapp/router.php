@@ -31,7 +31,7 @@ Router::resource('flights', 'FlightController');
 
 Router::resource('scales', 'ScalesController');
 
-Router::resource('purchasesflights', 'PurchasesFlightController');
+Router::resource('users_flights', 'UsersflightController');
 
 
 
