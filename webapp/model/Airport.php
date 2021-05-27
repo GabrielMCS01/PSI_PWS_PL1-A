@@ -3,6 +3,7 @@
 use ActiveRecord\Model;
 
 class Airport extends Model{
+    // Um "Aeroporto" tem vários "Voos" e "Escalas"
     static $has_many = [
         //Voos
         ['origin_flight', 'foreign_key' =>'origin_airport_id', 'class_name' => 'Flight'],
