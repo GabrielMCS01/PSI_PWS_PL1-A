@@ -49,7 +49,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // Guarda o avião na Base de Dados
             $aviao->save();
 
-            // Redireciona o utilizador para a View de Visualização de todos os aviões
+            // Redireciona o administrador para a View de Visualização de todos os aviões
             Redirect::toRoute('airplanes/index');
         }else{
             Redirect::toRoute('users/index');
@@ -69,7 +69,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // A variável recebe o ID do avião que foi selecionado para ser editado
             $aviao = Airplane::first([$id]);
 
-            // Retorna a View para editar o avião, com os dados do avião
+            // Retorna a View para editar o avião, com os dados do avião selecionado
             return View::make('airplanes.edit', ['airplane' => $aviao]);
         }else{
             Redirect::toRoute('users/index');
@@ -84,7 +84,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // Recebe os dados do ID do avião que irá ser atualizado
             $aviao = Airplane::first([$id]);
 
-            // atribui os valores que são recebidos do formulário preenchido á variável e guarda na Base de dados
+            // atribui os valores que são recebidos do formulário, preenche-os na variável e guarda na Base de dados
             $aviao->update_attributes(Post::getAll());
             $aviao->save();
 
@@ -99,7 +99,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
-            // A variável recebe os valores do ID do avião
+            // A variável recebe os atributos do Avião com o ID selecionado
             $aviao = Airplane::first([$id]);
 
             if($aviao->flight == null and $aviao->scale == null) {
@@ -109,7 +109,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
                 $_SESSION['mensagemErro'] = "Não foi possivel eliminar o avião porque tem voos ou escalas associadas.";
             }
 
-            // Retorna a View para se visualizar todos os aviões
+            // Retorna a View (index) para se visualizar todos os aviões
             Redirect::toRoute('airplanes/index');
         }else{
             Redirect::toRoute('users/index');

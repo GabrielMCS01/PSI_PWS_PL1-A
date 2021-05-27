@@ -33,13 +33,13 @@ Create table if not exists flights(
     flightname varchar(100) not null,
     datehourdeparture datetime not null,
     datehourarrival datetime not null,
-    originairport_id int UNSIGNED not null,
-	destinationairport_id int UNSIGNED not null,
+    origin_airport_id int UNSIGNED not null,
+	destination_airport_id int UNSIGNED not null,
     airplane_id int UNSIGNED not null,
     price int UNSIGNED not null,
 	CONSTRAINT pk_flights_flights_id PRIMARY KEY(flights_id),
-	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(originairport_id) REFERENCES airports(airports_id),
-	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destinationairport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(origin_airport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destination_airport_id) REFERENCES airports(airports_id),
     CONSTRAINT fk_flights_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplanes_id)
 )ENGINE=InnoDB;
 
@@ -61,16 +61,19 @@ Create table if not exists scales(
 )ENGINE=InnoDB;
 
 
-Create table if not exists purchasesflights(
-purchasesflights_id INT UNSIGNED AUTO_INCREMENT,
+Create table if not exists users_flights(
+users_flights_id INT UNSIGNED AUTO_INCREMENT,
 client_id int UNSIGNED not null,
 flight_id int UNSIGNED not null,
+flight_back_id int UNSIGNED,
 price int not null,
 purchasedate datetime not null,
 planeplace varchar(100) not null,
-CONSTRAINT pk_purchasesflights_purchasesflights_id PRIMARY KEY(purchasesflights_id),
-CONSTRAINT fk_purchasesflights_client_id FOREIGN KEY(client_id) REFERENCES users(users_id),
-CONSTRAINT fk_purchasesflights_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id)
+checkin bool default false,
+CONSTRAINT pk_users_flights_users_flights_id_id PRIMARY KEY(users_flights_id),
+CONSTRAINT fk_users_flights_client_id FOREIGN KEY(client_id) REFERENCES users(users_id),
+CONSTRAINT fk_users_flights_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id),
+CONSTRAINT fk_users_flights_flight_back_id FOREIGN KEY(flight_back_id) REFERENCES flights(flights_id)
 )ENGINE=InnoDB;
 
 INSERT INTO users
