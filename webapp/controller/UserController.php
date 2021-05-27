@@ -118,7 +118,16 @@ class UserController extends BaseController implements ResourceControllerInterfa
     public function search()
     {
         $searching = Post::get('search');
-        $search = User::find_all_by_fullname_or_birthdate_or_email_or_phonenumber_or_username_or_userprofile($searching, date('Y-m-d', strtotime($searching)), $searching, $searching, $searching, $searching);
+
+        $search = User::find('all', array('conditions' =>
+            "fullname LIKE '%$searching%' OR 
+            birthdate LIKE '%$searching%' OR
+            email LIKE '%$searching%' OR 
+            phonenumber LIKE '%$searching%' OR
+            username LIKE '%$searching%' OR
+            userprofile LIKE '%$searching%'
+            "));
+
         return View::make('users.showall', ['users' => $search, 'searchbar' => $searching]);
     }
 

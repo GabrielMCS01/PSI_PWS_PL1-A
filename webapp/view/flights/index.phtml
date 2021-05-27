@@ -31,7 +31,9 @@ switch ($_SESSION['tipoUser']) {
 
 $voos = Data::get('voos');
 $searchbar = Data::get('searchbar');
+
 ?>
+
 
 <div class="cxfloatvoos">
     <div class="cardavioes">
@@ -78,6 +80,7 @@ $searchbar = Data::get('searchbar');
                 <?php } ?>
                 </tbody>
             </table>
+            <?=(empty($voos))?'<p class="nenhumVoo">Nenhum voo encontrado</p>':''?>
         </div>
     </div>
 </div>
