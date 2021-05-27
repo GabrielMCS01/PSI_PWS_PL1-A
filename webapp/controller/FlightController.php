@@ -19,7 +19,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             // Retorna a View com a variável com todos os Voos
             return View::make('flights.index', ['voos' => $voos, 'searchbar' => '']);
         }else{
-            Redirect::toRoute('flights/index');
+            Redirect::toRoute('users/index');
         }
     }
 
@@ -122,15 +122,17 @@ class FlightController extends BaseController implements ResourceControllerInter
 
     public function search()
     {
-        $searching = Post::get('search');
+        if(isset($_SESSION['username'])) {
 
-        $airport = Airport::first(['airportname' => $searching]);
-        $airportid = (isset($airport))?$airport->airports_id:'';
-        $aviao = Airplane::first(['airplanename' => $searching]);
-        $aviaoid = (isset($aviao))?$aviao->airplanes_id:'';
+            $searching = Post::get('search');
 
-        $search = Flight::find('all', array('conditions' =>
-            "flightname LIKE '%$searching%' OR 
+            $airport = Airport::first(['airportname' => $searching]);
+            $airportid = (isset($airport)) ? $airport->airports_id : '';
+            $aviao = Airplane::first(['airplanename' => $searching]);
+            $aviaoid = (isset($aviao)) ? $aviao->airplanes_id : '';
+
+            $search = Flight::find('all', array('conditions' =>
+                "flightname LIKE '%$searching%' OR 
             datehourdeparture LIKE '%$searching%' OR
             datehourarrival LIKE '%$searching%' OR 
             origin_airport_id = '$airportid' OR
@@ -138,7 +140,10 @@ class FlightController extends BaseController implements ResourceControllerInter
             airplane_id = '$aviaoid' OR
             price LIKE '%$searching%'
             "));
-        return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching]);
+            return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching]);
+        }else{
+            Redirect::toRoute('users/index');
+        }
     }
 }
 ?>

@@ -31,12 +31,19 @@ switch ($_SESSION['tipoUser']) {
 ?>
 
 <?php $avioes = Data::get('airplanes');
+$searchbar = Data::get('searchbar');
 ?>
 
-<div class="cxfloatavioes">
+<div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Aviões</li>
+            <li class="textoAviao"><a href="<?=Url::toRoute('airplanes/index')?>">Aviões</a></li>
+            <li>
+                <form class="formSearch" method="post" action="<?=Url::toRoute('airplanes/search')?>">
+                    <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
+                    <input type="submit" class="btn botaosearch" value="Procurar">
+                </form>
+            </li>
             <a href="<?=Url::toRoute('airplanes/create')?>">
                 <li class="adicionaraviao">Adicionar avião</li>
             </a>
@@ -57,14 +64,21 @@ switch ($_SESSION['tipoUser']) {
                         <td><?=$dados->airplanename?></td>
                         <td><?=$dados->shippingcompany?></td>
                         <td><a href="<?=Url::toRoute('airplanes/edit', $dados->airplanes_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                        <td><a href="<?=Url::toRoute('airplanes/destroy', $dados->airplanes_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <td><a href="<?=Url::toRoute('airplanes/destroy', $dados->airplanes_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="30"></a></td>
                     </tr>
                 <?php } ?>
                 </tbody>
             </table>
-            <?=(isset($_SESSION['mensagemErro']))?'<p class="nenhumVoo">'.$_SESSION['mensagemErro'].'</p>':''?>
-            <?php unset($_SESSION['mensagemErro']); ?>
+
+            <!--Mensagem de nenhum avião encontrado-->
+            <?=(empty($avioes))?'<p class="nenhumVoo">Nenhum avião encontrado</p>':''?>
+
         </div>
+
+        <!--Mensagem de erro ao tentar eliminar chaves estrangeiras-->
+        <?=(isset($_SESSION['mensagemErro']))?'<p class="nenhumVoo">'.$_SESSION['mensagemErro'].'</p>':''?>
+        <?php unset($_SESSION['mensagemErro']); ?>
+
     </div>
 </div>
 

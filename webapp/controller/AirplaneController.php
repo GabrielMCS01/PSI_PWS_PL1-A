@@ -6,19 +6,20 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class AirplaneController extends BaseController implements ResourceControllerInterface{
+class AirplaneController extends BaseController implements ResourceControllerInterface
+{
 
     // Função que retorna a View para visualizar todos os aviões
     public function index()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe todos os aviões existentes
             $avioes = Airplane::all();
 
             // Retorna a View com a variável com todos os aviões
-            return View::make('airplanes.index', ['airplanes' => $avioes]);
-        }else{
+            return View::make('airplanes.index', ['airplanes' => $avioes, 'searchbar' => '']);
+        } else {
             Redirect::toRoute('users/index');
         }
     }
@@ -27,10 +28,10 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     public function create()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // Retorna a View com o formulário para o Administrador preencher com os dados do avião
             return View::make('airplanes.create');
-        }else{
+        } else {
             Redirect::toRoute('users/index');
         }
     }
@@ -39,7 +40,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     public function store()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os dados que foram enviados do formulário para criar o avião
             $aviao = Post::getAll();
 
@@ -51,7 +52,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
             // Redireciona o administrador para a View de Visualização de todos os aviões
             Redirect::toRoute('airplanes/index');
-        }else{
+        } else {
             Redirect::toRoute('users/index');
         }
     }
@@ -65,13 +66,13 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     public function edit($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os atributos do avião com o ID que foi selecionado para ser editado
             $aviao = Airplane::first([$id]);
 
             // Retorna a View para editar o avião, com os dados do avião selecionado
             return View::make('airplanes.edit', ['airplane' => $aviao]);
-        }else{
+        } else {
             Redirect::toRoute('users/index');
         }
     }
@@ -80,7 +81,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     public function update($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // Recebe os dados do ID do avião que irá ser atualizado
             $aviao = Airplane::first([$id]);
 
@@ -90,7 +91,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
             // Retorna a View para se visualizar todos os aviões
             Redirect::toRoute('airplanes/index');
-        }else{
+        } else {
             Redirect::toRoute('users/index');
         }
     }
@@ -98,20 +99,36 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     public function destroy($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os atributos do Avião com o ID selecionado
             $aviao = Airplane::first([$id]);
 
-            if($aviao->flight == null and $aviao->scale == null) {
+            if ($aviao->flight == null and $aviao->scale == null) {
                 // Apaga o avião selecionado anteriormente
                 $aviao->delete();
-            }else{
+            } else {
                 $_SESSION['mensagemErro'] = "Não foi possivel eliminar o avião porque tem voos ou escalas associadas.";
             }
 
             // Retorna a View (index) para se visualizar todos os aviões
             Redirect::toRoute('airplanes/index');
-        }else{
+        } else {
+            Redirect::toRoute('users/index');
+        }
+    }
+
+    public function search()
+    {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
+            $searching = Post::get('search');
+
+            $search = Airplane::find('all', array('conditions' =>
+                "airplanename LIKE '%$searching%' OR 
+                shippingcompany LIKE '%$searching%'
+                "));
+            return View::make('airplanes.index', ['airplanes' => $search, 'searchbar' => $searching]);
+        } else {
             Redirect::toRoute('users/index');
         }
     }

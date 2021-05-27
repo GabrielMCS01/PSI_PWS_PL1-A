@@ -28,12 +28,19 @@ switch ($_SESSION['tipoUser']) {
 ?>
 
 <?php $aeroportos = Data::get('airports');
+$searchbar = Data::get('searchbar');
 ?>
 
-<div class="cxfloatavioes">
+<div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Aeroportos</li>
+            <li class="textoAviao"><a href="<?=Url::toRoute('airports/index')?>">Aeroportos</a></li>
+            <li>
+                <form class="formSearch" method="post" action="<?=Url::toRoute('airports/search')?>">
+                    <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
+                    <input type="submit" class="btn botaosearch" value="Procurar">
+                </form>
+            </li>
             <a href="<?=Url::toRoute('airports/create')?>">
                 <li class="adicionaraviao">Adicionar Aeroporto</li>
             </a>
@@ -61,7 +68,16 @@ switch ($_SESSION['tipoUser']) {
                 <?php } ?>
                 </tbody>
             </table>
+
+            <!--Mensagem de nenhum avião encontrado-->
+            <?=(empty($aeroportos))?'<p class="nenhumVoo">Nenhum aeroporto encontrado</p>':''?>
+
         </div>
+
+        <!--Mensagem de erro ao tentar eliminar chaves estrangeiras-->
+        <?=(isset($_SESSION['mensagemErro']))?'<p class="nenhumVoo">'.$_SESSION['mensagemErro'].'</p>':''?>
+        <?php unset($_SESSION['mensagemErro']); ?>
+
     </div>
 </div>
 

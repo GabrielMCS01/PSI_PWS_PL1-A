@@ -12,12 +12,12 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function index()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe todos os aeroportos existentes
             $aeroportos = Airport::all();
 
             // Retorna a View com a variável com todos os Aeroportos
-            return View::make('airports.index', ['airports' => $aeroportos]);
+            return View::make('airports.index', ['airports' => $aeroportos, 'searchbar' => '']);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -27,7 +27,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function create()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // Retorna a View com o formulário para o Administrador preencher com os dados do Aeroporto
             return View::make('airports.create');
         }else{
@@ -39,7 +39,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function store()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os dados que foram enviados do formulário para criar o Aeroporto
             $aeroporto = Post::getAll();
 
@@ -63,7 +63,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function edit($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os atributos do Aeroporto com o ID que foi selecionado para ser editado
             $aeroporto = Airport::first([$id]);
 
@@ -78,7 +78,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function update($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // Recebe os dados do ID do Aeroporto que irá ser atualizado
             $aeroporto = Airport::first([$id]);
 
@@ -96,7 +96,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function destroy($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os atributos do Aeroporto com o ID selecionado
             $aeroporto = Airport::first([$id]);
 
@@ -106,6 +106,23 @@ class AirportController extends BaseController implements ResourceControllerInte
             // Redireciona o administrador para a View (index) de Visualização de todos os Aeroportos
             Redirect::toRoute('airports/index');
         }else{
+            Redirect::toRoute('users/index');
+        }
+    }
+
+    public function search()
+    {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
+        if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
+            $searching = Post::get('search');
+
+            $search = Airport::find('all', array('conditions' =>
+                "airportname LIKE '%$searching%' OR 
+                country LIKE '%$searching%' OR
+                city LIKE '%$searching%'
+                "));
+            return View::make('airports.index', ['airports' => $search, 'searchbar' => $searching]);
+        } else {
             Redirect::toRoute('users/index');
         }
     }
