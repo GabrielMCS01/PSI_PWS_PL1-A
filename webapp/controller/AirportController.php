@@ -48,7 +48,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     {
         if(isset($_SESSION['username'])) {
             $aeroporto = Airport::first([$id]);
-            return View::make('airports.edit', ['aeroporto' => [$aeroporto]]);
+            return View::make('airports.edit', ['aeroporto' => $aeroporto]);
         }else{
             Redirect::toRoute('users/index');
         }
