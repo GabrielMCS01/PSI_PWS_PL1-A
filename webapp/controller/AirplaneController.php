@@ -35,7 +35,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         }
     }
 
-    // Função que cria o avião e guarda na Base de dados
+    // Função que cria o avião e guarda-o na Base de dados
     public function store()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
@@ -66,7 +66,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
-            // A variável recebe o ID do avião que foi selecionado para ser editado
+            // A variável recebe os atributos do avião com o ID que foi selecionado para ser editado
             $aviao = Airplane::first([$id]);
 
             // Retorna a View para editar o avião, com os dados do avião selecionado
