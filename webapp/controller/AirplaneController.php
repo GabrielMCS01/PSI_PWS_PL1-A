@@ -102,14 +102,11 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // A variável recebe os valores do ID do avião
             $aviao = Airplane::first([$id]);
 
-            $mensagemErro = "";
-
-            if($aviao->flight == null) {
+            if($aviao->flight == null and $aviao->scale == null) {
                 // Apaga o avião selecionado anteriormente
                 $aviao->delete();
             }else{
-                \Tracy\Dumper::dump("Elimina primeiros os voos caralho!");
-                $mensagemErro = "Não foi possivel eliminar o avião porque tem voos associados.";
+                $_SESSION['mensagemErro'] = "Não foi possivel eliminar o avião porque tem voos ou escalas associadas.";
             }
 
             // Retorna a View para se visualizar todos os aviões

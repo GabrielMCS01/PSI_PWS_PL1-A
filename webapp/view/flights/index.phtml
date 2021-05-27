@@ -82,6 +82,8 @@ $searchbar = Data::get('searchbar');
             </table>
             <?=(empty($voos))?'<p class="nenhumVoo">Nenhum voo encontrado</p>':''?>
         </div>
+        <?=(isset($_SESSION['mensagemErro']))?'<p class="nenhumVoo">'.$_SESSION['mensagemErro'].'</p>':''?>
+        <?php unset($_SESSION['mensagemErro']); ?>
     </div>
 </div>
 
