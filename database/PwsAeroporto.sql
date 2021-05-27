@@ -61,8 +61,8 @@ Create table if not exists scales(
 )ENGINE=InnoDB;
 
 
-Create table if not exists purchasesflights(
-purchasesflights_id INT UNSIGNED AUTO_INCREMENT,
+Create table if not exists users_flights(
+users_flights_id INT UNSIGNED AUTO_INCREMENT,
 client_id int UNSIGNED not null,
 flight_id int UNSIGNED not null,
 flight_back_id int UNSIGNED,
@@ -70,10 +70,10 @@ price int not null,
 purchasedate datetime not null,
 planeplace varchar(100) not null,
 checkin bool default false,
-CONSTRAINT pk_purchasesflights_purchasesflights_id PRIMARY KEY(purchasesflights_id),
-CONSTRAINT fk_purchasesflights_client_id FOREIGN KEY(client_id) REFERENCES users(users_id),
-CONSTRAINT fk_purchasesflights_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id),
-CONSTRAINT fk_purchasesflights_flight_back_id FOREIGN KEY(flight_back_id) REFERENCES flights(flights_id)
+CONSTRAINT pk_users_flights_users_flights_id_id PRIMARY KEY(users_flights_id),
+CONSTRAINT fk_users_flights_client_id FOREIGN KEY(client_id) REFERENCES users(users_id),
+CONSTRAINT fk_users_flights_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id),
+CONSTRAINT fk_users_flights_flight_back_id FOREIGN KEY(flight_back_id) REFERENCES flights(flights_id)
 )ENGINE=InnoDB;
 
 INSERT INTO users
