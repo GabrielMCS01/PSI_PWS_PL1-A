@@ -108,7 +108,12 @@ class FlightController extends BaseController implements ResourceControllerInter
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $voo = Flight::first([$id]);
-            $voo->delete();
+
+            if($voo->scale == null) {
+                $voo->delete();
+            }else{
+                $_SESSION['mensagemErro'] = "Não foi possivel eliminar o voo porque tem escalas associadas.";
+            }
             Redirect::toRoute('flights/index');
         }else{
             Redirect::toRoute('users/index');

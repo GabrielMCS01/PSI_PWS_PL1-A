@@ -6,7 +6,7 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
-class PurchasesFlightController extends BaseController implements ResourceControllerInterface{
+class Users_flightController extends BaseController implements ResourceControllerInterface{
 
     public function index()
     {
@@ -41,9 +41,9 @@ class PurchasesFlightController extends BaseController implements ResourceContro
     public function show($id)
     {
         if(isset($_SESSION['username'])) {
-            $compra = Purchasesflight::first([$id]);
+            $compra = Usersflight::first([$id]);
 
-            return View::make('purchasesflights.show', ['compra' => $compra]);
+            return View::make('users_flights.show', ['compra' => $compra]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -52,10 +52,10 @@ class PurchasesFlightController extends BaseController implements ResourceContro
     public function edit($id)
     {
         if(isset($_SESSION['username'])) {
-            $compra = Purchasesflight::first([$id]);
+            $compra = Usersflight::first([$id]);
 
             $aeroportos = Airport::all();
-            return View::make('purchasesflights.edit', ['compra' => [$compra], 'airports' => [$aeroportos]]);
+            return View::make('users_flights.edit', ['compra' => [$compra], 'airports' => [$aeroportos]]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -68,7 +68,7 @@ class PurchasesFlightController extends BaseController implements ResourceContro
             $voo = Flight::first([$id]);
             $voo->update_attributes(Post::getAll());
             $voo->save();
-            Redirect::toRoute('purchasesflights/index');
+            Redirect::toRoute('users_flights/index');
         }else{
             Redirect::toRoute('users/index');
         }
@@ -81,7 +81,7 @@ class PurchasesFlightController extends BaseController implements ResourceContro
             $compra = Airport::first([$id]);
             $compra->delete();
 
-            Redirect::toRoute('purchasesflights/index');
+            Redirect::toRoute('users_flights/index');
         }else{
             Redirect::toRoute('users/index');
         }

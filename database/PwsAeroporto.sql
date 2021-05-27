@@ -33,13 +33,13 @@ Create table if not exists flights(
     flightname varchar(100) not null,
     datehourdeparture datetime not null,
     datehourarrival datetime not null,
-    originairport_id int UNSIGNED not null,
-	destinationairport_id int UNSIGNED not null,
+    origin_airport_id int UNSIGNED not null,
+	destination_airport_id int UNSIGNED not null,
     airplane_id int UNSIGNED not null,
     price int UNSIGNED not null,
 	CONSTRAINT pk_flights_flights_id PRIMARY KEY(flights_id),
-	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(originairport_id) REFERENCES airports(airports_id),
-	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destinationairport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(origin_airport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destination_airport_id) REFERENCES airports(airports_id),
     CONSTRAINT fk_flights_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplanes_id)
 )ENGINE=InnoDB;
 
