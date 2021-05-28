@@ -47,7 +47,6 @@ Create table if not exists flights(
 Create table if not exists scales(
 	scales_id INT UNSIGNED AUTO_INCREMENT,
 	flightname varchar(100) not null,
-    datehourdeparture datetime not null,
     datehourarrival datetime not null,
 	airport_id int UNSIGNED not null,
     airplane_id int UNSIGNED not null,
