@@ -26,18 +26,17 @@ $voos = Data::get('flights');
 <div class="cxfloatvooscreate">
     <div class="cardvooscreate">
         <ul class="firstline">
-            <li class="textoAdicionarAviao">Adicionar Escalas</li>
+            <li class="textoAdicionarAviao">Adicionar Escalas ao voo <?=$voos->flightname?></li>
             <a href="<?=Url::toRoute('scales/index')?>">
                 <li class="veravioes">Ver Escalas</li>
             </a>
         </ul>
         <div class="tabelaPlaceVoos">
-            <form class="formulario-todo" action="<?=Url::toRoute('scales/store')?>" method="post">
+            <form class="formulario-todo" action="<?=Url::toRoute('scales/storefromvoo', $voos->flights_id)?>" method="post">
+
                 <input type="text" class="form-control form" name="flightname" title="Insira a o nome da escala" placeholder="Nome da Escala" required>
 
-                <input type="datetime-local" class="form-control form" name="datehourdeparture" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
-
-                <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
+                <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
 
                 <select class="form-control form" name="airport_id" title="Insira o aeroporto de paragem" required>
                     <option disabled selected>Aeroporto de Paragem</option>
@@ -47,16 +46,9 @@ $voos = Data::get('flights');
                 </select>
 
                 <select class="form-control form" name="airplane_id" title="Insira o avião" required>
-                    <option disabled selected>Avião</option>
+                    <option disabled selected>Avião de Partida</option>
                     <?php foreach ($avioes as $dados){ ?>
                         <option value="<?=$dados->airplanes_id?>"><?=$dados->airplanename?></option>
-                    <?php } ?>
-                </select>
-
-                <select class="form-control form" name="flight_id" title="Insira o voo" required>
-                    <option disabled selected>Voo</option>
-                    <?php foreach ($voos as $dados){ ?>
-                        <option value="<?=$dados->flights_id?>"><?=$dados->flightname?></option>
                     <?php } ?>
                 </select>
 

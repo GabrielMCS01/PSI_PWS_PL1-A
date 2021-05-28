@@ -27,16 +27,18 @@ switch ($_SESSION['tipoUser']) {
 }
 ?>
 
-<?php $escalas = Data::get('scales');
+<?php
+$escalas = Data::get('scales');
+$voo = Data::get('voo');
 ?>
 
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Escalas</li>
+            <li class="textoAviao">Escalas do voo <?=$voo->flightname?></li>
 
             <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
-                <a href="<?=Url::toRoute('scales/create')?>">
+                <a href="<?=Url::toRoute('scales/createfromvoo', $voo->flights_id)?>">
                     <li class="adicionaraviao">Adicionar Escala</li>
                 </a>
             <?php }else{ ?>
@@ -51,7 +53,6 @@ switch ($_SESSION['tipoUser']) {
                 <thead>
                 <tr>
                     <th scope="col">Escala</th>
-                    <th scope="col">Data de Partida</th>
                     <th scope="col">Data de Chegada</th>
                     <th scope="col">Aeroporto de Paragem</th>
                     <th scope="col">Avião</th>
@@ -69,7 +70,6 @@ switch ($_SESSION['tipoUser']) {
                 <?php foreach ($escalas as $dados){ ?>
                     <tr>
                         <td><?=$dados->flightname?></td>
-                        <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
                         <td><?=$dados->airport->airportname?></td>
                         <td><?=$dados->airplane->airplanename?></td>

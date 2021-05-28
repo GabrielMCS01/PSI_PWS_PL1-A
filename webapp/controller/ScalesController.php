@@ -48,7 +48,8 @@ class ScalesController extends BaseController implements ResourceControllerInter
     {
         if(isset($_SESSION['username'])) {
              $escalas = Scale::all(['flight_id' => $id]);
-             return View::make('scales.index', ['scales' => $escalas]);
+             $voo = Flight::first($id);
+             return View::make('scales.index', ['scales' => $escalas, 'voo' => $voo]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -83,6 +84,32 @@ class ScalesController extends BaseController implements ResourceControllerInter
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
             $escala->delete();
+            Redirect::toRoute('scales/index');
+        }else{
+            Redirect::toRoute('users/index');
+        }
+    }
+
+    public function createfromvoo($vooid)
+    {
+        if(isset($_SESSION['username'])) {
+            $aeroportos = Airport::all();
+            $avioes = Airplane::all();
+            $flights = Flight::first($vooid);
+            return View::make('scales.create', ['airports' => $aeroportos, 'airplanes' => $avioes, 'flights' => $flights]);
+        }else{
+            Redirect::toRoute('users/index');
+        }
+    }
+
+    public function storefromvoo($vooid)
+    {
+        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
+        if(isset($_SESSION['username'])) {
+            $escala = Post::getAll();
+            $escala['flight_id'] = $vooid;
+            $escalas = new Scale($escala);
+            $escalas->save();
             Redirect::toRoute('scales/index');
         }else{
             Redirect::toRoute('users/index');
