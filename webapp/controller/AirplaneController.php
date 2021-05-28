@@ -119,14 +119,18 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
     public function search()
     {
-        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
+        // Se tiver sessão iniciada e se o "USER" logado não for um Passageiro, faz caso contrário é redirecionado para a página de Login
         if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
+            // Recebe o que estava escrito na Pesquisa
             $searching = Post::get('search');
 
+            // Pesquisa todos por
             $search = Airplane::find('all', array('conditions' =>
                 "airplanename LIKE '%$searching%' OR 
                 shippingcompany LIKE '%$searching%'
                 "));
+
+            // Retorna a View com os argumentos de procura
             return View::make('airplanes.index', ['airplanes' => $search, 'searchbar' => $searching]);
         } else {
             Redirect::toRoute('users/index');

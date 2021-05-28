@@ -88,15 +88,21 @@ class FlightController extends BaseController implements ResourceControllerInter
         }
     }
 
+    // Função que recebe e atualiza os dados do Voo editado na View edit
     public function update($id)
     {
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
 
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
+            // Recebe os dados do ID do Voo que irá ser atualizado
             $voo = Flight::first([$id]);
+
+            // atribui os valores que são recebidos do formulário, preenche-os na variável e guarda na Base de dados
             $voo->update_attributes(Post::getAll());
             $voo->save();
+
+            // Retorna a View para se visualizar todos os Voos
             Redirect::toRoute('flights/index');
         }else{
             Redirect::toRoute('users/index');
@@ -107,13 +113,17 @@ class FlightController extends BaseController implements ResourceControllerInter
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
+            // A variável recebe os atributos do Voo com o ID selecionado
             $voo = Flight::first([$id]);
 
+            // Se o Voo não tiver escalas associadas faz
             if($voo->scale == null) {
                 $voo->delete();
-            }else{
+            }else{ // Caso contrário manda uma mensagem de erro
                 $_SESSION['mensagemErro'] = "Não foi possivel eliminar o voo porque tem escalas associadas.";
             }
+
+            // Redireciona o utilizador para a View que visualiza todos os Voos
             Redirect::toRoute('flights/index');
         }else{
             Redirect::toRoute('users/index');
@@ -122,15 +132,18 @@ class FlightController extends BaseController implements ResourceControllerInter
 
     public function search()
     {
+        // Se tiver sessão iniciada, faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
-
+            // Recebe o que estava escrito na Pesquisa
             $searching = Post::get('search');
 
+            // ???
             $airport = Airport::first(['airportname' => $searching]);
             $airportid = (isset($airport)) ? $airport->airports_id : '';
             $aviao = Airplane::first(['airplanename' => $searching]);
             $aviaoid = (isset($aviao)) ? $aviao->airplanes_id : '';
 
+            // Pesquisa todos por
             $search = Flight::find('all', array('conditions' =>
                 "flightname LIKE '%$searching%' OR 
             datehourdeparture LIKE '%$searching%' OR
@@ -140,6 +153,8 @@ class FlightController extends BaseController implements ResourceControllerInter
             airplane_id = '$aviaoid' OR
             price LIKE '%$searching%'
             "));
+
+            // Retorna a View com os argumentos de procura
             return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching]);
         }else{
             Redirect::toRoute('users/index');
