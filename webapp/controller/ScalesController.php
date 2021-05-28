@@ -43,6 +43,7 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    // Este id corresponde ao id do voo
     public function show($id)
     {
         if(isset($_SESSION['username'])) {
@@ -58,7 +59,7 @@ class ScalesController extends BaseController implements ResourceControllerInter
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
             $aeroportos = Airport::all();
-            return View::make('scales.edit', ['escala' => [$escala], 'airports' => [$aeroportos]]);
+            return View::make('scales.edit', ['escala' => $escala, 'airports' => [$aeroportos]]);
         }else{
             Redirect::toRoute('users/index');
         }

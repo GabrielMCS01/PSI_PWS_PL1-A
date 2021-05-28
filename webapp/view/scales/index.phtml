@@ -53,8 +53,7 @@ switch ($_SESSION['tipoUser']) {
                     <th scope="col">Escala</th>
                     <th scope="col">Data de Partida</th>
                     <th scope="col">Data de Chegada</th>
-                    <th scope="col">Aeroporto de Origem</th>
-                    <th scope="col">Aeroporto de Chegada</th>
+                    <th scope="col">Aeroporto de Paragem</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Voo</th>
 
@@ -72,8 +71,7 @@ switch ($_SESSION['tipoUser']) {
                         <td><?=$dados->flightname?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
-                        <td><?=$dados->origin_airport->airportname?></td>
-                        <td><?=$dados->destination_airport->airportname?></td>
+                        <td><?=$dados->airport->airportname?></td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->flight->flightname?></td>
 
