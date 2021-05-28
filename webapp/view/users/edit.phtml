@@ -29,6 +29,7 @@ $utilizador = Data::get('utilizador');
         <div class="cardavioescreate">
             <ul class="firstline">
                 <li class="textoAdicionarAviao">Alterar Utilizador</li>
+
                 <?php if($_SESSION['tipoUser'] == 'administrador'){ ?>
                     <a href="<?=Url::toRoute('users/showall')?>">
                         <li class="veravioes">Ver utilizadores</li>
@@ -38,6 +39,7 @@ $utilizador = Data::get('utilizador');
                         <li class="veravioes">Voltar</li>
                     </a>
                 <?php } ?>
+
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('users/update', $utilizador->users_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$utilizador->fullname?>" name="fullname" title="Insira o seu nome" placeholder="Nome" required>

@@ -34,9 +34,17 @@ switch ($_SESSION['tipoUser']) {
     <div class="cardavioes">
         <ul class="firstline">
             <li class="textoAviao">Escalas</li>
-            <a href="<?=Url::toRoute('scales/create')?>">
-                <li class="adicionaraviao">Adicionar Escala</li>
-            </a>
+
+            <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                <a href="<?=Url::toRoute('scales/create')?>">
+                    <li class="adicionaraviao">Adicionar Escala</li>
+                </a>
+            <?php }else{ ?>
+                <a href="<?=Url::toRoute('flights/index')?>">
+                    <li class="adicionaraviao">Voltar</li>
+                </a>
+            <?php }?>
+
         </ul>
         <div class="tabelaPlace">
             <table class="table table-hover">
@@ -49,8 +57,13 @@ switch ($_SESSION['tipoUser']) {
                     <th scope="col">Aeroporto de Chegada</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Voo</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+
+                    <!--Tirar a opção ao passageiro de poder alterar os voos-->
+                    <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    <?php }?>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -63,8 +76,13 @@ switch ($_SESSION['tipoUser']) {
                         <td><?=$dados->destination_airport->airportname?></td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->flight->flightname?></td>
-                        <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                        <td><a href="<?=Url::toRoute('scales/destroy', $dados->scales_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+
+                        <!--Tirar a opção ao passageiro de poder alterar os voos-->
+                        <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                            <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                            <td><a href="<?=Url::toRoute('scales/destroy', $dados->scales_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <?php }?>
+
                     </tr>
                 <?php } ?>
                 </tbody>

@@ -10,7 +10,7 @@ class ScalesController extends BaseController implements ResourceControllerInter
 
     public function index()
     {
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) ) {
             $escalas = Scale::all();
             return View::make('scales.index', ['scales' => $escalas]);
         }else{
@@ -45,7 +45,12 @@ class ScalesController extends BaseController implements ResourceControllerInter
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        if(isset($_SESSION['username'])) {
+             $escalas = Scale::all(['flight_id' => $id]);
+             return View::make('scales.index', ['scales' => $escalas]);
+        }else{
+            Redirect::toRoute('users/index');
+        }
     }
 
     public function edit($id)
