@@ -8,8 +8,10 @@ use ArmoredCore\WebObjects\View;
 
 class ScalesController extends BaseController implements ResourceControllerInterface{
 
+    // Função que retorna a View para visualizar todas as escalas
     public function index()
     {
+        // Se tiver sessão inciada retorna todas as escalas, caso contrário redireciona para a página escalas
         if(isset($_SESSION['username']) ) {
             $escalas = Scale::all();
             return View::make('scales.index', ['scales' => $escalas]);
@@ -18,8 +20,10 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que retorna a view create das escalas
     public function create()
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $aeroportos = Airport::all();
             $avioes = Airplane::all();
@@ -30,8 +34,12 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+
+    //Função que faz a inserçãp de dados das escalas na base de dados
     public function store()
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
+        //Utilização do active record para fazer a inserção de dados
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $escala = Post::getAll();
@@ -43,9 +51,11 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que mostra uma escala consoante a escala escolhida através do seu ID
     // Este id corresponde ao id do voo
     public function show($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
              $escalas = Scale::all(['flight_id' => $id]);
              $voo = Flight::first($id);
@@ -55,8 +65,10 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que edita uma escala escolhida através do seu ID
     public function edit($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
             $aeroportos = Airport::all();
@@ -66,8 +78,10 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que permite ao user atualizar dados de uma dada escala
     public function update($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
@@ -79,8 +93,10 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que apaga uma dada escala escolhida pelo user
     public function destroy($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
             $escala->delete();
@@ -90,8 +106,10 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que permite criar uma escala através de um voo
     public function createfromvoo($vooid)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $aeroportos = Airport::all();
             $avioes = Airplane::all();
@@ -102,8 +120,10 @@ class ScalesController extends BaseController implements ResourceControllerInter
         }
     }
 
+    //Função que armazena a escala associada a um voo da base de dados
     public function storefromvoo($vooid)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $escala = Post::getAll();

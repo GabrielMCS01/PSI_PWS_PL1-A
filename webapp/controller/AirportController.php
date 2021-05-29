@@ -16,7 +16,7 @@ class AirportController extends BaseController implements ResourceControllerInte
             // A variável recebe todos os aeroportos existentes
             $aeroportos = Airport::all();
 
-            // Retorna a View com a variável com todos os Aeroportos
+            // Retorna a View com a variável com todos os Aeroportos(array)
             return View::make('airports.index', ['airports' => $aeroportos, 'searchbar' => '']);
         }else{
             Redirect::toRoute('users/index');

@@ -16,7 +16,7 @@ class HomeController extends BaseController
 {
 
     public function index(){
-
+        //Retorna a página inicial a ser apresentada(home/index)
         return View::make('home.index');
     }
 

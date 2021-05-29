@@ -17,7 +17,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // A variável recebe todos os aviões existentes
             $avioes = Airplane::all();
 
-            // Retorna a View com a variável com todos os aviões
+            // Retorna a View com a variável com todos os aviões(array)
             return View::make('airplanes.index', ['airplanes' => $avioes, 'searchbar' => '']);
         } else {
             Redirect::toRoute('users/index');
@@ -44,7 +44,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             // A variável recebe os dados que foram enviados do formulário para criar o avião
             $aviao = Post::getAll();
 
-            // Cria um novo avião com os dados que foram colocados na variável
+            // Cria um novo avião com os dados que foram colocados na variável(array)
             $aviao = new Airplane($aviao);
 
             // Guarda o avião na Base de Dados

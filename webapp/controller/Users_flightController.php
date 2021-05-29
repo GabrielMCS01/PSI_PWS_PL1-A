@@ -7,16 +7,18 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
 class Users_flightController extends BaseController implements ResourceControllerInterface{
-
+//Função index
     public function index()
     {
 
     }
 
+    //Função que permite comprar bilhetes ao utilizador passageiro
     public function create()
     {
+        //se não houver utilizador com login
+        //Retorna a view de login
         if(isset($_SESSION['username'])) {
-
             $aeroportos = Airport::all();
             $avioes = Avioes::all();
             return View::make('flights.create', ['airports' => $aeroportos, 'airplanes' => $avioes]);
@@ -25,8 +27,10 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
+
     public function store()
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $voo = Post::getAll();
@@ -38,8 +42,10 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
+    //Função que mostra todos os bilhetes comprados pelo utilizador passageiro
     public function show($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $compra = Usersflight::first([$id]);
 
@@ -49,8 +55,10 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
+
     public function edit($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $compra = Usersflight::first([$id]);
 
@@ -63,6 +71,7 @@ class Users_flightController extends BaseController implements ResourceControlle
 
     public function update($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $voo = Flight::first([$id]);
@@ -76,6 +85,7 @@ class Users_flightController extends BaseController implements ResourceControlle
 
     public function destroy($id)
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             // Recebe o ID da compra para a poder eliminar e redireciona para o index
             $compra = Airport::first([$id]);
