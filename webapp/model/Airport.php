@@ -3,6 +3,7 @@
 use ActiveRecord\Model;
 
 class Airport extends Model{
+    //Definição do modelo(objeto)
     // Um "Aeroporto" tem vários "Voos" e "Escalas"
     static $has_many = [
         //Voos

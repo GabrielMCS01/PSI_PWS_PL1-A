@@ -7,6 +7,7 @@ use Tracy\Dumper;
 
 class User extends Model
 {
+    //Definição do modelo(objeto)
     // Um "User" pode ter várias "Compras de Voos"
     static $has_many = [['user_purchasesflight', 'foreign_key' =>'client_id', 'class_name' => 'Users_flight']];
 }

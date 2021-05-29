@@ -1,5 +1,6 @@
 <?php
-
+//Configuração do user e das portas do servidor MySql
+//Para esse efeito criamos um user no workbench e é a partir desse use "pwa" que o projeto acede à BD
 $defaultDbConnection = array (
     'DBMS'          => 'mysql',
     'SERVER'        => 'localhost',

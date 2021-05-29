@@ -3,7 +3,7 @@
 use ActiveRecord\Model;
 
 class Flight extends Model{
-
+    //Definição do modelo(objeto)
     // Um "Voo" pertence a um "Aviao", "Aeroporto de Origem" e a um "Aeroporto de Destino"
     static $belongs_to = [
         ['airplane'],
