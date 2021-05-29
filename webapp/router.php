@@ -33,7 +33,7 @@ Router::resource('scales', 'ScalesController');
 
 Router::resource('users_flights', 'Users_flightController');
 
-
+//Página de routing do projeto
 
 
 /************** End of URLEncoder Routing Rules ************************************/
