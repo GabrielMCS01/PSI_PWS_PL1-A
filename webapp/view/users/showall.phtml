@@ -13,6 +13,8 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
+    //Redirecionar os users que não são administradores para o login
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -25,6 +27,8 @@ switch ($_SESSION['tipoUser']) {
 <?php
 $utilizadores = Data::get('users');
 $searchbar = Data::get('searchbar');
+//Página que permite ver todos os users registados na base de dados
+//Disponivel apenas para users administradores
 ?>
 
 <div class="cxfloatshowall">

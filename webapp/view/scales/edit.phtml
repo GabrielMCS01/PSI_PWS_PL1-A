@@ -4,6 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -19,6 +20,7 @@ switch ($_SESSION['tipoUser']) {
 }
 
 $escala = Data::get('escala');
+//Página que permite a edição de uma escala  selecionado pelo utilizador
 ?>
 
     <div class="cxfloatvooscreate">

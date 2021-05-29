@@ -5,6 +5,7 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -23,6 +24,7 @@ switch ($_SESSION['tipoUser']) {
 }
 
 $utilizador = Data::get('utilizador');
+//Página que permite a editar os dados de um user escoljhido pelo administrador
 ?>
 
     <div class="cxfloatutilizadoredit">

@@ -12,6 +12,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -25,11 +26,13 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('header');
         break;
 }
+
 ?>
 
 <?php
 $escalas = Data::get('scales');
 $voo = Data::get('voo');
+//Página que permite ver todas as escalas registadas na base de dados
 ?>
 
 <div class="cxfloatvoos">

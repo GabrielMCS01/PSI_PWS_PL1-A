@@ -13,6 +13,7 @@ use ArmoredCore\WebObjects\URL;
 use Tracy\Dumper;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
