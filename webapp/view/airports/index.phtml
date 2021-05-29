@@ -12,6 +12,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -29,6 +30,7 @@ switch ($_SESSION['tipoUser']) {
 
 <?php $aeroportos = Data::get('airports');
 $searchbar = Data::get('searchbar');
+//Página que permite ver todos os aeroportos registados na base de dados
 ?>
 
 <div class="cxfloatvoos">

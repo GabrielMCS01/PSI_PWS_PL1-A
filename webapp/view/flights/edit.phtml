@@ -4,6 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -21,6 +22,7 @@ switch ($_SESSION['tipoUser']) {
 $voo = Data::get('voo');
 $aeroportos = Data::get('airports');
 $avioes = Data::get('airplanes');
+//Página que permite a edição de um voo selecionado pelo user
 ?>
 
     <div class="cxfloatvooscreate">
