@@ -20,6 +20,7 @@ switch ($_SESSION['tipoUser']) {
 }
 
 $aeroporto = Data::get('aeroporto');
+$paises = Data::get('paises');
 //Página que permite a edição de um aeroporto selecionado pelo user
 ?>
 
@@ -33,8 +34,14 @@ $aeroporto = Data::get('aeroporto');
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('airports/update', $aeroporto->airports_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$aeroporto->airportname?>" name="airportname" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
-                <input type="text" class="form-control form" value="<?=$aeroporto->country?>" name="country" title="Insira o nome do País" placeholder="País" required>
-                <input type="text" class="form-control form" value="<?=$aeroporto->city?>" name="city" title="Insira o nome da Cidade" placeholder="Cidade" required>
+                <select class="form-control form" name="country" title="Insira o nome do País" required>
+                    <option readonly="true" disabled>País</option>
+                    <?php foreach ($paises as $pais){
+                        if($pais->capital != null){ ?>
+                        <option><?=$pais->name." - ".$pais->capital?></option>
+                    <?php }
+                    }?>
+                </select>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

@@ -28,8 +28,9 @@ class AirportController extends BaseController implements ResourceControllerInte
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
+            $airport = new Airport();
             // Retorna a View com o formulário para o Administrador preencher com os dados do Aeroporto
-            return View::make('airports.create');
+            return View::make('airports.create', ['paises' => $airport->ListarPaises()]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -41,8 +42,13 @@ class AirportController extends BaseController implements ResourceControllerInte
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // A variável recebe os dados que foram enviados do formulário para criar o Aeroporto
-            $aeroporto = Post::getAll();
-
+            $aero = Post::getAll();
+            $countryCity = explode(" - ", $aero['country']);
+            $aeroporto = [
+                'airportname' => $aero['airportname'],
+                'country' => $countryCity[0],
+                'city' => $countryCity[1]
+            ];
             // Cria um novo Aeroporto com os dados que foram colocados na variável e guarda o Aeroporto na Base de Dados
             $aeroportos = new Airport($aeroporto);
             $aeroportos->save();
@@ -68,7 +74,7 @@ class AirportController extends BaseController implements ResourceControllerInte
             $aeroporto = Airport::first([$id]);
 
             // Retorna a View para editar o Aeroporto, com os dados do Aeroporto selecionado
-            return View::make('airports.edit', ['aeroporto' => $aeroporto]);
+            return View::make('airports.edit', ['aeroporto' => $aeroporto, 'paises' => $aeroporto->ListarPaises()]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -83,7 +89,15 @@ class AirportController extends BaseController implements ResourceControllerInte
             $aeroporto = Airport::first([$id]);
 
             // atribui os valores que são recebidos do formulário preenche-os na variável e guarda na Base de dados
-            $aeroporto->update_attributes(Post::getAll());
+            $aero = Post::getAll();
+            $countryCity = explode(" - ", $aero['country']);
+            $aeroportoUpdate = [
+                'airportname' => $aero['airportname'],
+                'country' => $countryCity[0],
+                'city' => $countryCity[1]
+            ];
+
+            $aeroporto->update_attributes($aeroportoUpdate);
             $aeroporto->save();
 
             // Retorna a View para se visualizar todos os Aeroportos

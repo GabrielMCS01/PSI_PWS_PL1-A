@@ -1,4 +1,5 @@
 <?php use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
@@ -18,6 +19,7 @@ switch ($_SESSION['tipoUser']) {
         break;
 }
 //Página que permite a criação/registo de aeroportos na base de dados
+$paises = Data::get('paises');
 ?>
 
 <div class="cxfloataeroportoscreate">
@@ -30,8 +32,14 @@ switch ($_SESSION['tipoUser']) {
         </ul>
         <form class="formulario-todo" action="<?=Url::toRoute('airports/store')?>" method="post">
             <input type="text" class="form-control form" name="airportname" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
-            <input type="text" class="form-control form" name="country" title="Insira o nome do País" placeholder="País" required>
-            <input type="text" class="form-control form" name="city" title="Insira o nome da Cidade" placeholder="Cidade" required>
+            <select class="form-control form" name="country" title="Insira o nome do País" required>
+                <option readonly="true" disabled>País</option>
+                <?php foreach ($paises as $pais){
+                    if($pais->capital != null){ ?>
+                        <option><?=$pais->name." - ".$pais->capital?></option>
+                 <?php }
+                } ?>
+            </select>
             <input class="btn botaosignin" type="submit" value="Adicionar">
         </form>
         </ul>

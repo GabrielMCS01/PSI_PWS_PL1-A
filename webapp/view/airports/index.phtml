@@ -30,6 +30,7 @@ switch ($_SESSION['tipoUser']) {
 
 <?php $aeroportos = Data::get('airports');
 $searchbar = Data::get('searchbar');
+$aero = new Airport();
 //Página que permite ver todos os aeroportos registados na base de dados
 ?>
 
@@ -52,6 +53,7 @@ $searchbar = Data::get('searchbar');
                 <thead>
                 <tr>
                     <th scope="col">Nome do Aeroporto</th>
+                    <th scope="col"></th>
                     <th scope="col">País</th>
                     <th scope="col">Cidade</th>
                     <th scope="col"></th>
@@ -62,6 +64,7 @@ $searchbar = Data::get('searchbar');
                 <?php foreach ($aeroportos as $dados){ ?>
                     <tr>
                         <td><?=$dados->airportname?></td>
+                        <td><img src="<?=$aero->DevolverBandeira($dados->country)?>" width=30></td>
                         <td><?=$dados->country?></td>
                         <td><?=$dados->city?></td>
                         <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
