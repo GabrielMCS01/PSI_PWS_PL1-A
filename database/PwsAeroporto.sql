@@ -53,7 +53,7 @@ Create table if not exists scales(
 	airport_id int UNSIGNED not null,
     airplane_id int UNSIGNED not null,
     flight_id int UNSIGNED not null,
-    distance varchar(100) not null, 
+    distance INT UNSIGNED not null, 
 	CONSTRAINT pk_scales_scales_id PRIMARY KEY(scales_id),
 	CONSTRAINT fk_scales_airport_id FOREIGN KEY(airport_id) REFERENCES airports(airports_id),
     CONSTRAINT fk_scales_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplanes_id),
