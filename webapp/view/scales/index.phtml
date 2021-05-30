@@ -60,6 +60,7 @@ $voo = Data::get('voo');
                     <th scope="col">Aeroporto de Paragem</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Voo</th>
+                    <th scope="col">Distância</th>
 
                     <!--Tirar a opção ao passageiro de poder alterar os voos-->
                     <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
@@ -77,7 +78,7 @@ $voo = Data::get('voo');
                         <td><?=$dados->airport->airportname?></td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->flight->flightname?></td>
-
+                        <td><?=$dados->distance." Km's"?></td>
                         <!--Tirar a opção ao passageiro de poder alterar os voos-->
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
                             <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>

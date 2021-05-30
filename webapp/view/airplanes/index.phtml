@@ -54,8 +54,10 @@ $searchbar = Data::get('searchbar');
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th scope="col">Referência do avião</th>
                     <th scope="col">Nome do avião</th>
                     <th scope="col">Transportadora</th>
+                    <th scope="col">Lotação Máxima</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -63,8 +65,10 @@ $searchbar = Data::get('searchbar');
                 <tbody>
                 <?php foreach ($avioes as $dados){ ?>
                     <tr>
+                        <td><?=$dados->airplanereference?></td>
                         <td><?=$dados->airplanename?></td>
                         <td><?=$dados->shippingcompany?></td>
+                        <td><?=$dados->capacity?></td>
                         <td><a href="<?=Url::toRoute('airplanes/edit', $dados->airplanes_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                         <td><a href="<?=Url::toRoute('airplanes/destroy', $dados->airplanes_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="30"></a></td>
                     </tr>

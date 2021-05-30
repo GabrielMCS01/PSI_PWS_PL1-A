@@ -36,7 +36,7 @@ $voos = Data::get('flights');
         <div class="tabelaPlaceVoos">
             <form class="formulario-todo" action="<?=Url::toRoute('scales/storefromvoo', $voos->flights_id)?>" method="post">
 
-                <input type="text" class="form-control form" name="flightname" title="Insira a o nome da escala" placeholder="Nome da Escala" required>
+                <input type="text" class="form-control form" name="flightname" title="Insira o nome da escala" placeholder="Nome da Escala" required>
 
                 <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
 
@@ -54,6 +54,7 @@ $voos = Data::get('flights');
                     <?php } ?>
                 </select>
 
+                <input min="1" type="number" class="form-control form" name="distance" title="Insira a distância da escala" placeholder="Distância da Escala" required>
                 <input class="btn botaosignin" type="submit" value="Adicionar">
 
             </form>

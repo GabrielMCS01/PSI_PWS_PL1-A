@@ -29,8 +29,10 @@ switch ($_SESSION['tipoUser']) {
             </a>
         </ul>
         <form class="formulario-todo" action="<?=Url::toRoute('airplanes/store')?>" method="post">
+            <input type="text" class="form-control form" name="airplanereference" title="Insira a referência do avião" placeholder="Referência" required>
             <input type="text" class="form-control form" name="airplanename" title="Insira um nome para o avião" placeholder="Nome" required>
             <input type="text" class="form-control form" name="shippingcompany" title="Insira o nome da transportadora" placeholder="Transportadora" required>
+            <input min="1" type="number" class="form-control form" name="capacity" title="Insira a capacidade do avião" placeholder="Lotação Máxima" required>
             <input class="btn botaosignin" type="submit" value="Adicionar">
         </form>
         </ul>
