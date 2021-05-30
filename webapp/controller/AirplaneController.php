@@ -125,9 +125,11 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             $searching = Post::get('search');
 
             // Pesquisa todos por
-            $search = Airplane::find('all', array('conditions' =>
+              $search = Airplane::find('all', array('conditions' =>
                 "airplanename LIKE '%$searching%' OR 
-                shippingcompany LIKE '%$searching%'
+                shippingcompany LIKE '%$searching%' OR
+                airplanereference LIKE '%$searching%' OR 
+                capacity LIKE '%$searching%'
                 "));
 
             // Retorna a View com os argumentos de procura
