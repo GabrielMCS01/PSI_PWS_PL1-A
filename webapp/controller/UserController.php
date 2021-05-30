@@ -128,6 +128,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
                     case "administrador":
                         Redirect::toRoute('airports/index');
                         break;
+                    case "gestordevoo":
+                        Redirect::toRoute('flights/index');
+                        break;
                 }
             } else {
                 session_unset();

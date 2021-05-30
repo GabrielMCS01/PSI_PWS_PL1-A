@@ -39,12 +39,12 @@ use ArmoredCore\WebObjects\URL;
         <div class="navbar-header">
             <!-- Button for smallest screens -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="<?= URL::toRoute('airports/index')?>">ADMINISTRADOR</a>
+            <a class="navbar-brand" href="<?= URL::toRoute('airports/index')?>">GESTOR DE VOO</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li><a href="<?= URL::toRoute('airports/index')?>">Aeroportos</a></li>
-                <li><a href="<?= URL::toRoute('users/showall')?>">Contas de utilizador</a></li>
+                <li><a href="<?= URL::toRoute('flights/index')?>">Voos</a></li>
+                <li><a href="<?= URL::toRoute('airplanes/index')?>">Aviões</a></li>
                 <li><a class="btn" href="<?= URL::toRoute('users/sair')?>">Terminar Sessão</a></li>
             </ul>
         </div><!--/.nav-collapse -->

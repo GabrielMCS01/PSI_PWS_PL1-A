@@ -27,6 +27,8 @@ switch ($_SESSION['tipoUser']) {
 <?php
 $utilizadores = Data::get('users');
 $searchbar = Data::get('searchbar');
+$user = new User();
+
 //Página que permite ver todos os users registados na base de dados
 //Disponivel apenas para users administradores
 ?>
@@ -67,7 +69,7 @@ $searchbar = Data::get('searchbar');
                         <td><?=$dados->email?></td>
                         <td><?=$dados->phonenumber?></td>
                         <td><?=$dados->username?></td>
-                        <td><?=$dados->userprofile?></td>
+                        <td><?=$user->TipoUserMostrar($dados->userprofile)?></td>
                         <td><a href="<?=Url::toRoute('users/edit', $dados->users_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                         <?php if($dados->userprofile != 'administrador'){ ?>
                             <td><a href="<?=Url::toRoute('users/destroy', $dados->users_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
