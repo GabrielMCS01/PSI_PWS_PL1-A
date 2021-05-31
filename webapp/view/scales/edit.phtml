@@ -34,7 +34,8 @@ $escala = Data::get('escala');
             <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala->flight_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$escala->flightname?>" name="flightname" title="Insira o nome da escala" placeholder="Escala" required>
                 <input type="datetime-local" class="form-control form" value="<?=$escala->datehourarrival?>T<?=$escala->datehourarrival?>" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
-                <input type="text" class="form-control form" value="<?=$escala->airport_id?>" name="airport_id" title="Insira o aeroporto de paragem" placeholder="Aeroporto de Paragem" required>
+                <input type="text" class="form-control form" value="<?=$escala->origin_airport_id?>" name="origin_airport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
+                <input type="text" class="form-control form" value="<?=$escala->destination_airport_id?>" name="destination_airport_id" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
                 <input type="text" class="form-control form" value="<?=$escala->airplane_id?>" name="airplane_id" title="Insira o avião" placeholder="Avião" required>
                 <input min="1" type="number" class="form-control form" value="<?=$escala->distance?>" name="distance" title="Insira a distância da escala" placeholder="Distância da Escala" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">

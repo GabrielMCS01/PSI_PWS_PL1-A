@@ -57,7 +57,8 @@ $voo = Data::get('voo');
                 <tr>
                     <th scope="col">Escala</th>
                     <th scope="col">Data de Chegada</th>
-                    <th scope="col">Aeroporto de Paragem</th>
+                    <th scope="col">Aeroporto de Origem</th>
+                    <th scope="col">Aeroporto de Chegada</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Voo</th>
                     <th scope="col">Distância</th>
@@ -75,7 +76,8 @@ $voo = Data::get('voo');
                     <tr>
                         <td><?=$dados->flightname?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
-                        <td><?=$dados->airport->airportname?></td>
+                        <td><?=$dados->origin_airport->airportname?></td>
+                        <td><?=$dados->destination_airport->airportname?></td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->flight->flightname?></td>
                         <td><?=$dados->distance." Km's"?></td>

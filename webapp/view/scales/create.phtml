@@ -40,8 +40,15 @@ $voos = Data::get('flights');
 
                 <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
 
-                <select class="form-control form" name="airport_id" title="Insira o aeroporto de paragem" required>
+                <select class="form-control form" name="origin_airport_id" title="Insira o aeroporto de origem" required>
                     <option disabled selected>Aeroporto de Paragem</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->airports_id?>"><?=$dados->airportname?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="destination_airport_id" title="Insira o aeroporto de destino" required>
+                    <option disabled selected>Aeroporto de Destino</option>
                     <?php foreach ($aeroportos as $dados){ ?>
                         <option value="<?=$dados->airports_id?>"><?=$dados->airportname?></option>
                     <?php } ?>

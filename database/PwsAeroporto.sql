@@ -52,12 +52,14 @@ Create table if not exists scales(
 	scales_id INT UNSIGNED AUTO_INCREMENT,
 	flightname varchar(100) not null,
     datehourarrival datetime not null,
-	airport_id int UNSIGNED not null,
+    origin_airport_id int UNSIGNED not null,
+	destination_airport_id int UNSIGNED not null,
     airplane_id int UNSIGNED not null,
     flight_id int UNSIGNED not null,
     distance INT UNSIGNED not null, 
 	CONSTRAINT pk_scales_scales_id PRIMARY KEY(scales_id),
-	CONSTRAINT fk_scales_airport_id FOREIGN KEY(airport_id) REFERENCES airports(airports_id),
+	CONSTRAINT fk_scales_origin_airport_id FOREIGN KEY( origin_airport_id) REFERENCES airports(airports_id),
+    CONSTRAINT fk_scales_destination_airport_id FOREIGN KEY( destination_airport_id) REFERENCES airports(airports_id),
     CONSTRAINT fk_scales_airplane_id FOREIGN KEY(airplane_id) REFERENCES airplanes(airplanes_id),
     CONSTRAINT fk_scales_flight_id FOREIGN KEY(flight_id) REFERENCES flights(flights_id)
 )ENGINE=InnoDB;
