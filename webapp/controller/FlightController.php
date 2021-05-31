@@ -105,8 +105,17 @@ class FlightController extends BaseController implements ResourceControllerInter
             // Recebe os dados do ID do Voo que irá ser atualizado
             $voo = Flight::first([$id]);
 
+            $vooupdated = Post::getAll();
+
+            $aeroporto = new Airport();
+            $origin_name = $aeroporto::first(Post::get('origin_airport_id'))->country;
+            $destination_name = $aeroporto::first(Post::get('destination_airport_id'))->country;
+
+            $distancia = $aeroporto->DevolverDistancia($origin_name, $destination_name);
+            $vooupdated += ['distance' => $distancia];
+
             // atribui os valores que são recebidos do formulário, preenche-os na variável e guarda na Base de dados
-            $voo->update_attributes(Post::getAll());
+            $voo->update_attributes($vooupdated);
             $voo->save();
 
             // Retorna a View para se visualizar todos os Voos
