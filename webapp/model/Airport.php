@@ -21,13 +21,31 @@ class Airport extends Model{
     }
 
     public function DevolverBandeira($paisNome){
-        $json = file_get_contents('https://restcountries.eu/rest/v2/all');
-        $paises = json_decode($json);
-        foreach ($paises as $pais){
+        foreach ($this->ListarPaises() as $pais){
             if($paisNome == $pais->name){
                 return $pais->flag;
             }
         }
+    }
+
+    public function DevolverDistancia($pais1, $pais2){
+        foreach ($this->ListarPaises() as $pais){
+            if($pais1 == $pais->name){
+                $pais1 = ['latitude' => $pais->latlng[0], 'longitude' => $pais->latlng[1]];
+            }
+            if($pais2 == $pais->name){
+                $pais2 = ['latitude' => $pais->latlng[0], 'longitude' => $pais->latlng[1]];
+            }
+        }
+
+        $lat1 = deg2rad($pais1['latitude']);
+        $lat2 = deg2rad($pais2['latitude']);
+        $lon1 = deg2rad($pais1['longitude']);
+        $lon2 = deg2rad($pais2['longitude']);
+
+        $dist = (6371 * acos( cos( $lat1 ) * cos( $lat2 ) * cos( $lon2 - $lon1 ) + sin( $lat1 ) * sin($lat2) ) );
+        $dist = number_format($dist, 0, '.', '');
+        return $dist;
     }
 }
 ?>

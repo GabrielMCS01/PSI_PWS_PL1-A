@@ -64,7 +64,7 @@ $aero = new Airport();
                 <?php foreach ($aeroportos as $dados){ ?>
                     <tr>
                         <td><?=$dados->airportname?></td>
-                        <td><img src="<?=$aero->DevolverBandeira($dados->country)?>" width=30></td>
+                        <td><img src="<?=$dados->flag?>" width=30></td>
                         <td><?=$dados->country?></td>
                         <td><?=$dados->city?></td>
                         <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>

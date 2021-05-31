@@ -44,10 +44,15 @@ class AirportController extends BaseController implements ResourceControllerInte
             // A variável recebe os dados que foram enviados do formulário para criar o Aeroporto
             $aero = Post::getAll();
             $countryCity = explode(" - ", $aero['country']);
+
+            $aeroportos = new Airport();
+            $flag = $aeroportos->DevolverBandeira($countryCity[0]);
+
             $aeroporto = [
                 'airportname' => $aero['airportname'],
                 'country' => $countryCity[0],
-                'city' => $countryCity[1]
+                'city' => $countryCity[1],
+                'flag' => $flag
             ];
             // Cria um novo Aeroporto com os dados que foram colocados na variável e guarda o Aeroporto na Base de Dados
             $aeroportos = new Airport($aeroporto);
@@ -91,10 +96,15 @@ class AirportController extends BaseController implements ResourceControllerInte
             // atribui os valores que são recebidos do formulário preenche-os na variável e guarda na Base de dados
             $aero = Post::getAll();
             $countryCity = explode(" - ", $aero['country']);
+
+            $aeroportos = new Airport();
+            $flag = $aeroportos->DevolverBandeira($countryCity[0]);
+
             $aeroportoUpdate = [
                 'airportname' => $aero['airportname'],
                 'country' => $countryCity[0],
-                'city' => $countryCity[1]
+                'city' => $countryCity[1],
+                'flag' => $flag
             ];
 
             $aeroporto->update_attributes($aeroportoUpdate);

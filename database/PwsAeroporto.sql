@@ -18,6 +18,7 @@ Create table if not exists airports(
     airportname varchar(100) not null,
     country varchar(100) not null,
     city varchar(100) not null,
+    flag varchar(100) not null,
 	CONSTRAINT pk_airports_airports_id PRIMARY KEY(airports_id)
 )ENGINE=InnoDB;
 
@@ -39,6 +40,7 @@ Create table if not exists flights(
 	destination_airport_id int UNSIGNED not null,
     airplane_id int UNSIGNED not null,
     price int UNSIGNED not null,
+    distance double not null,
 	CONSTRAINT pk_flights_flights_id PRIMARY KEY(flights_id),
 	CONSTRAINT fk_flights_originairport_id FOREIGN KEY(origin_airport_id) REFERENCES airports(airports_id),
 	CONSTRAINT fk_flights_destinationairport_id FOREIGN KEY(destination_airport_id) REFERENCES airports(airports_id),
