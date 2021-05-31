@@ -33,6 +33,7 @@ $escala = Data::get('escala');
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala->flight_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$escala->flightname?>" name="flightname" title="Insira o nome da escala" placeholder="Escala" required>
+                <input type="datetime-local" class="form-control form" value="<?=$escala->datehourdeparture?>T<?=$escala->datehourdeparture?>" name="datehourdeparture" title="Insira a data e hora de partida da escala" placeholder="Data e hora de Partida" required>
                 <input type="datetime-local" class="form-control form" value="<?=$escala->datehourarrival?>T<?=$escala->datehourarrival?>" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
                 <input type="text" class="form-control form" value="<?=$escala->originairport_id?>" name="originairport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
                 <input type="text" class="form-control form" value="<?=$escala->destinationairport_id?>" name="destinationairport_id" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>

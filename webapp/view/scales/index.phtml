@@ -56,6 +56,7 @@ $voo = Data::get('voo');
                 <thead>
                 <tr>
                     <th scope="col">Escala</th>
+                    <th scope="col">Data de Partida</th>
                     <th scope="col">Data de Chegada</th>
                     <th scope="col">Aeroporto de Origem</th>
                     <th scope="col">Aeroporto de Chegada</th>
@@ -75,6 +76,7 @@ $voo = Data::get('voo');
                 <?php foreach ($escalas as $dados){ ?>
                     <tr>
                         <td><?=$dados->flightname?></td>
+                        <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
                         <td><?=$dados->origin_airport->airportname?></td>
                         <td><?=$dados->destination_airport->airportname?></td>
