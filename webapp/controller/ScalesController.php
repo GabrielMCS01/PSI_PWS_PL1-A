@@ -107,13 +107,13 @@ class ScalesController extends BaseController implements ResourceControllerInter
     }
 
     //Função que permite criar uma escala através de um voo
-    public function createfromvoo($vooid)
+    public function createfromvoo($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             $aeroportos = Airport::all();
             $avioes = Airplane::all();
-            $flights = Flight::first($vooid);
+            $flights = Flight::first($id);
             return View::make('scales.create', ['airports' => $aeroportos, 'airplanes' => $avioes, 'flights' => $flights]);
         }else{
             Redirect::toRoute('users/index');
