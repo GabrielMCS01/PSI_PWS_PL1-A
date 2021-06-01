@@ -7,27 +7,34 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 
 class Users_flightController extends BaseController implements ResourceControllerInterface{
-//Função index
+    // Função que permite visualizar todos os bilhetes do passageiro
     public function index()
     {
+        // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
+        if (isset($_SESSION['username'])) {
+            
 
+            // Retorna a View com a variável com todos os aviões(array)
+            return View::make('users_flights.index', ['searchbar' => '']);
+        } else {
+            Redirect::toRoute('users/index');
+        }
     }
 
-    //Função que permite comprar bilhetes ao utilizador passageiro
+    // Função que permite comprar bilhetes ao passageiro
     public function create()
     {
-        //se não houver utilizador com login
-        //Retorna a view de login
+        // Se não houver utilizador com login feito, retorna a view de login
         if(isset($_SESSION['username'])) {
             $aeroportos = Airport::all();
             $avioes = Avioes::all();
-            return View::make('flights.create', ['airports' => $aeroportos, 'airplanes' => $avioes]);
+            return View::make('users_flights.create', ['airports' => $aeroportos, 'airplanes' => $avioes]);
         }else{
             Redirect::toRoute('users/index');
         }
     }
 
-
+    // Função que permite Guardar os bilhetes do passageiro
     public function store()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
@@ -42,7 +49,7 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
-    //Função que mostra todos os bilhetes comprados pelo utilizador passageiro
+    // Função que mostra um bilhete comprado pelo passageiro em detalhe
     public function show($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
@@ -55,11 +62,11 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
-
+    // Função que permite editar um bilhete comprado pelo passageiro
     public function edit($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             $compra = Usersflight::first([$id]);
 
             $aeroportos = Airport::all();
@@ -69,6 +76,7 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
+    // Função que permite atualizar os bilhetes que o utilizador passageiro comprou
     public function update($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login

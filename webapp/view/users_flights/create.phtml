@@ -20,24 +20,21 @@ switch ($_SESSION['tipoUser']) {
 }
 ?>
 
-$aeroportos = Data::get('airports');
-$avioes = Data::get('airplanes');
+<?php
+    $aeroportos = Data::get('airports');
+    $avioes = Data::get('airplanes');
 ?>
 
 <div class="cxfloatvooscreate">
     <div class="cardavioescreate">
         <ul class="firstline">
-            <li class="textoAdicionarAviao">Adicionar Voos</li>
+            <li class="textoAdicionarAviao">Comprar Bilhete</li>
             <a href="<?=Url::toRoute('flights/index')?>">
                 <li class="veravioes">Ver Voos</li>
             </a>
         </ul>
         <div class="tabelaPlace">
             <form class="formulario-todo" action="<?=Url::toRoute('flights/store')?>" method="post">
-
-                <input type="datetime-local" class="form-control form" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
-
-                <input type="datetime-local" class="form-control form" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
 
                 <select class="form-control form" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" required>
                     <option disabled selected>Aeroporto de Origem</option>
