@@ -26,9 +26,11 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se não houver utilizador com login feito, retorna a view de login
         if(isset($_SESSION['username'])) {
-            $aeroportos = Airport::all();
-            $avioes = Avioes::all();
-            return View::make('users_flights.create', ['airports' => $aeroportos, 'airplanes' => $avioes]);
+            // Retorna o voo seleciodo e o user com login feito
+            $user = User::first($_SESSION['userid']);
+            // ID
+            $voo = Flight::first();
+            return View::make('users_flights.create', ['user' => $user, 'voo' => $voo]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -38,12 +40,14 @@ class Users_flightController extends BaseController implements ResourceControlle
     public function store()
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
-            $voo = Post::getAll();
-            $voos = new Flight($voo);
-            $voos->save();
-            Redirect::toRoute('flights/index');
+            // A variável recebe os dados do form
+            $bilhete = new Users_flight(Post::getAll());
+
+            // Guarda o bilhete
+            $bilhete->save();
+
+            Redirect::toRoute('users_flights/index');
         }else{
             Redirect::toRoute('users/index');
         }
@@ -54,7 +58,7 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
-            $compra = Usersflight::first([$id]);
+            $compra = Users_flight::first($id);
 
             return View::make('users_flights.show', ['compra' => $compra]);
         }else{
@@ -67,10 +71,9 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
-            $compra = Usersflight::first([$id]);
+            $compra = Users_flight::first($id);
 
-            $aeroportos = Airport::all();
-            return View::make('users_flights.edit', ['compra' => [$compra], 'airports' => [$aeroportos]]);
+            return View::make('users_flights.edit', ['compra' => [$compra]]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -82,9 +85,9 @@ class Users_flightController extends BaseController implements ResourceControlle
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
-            $voo = Flight::first([$id]);
-            $voo->update_attributes(Post::getAll());
-            $voo->save();
+            $compra = Users_flight::first($id);
+            $compra->update_attributes(Post::getAll());
+            $compra->save();
             Redirect::toRoute('users_flights/index');
         }else{
             Redirect::toRoute('users/index');
@@ -94,9 +97,9 @@ class Users_flightController extends BaseController implements ResourceControlle
     public function destroy($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
-        if(isset($_SESSION['username'])) {
+        if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             // Recebe o ID da compra para a poder eliminar e redireciona para o index
-            $compra = Airport::first([$id]);
+            $compra = Users_flight::first($id);
             $compra->delete();
 
             Redirect::toRoute('users_flights/index');

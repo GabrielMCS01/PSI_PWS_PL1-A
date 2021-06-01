@@ -96,28 +96,28 @@ class UserController extends BaseController implements ResourceControllerInterfa
         }
     }
 
-    //Função que mostra todos os utilizadores registados na base de dados(registos da tabela users)
+    // Função que mostra todos os utilizadores registados na base de dados(registos da tabela users)
     public function showall()
     {
         // Se tiver sessão iniciada e o user for administrador faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] == 'administrador') {
             $utilizadores = User::all();
-            //Volta à view de mostrar todos os utilizadores registados(todos os registos da base de dados na tabelas users)
+            // Volta à view de mostrar todos os utilizadores registados(todos os registos da base de dados na tabelas users)
             return View::make('users.showall', ['users' => $utilizadores, 'searchbar' => '']);
         }else{
-            //se não houver utilizador com login ou se o tipo de utilizador não for administrador
-            //Retorna a view de login
+            // se não houver utilizador com login ou se o tipo de utilizador não for administrador
+            // Retorna a view de login
             Redirect::toRoute('users/index');
         }
     }
 
-    //Função de login
+    // Função de login
     public function login($id)
     {
         if($id == 'logged') {
             $utilizadores = User::first(Post::getAll());
             if ($utilizadores != null) {
-                //Armazenar o nome do utilizador, o id e o seu tipo perfil(admin/passageiro...etc) em varivaeis super globais(Session)
+                // Armazenar o nome do utilizador, o id e o seu tipo perfil(admin/passageiro...etc) em varivaeis super globais(Session)
                 $_SESSION['username'] = Post::get('username');
                 $_SESSION['userid'] = $utilizadores->users_id;
                 $_SESSION['tipoUser'] = $utilizadores->userprofile;
