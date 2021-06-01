@@ -22,14 +22,15 @@ class Users_flightController extends BaseController implements ResourceControlle
     }
 
     // Função que permite comprar bilhetes ao passageiro
+    // Passar o ID do voo?
     public function create()
     {
         // Se não houver utilizador com login feito, retorna a view de login
         if(isset($_SESSION['username'])) {
             // Retorna o voo seleciodo e o user com login feito
             $user = User::first($_SESSION['userid']);
-            // ID
             $voo = Flight::first();
+
             return View::make('users_flights.create', ['user' => $user, 'voo' => $voo]);
         }else{
             Redirect::toRoute('users/index');
@@ -85,6 +86,7 @@ class Users_flightController extends BaseController implements ResourceControlle
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
+            // Atualizar a compra
             $compra = Users_flight::first($id);
             $compra->update_attributes(Post::getAll());
             $compra->save();
@@ -94,6 +96,7 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
+    // Função que elimina a compra que o utilizador comprou
     public function destroy($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
