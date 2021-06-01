@@ -61,7 +61,6 @@ $voo = Data::get('voo');
                     <th scope="col">Aeroporto de Origem</th>
                     <th scope="col">Aeroporto de Chegada</th>
                     <th scope="col">Avião</th>
-                    <th scope="col">Voo</th>
                     <th scope="col">Distância</th>
 
                     <!--Tirar a opção ao passageiro de poder alterar os voos-->
@@ -78,11 +77,14 @@ $voo = Data::get('voo');
                         <td><?=$dados->flightname?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
-                        <td><?=$dados->origin_airport->airportname?></td>
-                        <td><?=$dados->destination_airport->airportname?></td>
+                        <td><?=$dados->origin_airport->airportname?>
+                            <img class="imgbandeiras" src="<?=$dados->origin_airport->flag?>" width="30">
+                        </td>
+                        <td><?=$dados->destination_airport->airportname?>
+                            <img class="imgbandeiras" src="<?=$dados->destination_airport->flag?>" width="30">
+                        </td>
                         <td><?=$dados->airplane->airplanename?></td>
-                        <td><?=$dados->flight->flightname?></td>
-                        <td><?=$dados->distance." Km's"?></td>
+                        <td><?=$dados->distance?> km</td>
                         <!--Tirar a opção ao passageiro de poder alterar os voos-->
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
                             <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>

@@ -262,8 +262,8 @@ th {
                     VOOS
 ================================================================*/
 .cxfloatvoos {
-  margin-right: 20vw;
-  margin-left: 20vw;
+  margin-right: 10vw;
+  margin-left: 10vw;
 }
 
 .cxfloatvooscreate {
@@ -276,6 +276,11 @@ th {
 
 .tabelaPlaceVoos {
   height: 100%;
+}
+
+.imgbandeiras {
+  float: right;
+  margin-right: 30px;
 }
 
 /*# sourceMappingURL=style.css.map */

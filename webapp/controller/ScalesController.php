@@ -85,6 +85,15 @@ class ScalesController extends BaseController implements ResourceControllerInter
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
+
+            // Calcular a distancia dos aeroportos
+            $aeroporto = new Airport();
+            $origin_name = $aeroporto::first(Post::get('origin_airport_id'))->country;
+            $destination_name = $aeroporto::first(Post::get('destination_airport_id'))->country;
+
+            $distancia = $aeroporto->DevolverDistancia($origin_name, $destination_name);
+            $escala += ['distance' => $distancia];
+
             $escala->update_attributes(Post::getAll());
             $escala->save();
             Redirect::toRoute('scales/index');
@@ -128,6 +137,16 @@ class ScalesController extends BaseController implements ResourceControllerInter
         if(isset($_SESSION['username'])) {
             $escala = Post::getAll();
             $escala['flight_id'] = $vooid;
+
+            // Calcular a distancia dos aeroportos
+            $aeroporto = new Airport();
+            $origin_name = $aeroporto::first(Post::get('originairport_id'))->country;
+            $destination_name = $aeroporto::first(Post::get('destinationairport_id'))->country;
+
+            $distancia = $aeroporto->DevolverDistancia($origin_name, $destination_name);
+            $escala += ['distance' => $distancia];
+
+            // Guardar escala
             $escalas = new Scale($escala);
             $escalas->save();
             Redirect::toRoute('scales/index');

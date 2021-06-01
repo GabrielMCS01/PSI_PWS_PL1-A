@@ -50,6 +50,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             // A variável recebe os dados que foram enviados do formulário para criar o Voo
             $voo = Post::getAll();
 
+            // Calcular a distancia dos aeroportos
             $aeroporto = new Airport();
             $origin_name = $aeroporto::first(Post::get('origin_airport_id'))->country;
             $destination_name = $aeroporto::first(Post::get('destination_airport_id'))->country;
