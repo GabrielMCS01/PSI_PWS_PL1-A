@@ -12,10 +12,10 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if (isset($_SESSION['username'])) {
-            
+            $bilhetes = Users_flight::all();
 
             // Retorna a View com a variável com todos os aviões(array)
-            return View::make('users_flights.index', ['searchbar' => '']);
+            return View::make('users_flights.index', ['users_flights' => $bilhetes,'searchbar' => '']);
         } else {
             Redirect::toRoute('users/index');
         }

@@ -28,40 +28,43 @@ switch ($_SESSION['tipoUser']) {
 }
 ?>
 
-<?php $compra = Data::get('compra');
+<?php $compras = Data::get('users_flights');
 ?>
 
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Voos</li>
+            <li class="textoAviao">Compras</li>
             <a href="<?=Url::toRoute('flights/create')?>">
-                <li class="adicionaraviao">Adicionar Voo</li>
             </a>
         </ul>
         <div class="tabelaPlace">
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">Data de Partida</th>
-                    <th scope="col">Data de Chegada</th>
-                    <th scope="col">Aeroporto de Origem</th>
-                    <th scope="col">Aeroporto de Chegada</th>
-                    <th scope="col">Avião</th>
+                    <th scope="col">ID de cliente</th>
+                    <th scope="col">ID do Voo</th>
+                    <th scope="col">ID do Voo de Volta</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Data de Compra</th>
+                    <th scope="col">Lugar no Avião</th>
+                    <th scope="col">Check-In</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($voos as $dados){ ?>
+                <?php foreach ($compras as $dados){ ?>
                     <tr>
-                        <td><?=$dados['datahorapartida']?></td>
-                        <td><?=$dados['datahorachegada']?></td>
-                        <td><?=$dados['aeroportoorigem']?></td>
-                        <td><?=$dados['aeroportodestino']?></td>
-                        <td><?=$dados['aviao']?></td>
-                        <td><a href="<?=Url::toRoute('flights/edit', $dados['id'])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                        <td><a href="<?=Url::toRoute('flights/destroy', $dados['id'])?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <td><?=$dados['client']?></td>
+                        <td><?=$dados['flight']?></td>
+                        <td><?=$dados['flight_back']?></td>
+                        <td><?=$dados['price']?></td>
+                        <td><?=$dados['purchasedate']?></td>
+                        <td><?=$dados['planeplace']?></td>
+                        <td><?=$dados['checkin']?></td>
+                        <td><a href="<?=Url::toRoute('users_flights/edit', $dados['id'])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a href="<?=Url::toRoute('users_flights/destroy', $dados['id'])?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                     </tr>
                 <?php } ?>
                 </tbody>
