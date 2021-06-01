@@ -30,11 +30,17 @@ switch ($_SESSION['tipoUser']) {
         <ul class="firstline">
             <li class="textoAdicionarAviao">Comprar Bilhete</li>
             <a href="<?=Url::toRoute('flights/index')?>">
-                <li class="veravioes">Ver Voos</li>
+                <li class="veravioes">Ver Compras</li>
             </a>
         </ul>
         <div class="tabelaPlace">
-            <form class="formulario-todo" action="<?=Url::toRoute('flights/store')?>" method="post">
+            <form class="formulario-todo" action="<?=Url::toRoute('users_flights/store')?>" method="post">
+
+                <input type="text" class="form-control form" name="flightname" title="Insira o nome do voo" placeholder="Nome do Voo" required>
+
+                <input type="datetime-local" class="form-control form" name="datehourdeparture" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+
+                <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data de chegada do voo"
 
                 <select class="form-control form" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" required>
                     <option disabled selected>Aeroporto de Origem</option>

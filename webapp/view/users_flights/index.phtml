@@ -42,29 +42,37 @@ switch ($_SESSION['tipoUser']) {
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">ID de cliente</th>
-                    <th scope="col">ID do Voo</th>
-                    <th scope="col">ID do Voo de Volta</th>
+                    <th scope="col">Voo</th>
+                    <th scope="col">Voo de Volta</th>
                     <th scope="col">Preço</th>
                     <th scope="col">Data de Compra</th>
                     <th scope="col">Lugar no Avião</th>
                     <th scope="col">Check-In</th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
+
+                    <!--Tirar a opção ao passageiro de poder alterar ou apagar as compras-->
+                    <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    <?php } ?>
+
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($compras as $dados){ ?>
                     <tr>
-                        <td><?=$dados['client']?></td>
                         <td><?=$dados['flight']?></td>
                         <td><?=$dados['flight_back']?></td>
                         <td><?=$dados['price']?></td>
                         <td><?=$dados['purchasedate']?></td>
                         <td><?=$dados['planeplace']?></td>
                         <td><?=$dados['checkin']?></td>
-                        <td><a href="<?=Url::toRoute('users_flights/edit', $dados['id'])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                        <td><a href="<?=Url::toRoute('users_flights/destroy', $dados['id'])?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                            <td><a href="<?=Url::toRoute('users_flights/edit', $dados->users_flights_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
+                            <td><a href="<?=Url::toRoute('users_flights/destroy', $dados->users_flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <?php }else{ ?>
+                            <td><a href="<?=Url::toRoute('users_flights/show', $dados->flights_id)?>"><img title="Mostrar" alt="Detalhes" src="<?=Asset::image('comprar.png')?>" width="32"></a></td>
+                        <?php }?>
                     </tr>
                 <?php } ?>
                 </tbody>

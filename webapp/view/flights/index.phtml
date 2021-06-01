@@ -97,7 +97,7 @@ $searchbar = Data::get('searchbar');
                             <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
                             <td><a href="<?=Url::toRoute('flights/destroy', $dados->flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                         <?php }else{ ?>
-                            <td><a href="<?=Url::toRoute('users_flights/index', $dados->flights_id)?>"><img title="Comprar passagem" alt="apagar" src="<?=Asset::image('comprar.png')?>" width="32"></a></td>
+                            <td><a href="<?=Url::toRoute('users_flights/create', $dados->flights_id)?>"><img title="Comprar passagem" alt="apagar" src="<?=Asset::image('comprar.png')?>" width="32"></a></td>
                         <?php }?>
 
                     </tr>
