@@ -123,7 +123,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
                 $_SESSION['tipoUser'] = $utilizadores->userprofile;
                 switch ($_SESSION['tipoUser']) {
                     case "passageiro":
-                        Redirect::toRoute('flights/index');
+                        Redirect::toRoute('flights/user_search');
                         break;
                     case "administrador":
                         Redirect::toRoute('airports/index');

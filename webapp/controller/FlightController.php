@@ -13,11 +13,43 @@ class FlightController extends BaseController implements ResourceControllerInter
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
-            // A variável recebe todos os Voos existentes
-            $voos = Flight::all();
+            $pesquisa_user = Post::getAll();
+            if($pesquisa_user != null){
 
+                $pesquisa = [];
+
+                if(isset($pesquisa_user['origin_airportname']) && $pesquisa_user['origin_airportname'] != 'País de origem'){
+                    $origin = explode(" - ", $pesquisa_user['origin_airportname']);
+                    $airport = Airport::first(['country' => $origin[0]]);
+
+                    if($airport != null) {
+                        $pesquisa += ['origin_airport_id' => $airport->airports_id];
+                    }
+                }
+
+                if(isset($pesquisa_user['destination_airportname']) && $pesquisa_user['destination_airportname'] != 'País de destino'){
+                    $destination = explode(" - ", $pesquisa_user['destination_airportname']);
+                    $airport = Airport::first(['country' => $destination[0]]);
+
+                    if($airport != null) {
+                        $pesquisa += ['destination_airport_id' => $airport->airports_id];
+                    }
+                }
+
+                if($pesquisa_user['datehourdeparture'] != null) {
+                    $data = $pesquisa_user['datehourdeparture'];
+                    $pesquisa += ['conditions' => "datehourdeparture LIKE '%$data%'"];
+                }
+
+                $voos = Flight::all($pesquisa);
+
+            } else {
+                // A variável recebe todos os Voos existentes
+                $voos = Flight::all();
+            }
             // Retorna a View com a variável com todos os Voos
             return View::make('flights.index', ['voos' => $voos, 'searchbar' => '']);
+
         }else{
             Redirect::toRoute('users/index');
         }
@@ -154,14 +186,14 @@ class FlightController extends BaseController implements ResourceControllerInter
             // Recebe o que estava escrito na Pesquisa
             $searching = Post::get('search');
 
-            // ???
+            // Procura pelo aeroporto e pelo avião pesquisado
             $airport = Airport::first(['airportname' => $searching]);
             $airportid = (isset($airport)) ? $airport->airports_id : '';
             $aviao = Airplane::first(['airplanename' => $searching]);
             $aviaoid = (isset($aviao)) ? $aviao->airplanes_id : '';
 
             // Pesquisa todos por
-            $search = Flight::find('all', array('conditions' =>
+            $search = Flight::find('all', ['conditions' =>
                 "flightname LIKE '%$searching%' OR 
             datehourdeparture LIKE '%$searching%' OR
             datehourarrival LIKE '%$searching%' OR 
@@ -169,10 +201,24 @@ class FlightController extends BaseController implements ResourceControllerInter
             destination_airport_id = '$airportid' OR
             airplane_id = '$aviaoid' OR
             price LIKE '%$searching%'
-            "));
+            "]);
 
             // Retorna a View com os argumentos de procura
             return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching]);
+        }else{
+            Redirect::toRoute('users/index');
+        }
+    }
+
+    public function user_search(){
+        // Se tiver sessão iniciada, faz caso contrário é redirecionado para a página de Login
+        if(isset($_SESSION['username'])) {
+            //Pesquisa todos os países
+            $paises = new Airport();
+            $paises = $paises->ListarPaises();
+
+            // Retorna a View com os argumentos de procura
+            return View::make('flights.user_search', ['paises' => $paises]);
         }else{
             Redirect::toRoute('users/index');
         }

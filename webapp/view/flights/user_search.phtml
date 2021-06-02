@@ -1,0 +1,64 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+switch ($_SESSION['tipoUser']) {
+    //Mostrar o header conforme o tipo de utilizador
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    case 'passageiro':
+        Layout::includeLayout('passageiroheader');
+        break;
+    case 'gestordevoo':
+        Layout::includeLayout('gestordevooheader');
+        break;
+    case 'operadordecheckin':
+        Layout::includeLayout('header');
+        break;
+}
+
+// Recebe os dados do controller
+$paises = Data::get('paises');
+
+// Página que permite criar/registar voos na base de dados
+?>
+
+    <div class="cxfloatvooscreate">
+        <div class="cardvooscreate">
+            <ul class="firstline">
+                <li class="textoAdicionarAviao">Pesquisar por voos</li>
+            </ul>
+            <div class="tabelaPlaceVoos">
+                <form class="formulario-todo" action="<?=Url::toRoute('flights/index')?>" method="post">
+
+                    <select class="form-control form" name="origin_airportname" title="Insira o país de origem">
+                        <option readonly="true" selected>País de origem</option>
+                        <?php foreach ($paises as $pais){
+                            if($pais->capital != null){ ?>
+                                <option><?=$pais->name." - ".$pais->capital?></option>
+                            <?php }
+                        } ?>
+                    </select>
+
+                    <select class="form-control form" name="destination_airportname" title="Insira o país de destino">
+                        <option readonly="true" selected>País de destino</option>
+                        <?php foreach ($paises as $pais){
+                            if($pais->capital != null){ ?>
+                                <option><?=$pais->name." - ".$pais->capital?></option>
+                            <?php }
+                        } ?>
+                    </select>
+
+                    <input type="date" class="form-control form" name="datehourdeparture" title="Insira a data de partida do voo" placeholder="Data de Partida">
+
+                    <input class="btn botaosignin" type="submit" value="Pesquisar">
+
+                </form>
+            </div>
+            </ul>
+        </div>
+    </div>
+/?>
+<?=Layout::includeLayout('footer')?>
