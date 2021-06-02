@@ -12,7 +12,7 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if (isset($_SESSION['username'])) {
-            $bilhetes = Users_flight::all();
+            $bilhetes = Users_flight::all(['client_id'=>$_SESSION['userid']]);
 
             // Retorna a View com a variável com todos os aviões(array)
             return View::make('users_flights.index', ['users_flights' => $bilhetes,'searchbar' => '']);
@@ -45,13 +45,36 @@ class Users_flightController extends BaseController implements ResourceControlle
     // Função que permite Guardar os bilhetes do passageiro
     public function store()
     {
+        ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
+
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             // A variável recebe os dados do form
-            $bilhete = new Users_flight(Post::getAll());
+            $dadosBilhete = Post::getAll();
+
+            $bilhete = ['client_id'=>$dadosBilhete['client_id']];
+            $bilhete += ['flight_id'=>$dadosBilhete['flight_id']];
+            if ($dadosBilhete['flight_back_id'] != null) {
+                $bilhete += ['flight_back_id'=>$dadosBilhete['flight_back_id']];
+            }
+            $bilhete += ['price'=>$dadosBilhete['price']];
+
+            // Pesquisar um lugar de avião disponivel
+            do {
+                $voo = Users_flight::first(['flight_id' => $dadosBilhete['flight_id'], 'planeplace'=>$dadosBilhete['planeplace']]);
+                if ($voo != null){
+                    $dadosBilhete['planeplace'] = rand(1, $voo->airplane->capacity);
+                }
+            }while($voo != null);
+            $bilhete += ['planeplace'=>$dadosBilhete['planeplace']];
+
+            // Recebe as horas em que o utilizador compra o bilhete
+            $bilhete += ['purchasedate'=>date("d-m-Y H:i")];
+
+            $bilheteFinal = new Users_flight($bilhete);
 
             // Guarda o bilhete
-            $bilhete->save();
+            $bilheteFinal->save();
 
             Redirect::toRoute('users_flights/index');
         }else{
