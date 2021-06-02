@@ -12,6 +12,8 @@ class Flight extends Model{
     ];
 
     // Um "Voo" tem várias "Escalas"
-    static $has_many = [['scale']];
+    static $has_many = [['scale'],
+    ['userflight', 'foreign_key' =>'flight_id', 'class_name' => 'Users_flight']];
+
 }
 ?>

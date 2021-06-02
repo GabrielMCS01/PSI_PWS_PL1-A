@@ -9,7 +9,7 @@ class User extends Model
 {
     //Definição do modelo(objeto)
     // Um "User" pode ter várias "Compras de Voos"
-    static $has_many = [['user_purchasesflight', 'foreign_key' =>'client_id', 'class_name' => 'Users_flight']];
+    static $has_many = [['userflight', 'foreign_key' =>'client_id', 'class_name' => 'Users_flight']];
 
     public function TipoUserMostrar($tipouser){
         switch ($tipouser){
