@@ -25,11 +25,16 @@ class Users_flightController extends BaseController implements ResourceControlle
     // Passar o ID do voo?
     public function create()
     {
+
+    }
+
+    public function createPurchase($id)
+    {
         // Se não houver utilizador com login feito, retorna a view de login
         if(isset($_SESSION['username'])) {
-            // Retorna o voo seleciodo e o user com login feito
+            // Retorna o voo selecionado e o user com login feito
             $user = User::first($_SESSION['userid']);
-            $voo = Flight::first();
+            $voo = Flight::first($id);
 
             return View::make('users_flights.create', ['user' => $user, 'voo' => $voo]);
         }else{
