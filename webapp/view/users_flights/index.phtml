@@ -35,8 +35,6 @@ switch ($_SESSION['tipoUser']) {
     <div class="cardavioes">
         <ul class="firstline">
             <li class="textoAviao">Compras</li>
-            <a href="<?=Url::toRoute('flights/create')?>">
-            </a>
         </ul>
         <div class="tabelaPlace">
             <table class="table table-hover">
@@ -61,17 +59,17 @@ switch ($_SESSION['tipoUser']) {
                 <tbody>
                 <?php foreach ($compras as $dados){ ?>
                     <tr>
-                        <td><?=$dados->flight?></td>
-                        <td><?=$dados->flight_back?></td>
+                        <td><?=$dados->flight->flightname?></td>
+                        <td><?=(isset($dados->flight_back->flightname)) ? $dados->flight_back->flightname : 'X' ?></td>
                         <td><?=$dados->price.'€'?></td>
-                        <td><?=$dados->purchasedate?></td>
+                        <td><?=date('d/m/Y H:i',strtotime($dados->purchasedate))?></td>
                         <td><?=$dados->planeplace?></td>
-                        <td><?=$dados->checkin?></td>
+                        <td><?=($dados->checkin == 0) ? 'Pendente' : 'Concluído'?></td>
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
                             <td><a href="<?=Url::toRoute('users_flights/edit', $dados->flights_id, $dados->$_SESSION[''])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
                             <td><a href="<?=Url::toRoute('users_flights/destroy', $dados->users_flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                         <?php }else{ ?>
-                            <td><a href="<?=Url::toRoute('users_flights/show', $dados->user_flights_id)?>"><img title="Mostrar" alt="Detalhes" src="<?=Asset::image('comprar.png')?>" width="32"></a></td>
+                            <td><a href="<?=Url::toRoute('users_flights/show', $dados->users_flights_id)?>"><img title="Exportar" alt="Exportar" src="<?=Asset::image('PDFExport.png')?>" width="32"></a></td>
                         <?php }?>
                     </tr>
                 <?php } ?>

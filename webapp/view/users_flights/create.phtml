@@ -2,6 +2,7 @@
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use Tracy\Dumper;
 
 switch ($_SESSION['tipoUser']) {
     // Mostrar o header conforme o tipo de utilizador
@@ -21,9 +22,27 @@ switch ($_SESSION['tipoUser']) {
 ?>
 
 <?php
-    $aeroportos = Data::get('airports');
-    $avioes = Data::get('airplanes');
+    $user = Data::get('user');
+    $voo = Data::get('voo');
+    $lugar = 0;
+    Dumper::dump($user);
+    Dumper::dump($voo->userflight);
 ?>
+
+<style>
+    .visaocompra{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+        pointer-events: none;
+        touch-action: none;
+    }
+
+    .optionvisaocompra{
+        display: none;
+    }
+</style>
 
 <div class="cxfloatvooscreate">
     <div class="cardavioescreate">
@@ -36,14 +55,27 @@ switch ($_SESSION['tipoUser']) {
         <div class="tabelaPlace">
             <form class="formulario-todo" action="<?=Url::toRoute('users_flights/store')?>" method="post">
 
-                <input type="text" class="form-control form" name="flightname" title="clientID" placeholder="Nome do Voo" required>
+                <select class="form-control form visaocompra" name="client_id" title="cliente" readonly="true">
+                    <option class="optionvisaocompra" value="<?=$user->users_id?>"selected><span style="font-weight: bold">Cliente: </span><?=$user->fullname?></option>
+                </select>
 
-                <input type="datetime-local" class="form-control form" name="datehourdeparture" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
+                <select class="form-control form visaocompra" name="flight_id" title="Voo" readonly="true">
+                    <option class="optionvisaocompra" value="<?=$voo->flights_id?>"selected>Código do Voo: <?=$voo->flightname?></option>
+                </select>
 
-                <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data de chegada do voo"
+                <select class="form-control form visaocompra" name="flight_back_id" title="Voo de Volta" readonly="true">
+                    <option class="form-control form" value="<?=(isset($voo->userflight)) ? $voo->userflight->flight_back_id : null?>"selected>Código do Voo de Volta: <?=(isset($voo->userflight)) ? $voo->userflight->flight_back_id : ''?></option>
+                </select>
 
+                <select class="form-control form visaocompra" name="price" title="Preço" readonly="true">
+                    <option class="form-control form" value="<?= $voo->price?>"selected>Preço: <?=$voo->price ?>€</option>
+                </select>
 
-                <input class="btn botaosignin" type="submit" value="Adicionar">
+                <select class="form-control form visaocompra" name="planeplace" title="Lugar no avião" readonly="true">
+                    <option class="form-control form" value="<?=$lugar = rand(1, $voo->airplane->capacity)?>"selected>Lugar no avião: <?=$lugar?></option>
+                </select>
+
+                <input class="btn botaosignin" type="submit" value="Pagamento">
 
             </form>
         </div>
@@ -51,4 +83,4 @@ switch ($_SESSION['tipoUser']) {
     </div>
 </div>
 
-<?=Layout::includeLayout('footer')?>
+<?=Layout::includeLayout('footer') ?>
