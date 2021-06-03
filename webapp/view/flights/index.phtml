@@ -36,11 +36,14 @@ $searchbar = Data::get('searchbar');
 //Página que mostra todos os voos registados na base de dados
 ?>
 
-
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao"><a href="<?=Url::toRoute('flights/index')?>">Voos</a></li>
+            <?php if($_SESSION['tipoUser'] == 'passageiro'){ ?>
+                <li class="textoAviao"><a href="<?=Url::toRoute('flights/user_search')?>">Pesquisar Voo</a></li>
+            <?php }else{ ?>
+                <li class="textoAviao"><a href="<?=Url::toRoute('flights/index')?>">Voos</a></li>
+            <?php } ?>
             <li>
                 <form class="formSearch" method="post" action="<?=Url::toRoute('flights/search')?>">
                     <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
