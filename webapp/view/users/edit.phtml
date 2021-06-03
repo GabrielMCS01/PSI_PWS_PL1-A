@@ -16,7 +16,7 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('gestordevooheader');
         break;
     case 'operadordecheckin':
-        Layout::includeLayout('header');
+        Layout::includeLayout('operadordecheckinheader');
         break;
     default:
         Redirect::toRoute('users/index');

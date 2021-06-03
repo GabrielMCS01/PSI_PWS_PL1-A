@@ -2,8 +2,8 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\WebObjects\URL;
-//Header de aministrador
-//Com os respetivos botões para as páginas restritas ao utilizador administrador
+//Header de passageiro
+//Com os respetivos botões para as páginas restritas ao utilizador passageiro
 ?>
 
 <!DOCTYPE html>
@@ -39,12 +39,11 @@ use ArmoredCore\WebObjects\URL;
         <div class="navbar-header">
             <!-- Button for smallest screens -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="<?= URL::toRoute('flights/index')?>">GESTOR DE VOO</a>
+            <a class="navbar-brand" href="<?= URL::toRoute('users_flights/index')?>">OPERADOR DE CHECK-IN</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
-                <li><a href="<?= URL::toRoute('flights/index')?>">Voos</a></li>
-                <li><a href="<?= URL::toRoute('airplanes/index')?>">Aviões</a></li>
+                <li><a href="<?= URL::toRoute('users_flights/index')?>">Gestão de Check-In</a></li>
                 <li><a class="btn" href="<?= URL::toRoute('users/sair')?>">Terminar Sessão</a></li>
             </ul>
         </div><!--/.nav-collapse -->
