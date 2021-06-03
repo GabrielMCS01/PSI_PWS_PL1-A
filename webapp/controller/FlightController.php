@@ -23,7 +23,9 @@ class FlightController extends BaseController implements ResourceControllerInter
                     $airport = Airport::first(['country' => $origin[0]]);
 
                     if($airport != null) {
-                        $pesquisa += ['origin_airport_id' => $airport->airports_id];
+                        array_push($pesquisa,"origin_airport_id LIKE '$airport->airports_id'");
+                    }else{
+                        array_push($pesquisa,"destination_airport_id LIKE null");
                     }
                 }
 
@@ -32,16 +34,31 @@ class FlightController extends BaseController implements ResourceControllerInter
                     $airport = Airport::first(['country' => $destination[0]]);
 
                     if($airport != null) {
-                        $pesquisa += ['destination_airport_id' => $airport->airports_id];
+                        array_push($pesquisa,"destination_airport_id LIKE '$airport->airports_id'");
+                    }else{
+                        array_push($pesquisa, "destination_airport_id LIKE null");
                     }
                 }
 
                 if($pesquisa_user['datehourdeparture'] != null) {
                     $data = $pesquisa_user['datehourdeparture'];
-                    $pesquisa += ['conditions' => "datehourdeparture LIKE '%$data%'"];
+                    array_push($pesquisa,"datehourdeparture LIKE '%$data%'");
                 }
 
-                $voos = Flight::all($pesquisa);
+                switch(count($pesquisa)){
+                    case 1:
+                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0]"]);
+                        break;
+                    case 2:
+                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1]"]);
+                        break;
+                    case 3:
+                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2]"]);
+                        break;
+                    default:
+                        $voos = Flight::all();
+                        break;
+                }
 
             } else {
                 // A variável recebe todos os Voos existentes
