@@ -131,6 +131,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
                     case "gestordevoo":
                         Redirect::toRoute('flights/index');
                         break;
+                    case "operadordecheckin":
+                        Redirect::toRoute('users_flights/index');
+                        break;
                 }
             } else {
                 session_unset();
