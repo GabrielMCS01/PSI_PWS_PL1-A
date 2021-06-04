@@ -305,4 +305,12 @@ th {
   display: none;
 }
 
+.conteinersearch {
+  display: flex;
+}
+.conteinersearch .searchitem {
+  width: 11vw;
+  margin-right: -10px;
+}
+
 /*# sourceMappingURL=style.css.map */

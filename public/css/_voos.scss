@@ -41,3 +41,12 @@
 .optionvisaocompra{
   display: none;
 }
+
+.conteinersearch{
+  display: flex;
+
+  .searchitem{
+    width: 11vw;
+    margin-right: -10px;
+  }
+}

@@ -33,28 +33,35 @@ $paises = Data::get('paises');
             <div class="tabelaPlaceVoos">
                 <form class="formulario-todo" action="<?=Url::toRoute('flights/index')?>" method="post">
 
-                    <select class="form-control form" name="origin_airportname" title="Insira o país de origem">
-                        <option readonly="true" selected>País de origem</option>
-                        <?php foreach ($paises as $pais){
-                            if($pais->capital != null){ ?>
-                                <option><?=$pais->name." - ".$pais->capital?></option>
-                            <?php }
-                        } ?>
-                    </select>
+                    <div class="conteinersearch">
 
-                    <select class="form-control form" name="destination_airportname" title="Insira o país de destino">
-                        <option readonly="true" selected>País de destino</option>
-                        <?php foreach ($paises as $pais){
-                            if($pais->capital != null){ ?>
-                                <option><?=$pais->name." - ".$pais->capital?></option>
-                            <?php }
-                        } ?>
-                    </select>
+                        <select class="form-control form searchitem" name="origin_airportname" title="Insira o país de origem">
+                            <option readonly="true" selected>País de origem</option>
+                            <?php foreach ($paises as $pais){
+                                if($pais->capital != null){ ?>
+                                    <option><?=$pais->name." - ".$pais->capital?></option>
+                                <?php }
+                            } ?>
+                        </select>
 
-                    <input type="date" class="form-control form" name="datehourdeparture" title="Indique a data inicial de pesquisa do voo" placeholder="Data inicial de Partida">
+                        <select class="form-control form searchitem" name="destination_airportname" title="Insira o país de destino">
+                            <option readonly="true" selected>País de destino</option>
+                            <?php foreach ($paises as $pais){
+                                if($pais->capital != null){ ?>
+                                    <option><?=$pais->name." - ".$pais->capital?></option>
+                                <?php }
+                            } ?>
+                        </select>
 
-                    <input type="date" class="form-control form" name="datehourdeparturefinal" title="Indique a data final de pesquisa do voo" placeholder="Data final de Partida">
+                    </div>
 
+                    <div class="conteinersearch">
+
+                        <input type="date" id="" class="form-control form searchitem" name="datehourdeparture" title="Indique a data inicial de pesquisa do voo" placeholder="Data inicial de Partida">
+
+                        <input type="date" class="form-control form searchitem" name="datehourdeparturefinal" title="Indique a data final de pesquisa do voo" placeholder="Data final de Partida">
+
+                    </div>
                     <input class="btn botaosignin" type="submit" value="Pesquisar">
 
                 </form>
