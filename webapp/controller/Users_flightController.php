@@ -112,9 +112,9 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
-            $compra = Users_flight::first($id);
+            $userflight = Users_flight::first($id);
 
-            return View::make('users_flights.edit', ['compra' => [$compra]]);
+            return View::make('users_flights.edit', ['userflight' => $userflight]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -125,11 +125,17 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
+
         if(isset($_SESSION['username'])) {
-            // Atualizar a compra
-            $compra = Users_flight::first($id);
-            $compra->update_attributes(Post::getAll());
+            // A variável recebe os dados do form
+            $checkin = Post::get('checkin');
+            $compra = Users_flight::first([$id]);
+
+            $compra->update_attribute('checkin', $checkin);
+
+            // Guarda o bilhete
             $compra->save();
+
             Redirect::toRoute('users_flights/index');
         }else{
             Redirect::toRoute('users/index');
