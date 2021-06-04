@@ -66,7 +66,7 @@ switch ($_SESSION['tipoUser']) {
                         <td><?=$dados->planeplace?></td>
                         <td><?=($dados->checkin == 0) ? 'Pendente' : 'Concluído'?></td>
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
-                            <td><a href="<?=Url::toRoute('users_flights/edit', $dados->flights_id, $dados->$_SESSION[''])?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
+                            <td><a href="<?=Url::toRoute('users_flights/edit', $dados->flight_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
                             <td><a href="<?=Url::toRoute('users_flights/destroy', $dados->users_flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                         <?php }else{ ?>
                             <td><a href="<?=Url::toRoute('users_flights/show', $dados->users_flights_id)?>"><img title="Exportar" alt="Exportar" src="<?=Asset::image('PDFExport.png')?>" width="32"></a></td>

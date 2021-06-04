@@ -59,6 +59,7 @@ switch ($_SESSION['tipoUser']) {
                     <option class="optionvisaocompra" value="<?=$user->users_id?>"selected><span style="font-weight: bold">Cliente: </span><?=$user->fullname?></option>
                 </select>
 
+
                 <select class="form-control form visaocompra" name="flight_id" title="Voo" readonly="true">
                     <option class="optionvisaocompra" value="<?=$voo->flights_id?>"selected>Código do Voo: <?=$voo->flightname?></option>
                 </select>

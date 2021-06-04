@@ -12,7 +12,14 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         if (isset($_SESSION['username'])) {
-            $bilhetes = Users_flight::all(['client_id'=>$_SESSION['userid']]);
+            // Caso o utilizador seja passageiro carrega apenas as suas compras
+            if ($_SESSION['tipoUser'] == 'passageiro') {
+                $bilhetes = Users_flight::all(['client_id'=>$_SESSION['userid']]);
+            }
+            // Para os restantes utilizadores são carregados
+            else{
+                $bilhetes = Users_flight::all();
+            }
 
             // Retorna a View com a variável com todos os aviões(array)
             return View::make('users_flights.index', ['users_flights' => $bilhetes,'searchbar' => '']);
@@ -32,11 +39,14 @@ class Users_flightController extends BaseController implements ResourceControlle
     {
         // Se não houver utilizador com login feito, retorna a view de login
         if(isset($_SESSION['username'])) {
-            // Retorna o voo selecionado e o user com login feito
-            $user = User::first($_SESSION['userid']);
-            $voo = Flight::first($id);
+            // Caso o utilizador seja passageiro, atribui o voo automaticamente ao utilizador
+            if ($_SESSION['tipoUser'] == 'passageiro') {
+                // Retorna o voo selecionado e o user com login feito
+                $user = User::first($_SESSION['userid']);
+                $voo = Flight::first($id);
+            }
 
-            return View::make('users_flights.create', ['user' => $user, 'voo' => $voo]);
+            return View::make('users_flights.create', ['user' => $user, 'voo' => $id]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -82,7 +92,7 @@ class Users_flightController extends BaseController implements ResourceControlle
         }
     }
 
-    // Função que mostra um bilhete comprado pelo passageiro em detalhe
+    // Função que mostra a compra para se fazer a impressão do bilhete
     public function show($id)
     {
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
