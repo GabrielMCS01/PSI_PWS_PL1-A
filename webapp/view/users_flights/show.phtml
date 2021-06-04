@@ -20,10 +20,7 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('operadordecheckinheader');
         break;
 }
-?>
 
-
-<?php
 // Include the main TCPDF library (search for installation path).
 require_once '..\vendor\tecnickcom\tcpdf\examples\tcpdf_include.php';
 
@@ -59,19 +56,20 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // add a page
 $pdf->AddPage();
 
-$html = '<h4>PDF Example</h4><br><p>teste to the Jungle</p>';
+$html = '<h4>Obrigador por ter Comprado uma Viagem</h4><br><p>Descrição da Viagem:<br>  
+<p>Voo: </p> 
+<p>Voo de Volta: </p>  
+<p>Preço: </p> 
+<p>Data de Compra: </p> 
+<p>Lugar no Avião: </p>
+<p>Estado do Check-in: </p>
+<br><br><h4>Desejamos-lhe uma Boa Viagem</h4>';
 
+//Escrever no pdf o html
 $pdf->writeHTML($html, true, false, true, false, '');
-// add a page
-$pdf->AddPage();
-
-$html = '<h1>Hey</h1>';
-// output the HTML content
-$pdf->writeHTML($html, true, false, true, false, '');
-
 // reset pointer to the last page
 $pdf->lastPage();
 //Close and output PDF document
 ob_end_clean();
-$pdf->Output('example_006.pdf', 'D');
+$pdf->Output('bilhete_'.date("Y-m-d").'.pdf', 'D');
 ?>
