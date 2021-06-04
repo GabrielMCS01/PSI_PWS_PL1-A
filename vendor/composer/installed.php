@@ -185,6 +185,15 @@
         0 => '1.0|2.0',
       ),
     ),
+    'tecnickcom/tcpdf' => 
+    array (
+      'pretty_version' => '6.4.1',
+      'version' => '6.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5ba838befdb37ef06a16d9f716f35eb03cb1b329',
+    ),
     'tracy/tracy' => 
     array (
       'pretty_version' => 'v2.7.3',
