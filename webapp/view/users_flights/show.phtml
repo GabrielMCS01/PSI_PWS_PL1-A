@@ -64,13 +64,16 @@ else{
     $checkin = "Concluído";
 }
 
+$flightback = ($compra->flight_back_id) ? '<p><b>Voo de Volta: </b>'.$compra->flight_back_id.'</p>' : '';
+
 $html = '<h2>Obrigador por ter Comprado uma Viagem</h2><br><h3>Descrição da Viagem<br> </h3> '.
-'<p><b>Voo: </b> '.$compra->flight_id.'</p>
-<p><b>Voo de Volta: </b>'.$compra->flight_back_id. '</p>  
-<p><b>Preço:  </b>'.$compra->price.'€'.'</p> 
-<p><b>Data de Compra: </b>' .$compra->purchasedate.'</p> 
-<p><b>Lugar no Avião: </b>'.$compra->planeplace. '</p>
-<p><b>Estado do Check-in: </b>'.$checkin. '</p>
+'<p><b>Voo: </b> '.$compra->flight->flightname.'</p>'
+.$flightback.
+'<p><b>Preço:  </b>'.$compra->price.'€'.'</p> 
+<p><b>Data de Compra: </b>' .date('d/m/Y', strtotime($compra->purchasedate)).'</p> 
+<p><b>Hora de Compra: </b>' .date('H:i', strtotime($compra->purchasedate)).'</p> 
+<p><b>Lugar no Avião: </b>'.$compra->planeplace.'</p>
+<p><b>Estado do Check-in: </b>'.$checkin.'</p>
 <br><br><p></p><br><h2>Desejamos-lhe uma Boa Viagem</h2>';
 
 //Escrever no pdf o html
