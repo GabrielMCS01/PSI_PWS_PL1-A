@@ -1,10 +1,10 @@
-<?php use ArmoredCore\WebObjects\Asset;
+<?php
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -18,28 +18,51 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('operadordecheckinheader');
         break;
 }
+?>
 
-$compra = Data::get('compra');
+<?php
+    $userflight = Data::get('userflight');
 ?>
 
     <div class="cxfloatvooscreate">
         <div class="cardavioescreate">
             <ul class="firstline">
-                <li class="textoAdicionarAviao">Alterar Compra</li>
-                <a href="<?=Url::toRoute('users_flights/index')?>">
-                    <li class="veravioes">Ver Compras</li>
-                </a>
+                <li class="textoAdicionarAviao">Fazer Check-in</li>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('users_flights/update', $voo[0]->idvoo)?>" method="post">
-                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo[0]->datahorapartida))?>T<?=date('H:i',strtotime($voo[0]->datahorapartida))?>" name="DataHoraPartida" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
-                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo[0]->datahorachegada))?>T<?=date('H:i',strtotime($voo[0]->datahorachegada))?>" name="DataHoraChegada" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->idaeroportoorigem?>" name="IdAeroportoOrigem" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->idaeroportodestino?>" name="IdAeroportoDestino" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
-                <input type="text" class="form-control form" value="<?=$voo[0]->idaviao?>" name="IdAviao" title="Insira o avião" placeholder="Avião" required>
-                <input class="btn botaosignin" type="submit" value="Alterar">
-            </form>
+            <div class="tabelaPlaceVoo">
+                <form class="formulario-todo" action="<?=Url::toRoute('users_flights/update', $userflight->users_flights_id)?>" method="post">
+
+                    <select class="form-control form visaocompra" name="client_id" title="cliente" readonly="true">
+                        <option class="optionvisaocompra" value="<?=$userflight->client_id?>"selected><span style="font-weight: bold">Cliente: </span><?=$userflight->client_id?></option>
+                    </select>
+
+                    <select class="form-control form visaocompra" name="flight_id" title="Voo" readonly="true">
+                        <option class="optionvisaocompra" value="<?=$userflight->flight_id?>"selected>Código do Voo: <?=$userflight->flight_id?></option>
+                    </select>
+
+                    <select class="form-control form visaocompra" name="flight_back_id" title="Voo de Volta" readonly="true">
+                        <option class="form-control form" value="<?=(isset($userflight->flight_back_id)) ? $userflight->flight_back_id : null?>"selected>Código do Voo de Volta: <?=(isset($userflight->flight_back_id)) ? $userflight->flight_back_id : ''?></option>
+                    </select>
+
+                    <select class="form-control form visaocompra" name="price" title="Preço" readonly="true">
+                        <option class="form-control form" value="<?= $userflight->price?>"selected>Preço: <?=$userflight->price ?>€</option>
+                    </select>
+
+                    <select class="form-control form visaocompra" name="planeplace" title="Lugar no avião" readonly="true">
+                        <option class="form-control form" value="<?=$userflight->planeplace?>"selected>Lugar no avião: <?=$userflight->planeplace?></option>
+                    </select>
+
+                    <select class="form-control form" name="checkin" title="Lugar no avião">
+                        <option class="form-control form" value="0" <?= ($userflight->checkin == 0) ? 'selected' : ''?>>Check-in: Pendente</option>
+                        <option class="form-control form" value="1" <?= ($userflight->checkin == 1) ? 'selected' : ''?>>Check-in: Concluído</option>
+                    </select>
+
+                    <input class="btn botaosignin" type="submit" value="Pagamento">
+
+                </form>
+            </div>
             </ul>
         </div>
     </div>
 
-<?=Layout::includeLayout('footer')?>
+<?=Layout::includeLayout('footer') ?>
