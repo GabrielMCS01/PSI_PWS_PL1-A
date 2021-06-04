@@ -7,6 +7,7 @@
         "nesbot/carbon": "^2.46",
         "laminas/laminas-diactoros": "^2.5",
         "nette/php-generator": "^3.5",
-        "symfony/string": "^5.2"
+        "symfony/string": "^5.2",
+        "tecnickcom/tcpdf": "^6.4"
     }
 }
