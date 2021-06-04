@@ -20,6 +20,8 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('operadordecheckinheader');
         break;
 }
+$compra = Data::get('compra');
+ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
 
 // Include the main TCPDF library (search for installation path).
 require_once '..\vendor\tecnickcom\tcpdf\examples\tcpdf_include.php';
@@ -56,14 +58,22 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 // add a page
 $pdf->AddPage();
 
-$html = '<h4>Obrigador por ter Comprado uma Viagem</h4><br><p>Descrição da Viagem:<br>  
-<p>Voo: </p> 
-<p>Voo de Volta: </p>  
-<p>Preço: </p> 
-<p>Data de Compra: </p> 
-<p>Lugar no Avião: </p>
-<p>Estado do Check-in: </p>
-<br><br><h4>Desejamos-lhe uma Boa Viagem</h4>';
+//Verifar estado do checkin
+if($compra->checkin == 0){
+     $checkin = "Pendente";
+}
+else{
+    $checkin = "Concluído";
+}
+
+$html = '<h2>Obrigador por ter Comprado uma Viagem</h2><br><h3>Descrição da Viagem<br> </h3> '.
+'<p><b>Voo: </b> '.$compra->flight_id.'</p>
+<p><b>Voo de Volta: </b>'.$compra->flight_back_id. '</p>  
+<p><b>Preço:  </b>'.$compra->price.'€'.'</p> 
+<p><b>Data de Compra: </b>' .$compra->purchasedate.'</p> 
+<p><b>Lugar no Avião: </b>'.$compra->planeplace. '</p>
+<p><b>Estado do Check-in: </b>'.$checkin. '</p>
+<br><br><p></p><br><h2>Desejamos-lhe uma Boa Viagem</h2>';
 
 //Escrever no pdf o html
 $pdf->writeHTML($html, true, false, true, false, '');
