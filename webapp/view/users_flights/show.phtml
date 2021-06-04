@@ -64,7 +64,7 @@ else{
     $checkin = "Concluído";
 }
 
-$flightback = ($compra->flight_back_id) ? '<p><b>Voo de Volta: </b>'.$compra->flight_back_id.'</p>' : '';
+$flightback = ($compra->flight_back_id != null) ? '<p><b>Voo de Volta: </b>'.$compra->flight_back->flightname.'</p>' : '';
 
 $html = '<h2>Obrigador por ter Comprado uma Viagem</h2><br><h3>Descrição da Viagem<br> </h3> '.
 '<p><b>Voo: </b> '.$compra->flight->flightname.'</p>'
