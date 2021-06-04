@@ -18,10 +18,12 @@ class FlightController extends BaseController implements ResourceControllerInter
 
                 $pesquisa = [];
 
+                // Verifica se foi pesquisado o aeroporto de origem
                 if(isset($pesquisa_user['origin_airportname']) && $pesquisa_user['origin_airportname'] != 'País de origem'){
                     $origin = explode(" - ", $pesquisa_user['origin_airportname']);
                     $airport = Airport::first(['country' => $origin[0]]);
 
+                    // Verifica se existe voo apartir desse país
                     if($airport != null) {
                         array_push($pesquisa,"origin_airport_id LIKE '$airport->airports_id'");
                     }else{
@@ -29,10 +31,12 @@ class FlightController extends BaseController implements ResourceControllerInter
                     }
                 }
 
+                // Verifica se foi pesquisado o aeroporto de chegada
                 if(isset($pesquisa_user['destination_airportname']) && $pesquisa_user['destination_airportname'] != 'País de destino'){
                     $destination = explode(" - ", $pesquisa_user['destination_airportname']);
                     $airport = Airport::first(['country' => $destination[0]]);
 
+                    // Verifica se existe voo apartir desse país
                     if($airport != null) {
                         array_push($pesquisa,"destination_airport_id LIKE '$airport->airports_id'");
                     }else{
@@ -40,11 +44,19 @@ class FlightController extends BaseController implements ResourceControllerInter
                     }
                 }
 
+                // Verifica se foi selecionado a data de inicio de pesquisa
                 if($pesquisa_user['datehourdeparture'] != null) {
                     $data = $pesquisa_user['datehourdeparture'];
-                    array_push($pesquisa,"datehourdeparture LIKE '%$data%'");
+                    array_push($pesquisa,"datehourdeparture >= '$data'");
                 }
 
+                // Verifica se foi selecionado a data de fim de pesquisa
+                if($pesquisa_user['datehourdeparturefinal'] != null) {
+                    $data = $pesquisa_user['datehourdeparturefinal'];
+                    array_push($pesquisa,"datehourdeparture <= '$data'");
+                }
+
+                // Faz a pesquisa consuante o número de dados pedidos
                 switch(count($pesquisa)){
                     case 1:
                         $voos = Flight::find('all', ['conditions' => "$pesquisa[0]"]);
@@ -54,6 +66,9 @@ class FlightController extends BaseController implements ResourceControllerInter
                         break;
                     case 3:
                         $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2]"]);
+                        break;
+                    case 3:
+                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2] AND $pesquisa[3]"]);
                         break;
                     default:
                         $voos = Flight::all();
