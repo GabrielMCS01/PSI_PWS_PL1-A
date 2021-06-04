@@ -36,7 +36,16 @@ class Users_flightController extends BaseController implements ResourceControlle
             $user = User::first($_SESSION['userid']);
             $voo = Flight::first($id);
 
-            return View::make('users_flights.create', ['user' => $user, 'voo' => $voo]);
+            // Pesquisar um lugar de avião disponivel
+            do {
+                $lugar = rand(1, $voo->airplane->capacity);
+                $usersentado = Users_flight::first(['flight_id' => $voo->flights_id, 'planeplace' => $lugar]);
+                if ($usersentado != null){
+                    $lugar = rand(1, $voo->airplane->capacity);
+                }
+            }while($usersentado != null);
+
+            return View::make('users_flights.create', ['user' => $user, 'voo' => $voo, 'lugar' => $lugar]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -59,13 +68,6 @@ class Users_flightController extends BaseController implements ResourceControlle
             }
             $bilhete += ['price'=>$dadosBilhete['price']];
 
-            // Pesquisar um lugar de avião disponivel
-            do {
-                $voo = Users_flight::first(['flight_id' => $dadosBilhete['flight_id'], 'planeplace'=>$dadosBilhete['planeplace']]);
-                if ($voo != null){
-                    $dadosBilhete['planeplace'] = rand(1, $voo->airplane->capacity);
-                }
-            }while($voo != null);
             $bilhete += ['planeplace'=>$dadosBilhete['planeplace']];
 
             // Recebe as horas em que o utilizador compra o bilhete

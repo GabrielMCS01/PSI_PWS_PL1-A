@@ -23,3 +23,21 @@
   float: right;
   margin-right: 30px
 }
+
+.cxfloatvoosusersearch{
+  @extend .cxfloatvooscreate;
+  padding-top: 5vh;
+}
+
+.visaocompra{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+  pointer-events: none;
+  touch-action: none;
+}
+
+.optionvisaocompra{
+  display: none;
+}
