@@ -21,10 +21,15 @@ $Texto1:1rem;
   list-style: none;
 }
 
-.home{
-  background-repeat: no-repeat;
-  background-position: center;
+body{
   background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.home{
+  height: 100%;
+  width: 100%;
+  background-position: center;
 }
 
 :root{

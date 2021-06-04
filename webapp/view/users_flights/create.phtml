@@ -2,7 +2,6 @@
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
-use Tracy\Dumper;
 
 switch ($_SESSION['tipoUser']) {
     // Mostrar o header conforme o tipo de utilizador
@@ -24,35 +23,18 @@ switch ($_SESSION['tipoUser']) {
 <?php
     $user = Data::get('user');
     $voo = Data::get('voo');
-    $lugar = 0;
-    Dumper::dump($user);
-    Dumper::dump($voo->userflight);
+    $lugar = Data::get('lugar');
 ?>
-
-<style>
-    .visaocompra{
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        text-indent: 1px;
-        text-overflow: '';
-        pointer-events: none;
-        touch-action: none;
-    }
-
-    .optionvisaocompra{
-        display: none;
-    }
-</style>
 
 <div class="cxfloatvooscreate">
     <div class="cardavioescreate">
         <ul class="firstline">
             <li class="textoAdicionarAviao">Comprar Bilhete</li>
-            <a href="<?=Url::toRoute('users_flights/index')?>">
-                <li class="veravioes">Ver Compras</li>
+            <a href="<?=Url::toRoute('flights/user_search')?>">
+                <li class="veravioes">Pesquisar Voos</li>
             </a>
         </ul>
-        <div class="tabelaPlace">
+        <div class="tabelaPlaceVoo">
             <form class="formulario-todo" action="<?=Url::toRoute('users_flights/store')?>" method="post">
 
                 <select class="form-control form visaocompra" name="client_id" title="cliente" readonly="true">
@@ -73,7 +55,7 @@ switch ($_SESSION['tipoUser']) {
                 </select>
 
                 <select class="form-control form visaocompra" name="planeplace" title="Lugar no avião" readonly="true">
-                    <option class="form-control form" value="<?=$lugar = rand(1, $voo->airplane->capacity)?>"selected>Lugar no avião: <?=$lugar?></option>
+                    <option class="form-control form" value="<?=$lugar?>"selected>Lugar no avião: <?=$lugar?></option>
                 </select>
 
                 <input class="btn botaosignin" type="submit" value="Pagamento">
