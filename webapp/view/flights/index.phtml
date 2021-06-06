@@ -88,7 +88,17 @@ $searchbar = Data::get('searchbar');
                         <td><?=$dados->destination_airport->airportname?>
                             <img class="imgbandeiras" src="<?=$dados->destination_airport->flag?>" width="30">
                         </td>
-                        <td><?=$dados->distance?> km</td>
+                        <td><?php
+                            $escalasDistancia = 0;
+                        if ($dados->scale != null){
+                            foreach ($dados->scale as $escalas){
+                                $escalasDistancia += $escalas->distance;
+                            }
+                            echo $escalasDistancia;
+                        }else{
+                            echo $dados->distance;
+                        }
+                        ?> km</td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->price.'€'?></td>
                         <td><a href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><img title="Escalas" alt="escalas" src="<?=Asset::image('escala.png')?>"></a></td>x
@@ -97,9 +107,10 @@ $searchbar = Data::get('searchbar');
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
                             <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
                             <td><a href="<?=Url::toRoute('flights/destroy', $dados->flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
-                        <?php }else{ ?>
+                        <?php }else{
+                            if($dados->airplane->capacity > count($dados->userflight)){?>
                             <td><a href="<?=Url::toRoute('users_flights/createPurchase', $dados->flights_id)?>"><img title="Comprar passagem" alt="apagar" src="<?=Asset::image('comprar.png')?>" width="32"></a></td>
-                        <?php }?>
+                        <?php } }?>
 
                     </tr>
                 <?php } ?>
