@@ -80,7 +80,7 @@ class FlightController extends BaseController implements ResourceControllerInter
                 $voos = Flight::all();
             }
             // Retorna a View com a variável com todos os Voos
-            return View::make('flights.index', ['voos' => $voos, 'searchbar' => '']);
+            return View::make('flights.index', ['voos' => $voos, 'searchbar' => '', 'paises' => $this->user_search()]);
 
         }else{
             Redirect::toRoute('users/index');
@@ -236,13 +236,13 @@ class FlightController extends BaseController implements ResourceControllerInter
             "]);
 
             // Retorna a View com os argumentos de procura
-            return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching]);
+            return View::make('flights.index', ['voos' => $search, 'searchbar' => $searching, 'paises' => $this->user_search()]);
         }else{
             Redirect::toRoute('users/index');
         }
     }
 
-    public function user_search(){
+    private function user_search(){
         // Se tiver sessão iniciada, faz caso contrário é redirecionado para a página de Login
         if(isset($_SESSION['username'])) {
             //Pesquisa todos os países
@@ -250,7 +250,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             $paises = $paises->ListarPaises();
 
             // Retorna a View com os argumentos de procura
-            return View::make('flights.user_search', ['paises' => $paises]);
+            return $paises;
         }else{
             Redirect::toRoute('users/index');
         }

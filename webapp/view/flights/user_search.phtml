@@ -3,28 +3,11 @@ use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
-    case 'administrador':
-        Layout::includeLayout('adminheader');
-        break;
-    case 'passageiro':
-        Layout::includeLayout('passageiroheader');
-        break;
-    case 'gestordevoo':
-        Layout::includeLayout('gestordevooheader');
-        break;
-    case 'operadordecheckin':
-        Layout::includeLayout('operadordecheckinheader');
-        break;
-}
-
 // Recebe os dados do controller
 $paises = Data::get('paises');
 
 // Página que permite criar/registar voos na base de dados
 ?>
-
     <div class="cxfloatvoosusersearch">
         <div class="cardvooscreate">
             <ul class="firstline">
@@ -69,5 +52,3 @@ $paises = Data::get('paises');
             </ul>
         </div>
     </div>
-
-<?=Layout::includeLayout('footer')?>

@@ -30,6 +30,8 @@ switch ($_SESSION['tipoUser']) {
         break;
 }
 
+include_once 'user_search.phtml';
+
 $voos = Data::get('voos');
 $searchbar = Data::get('searchbar');
 
@@ -39,11 +41,7 @@ $searchbar = Data::get('searchbar');
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <?php if($_SESSION['tipoUser'] == 'passageiro'){ ?>
-                <li class="textoAviao"><a href="<?=Url::toRoute('flights/user_search')?>">Pesquisar Voo</a></li>
-            <?php }else{ ?>
-                <li class="textoAviao"><a href="<?=Url::toRoute('flights/index')?>">Voos</a></li>
-            <?php } ?>
+            <li class="textoAviao"><a href="<?=Url::toRoute('flights/index')?>">Voos</a></li>
             <li>
                 <form class="formSearch" method="post" action="<?=Url::toRoute('flights/search')?>">
                     <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
@@ -120,5 +118,4 @@ $searchbar = Data::get('searchbar');
     </div>
 </div>
 
-<?=Layout::includeLayout('footer')?>
-
+<?=Layout::includeLayout('footer');?>
