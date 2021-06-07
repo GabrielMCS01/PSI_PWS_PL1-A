@@ -51,16 +51,12 @@ switch ($_SESSION['tipoUser']) {
                     <option class="optionvisaocompra" value="<?=$voo->flights_id?>"selected>Código do Voo: <?=$voo->flightname?></option>
                 </select>
 
-                <select class="form-control form visaocompra" name="flight_back_id" title="Voo de Volta">
-                    <option class="form-control form" value="<?=(isset($voo->userflight)) ? $voo->userflight->flight_back_id : null?>"selected>Código do Voo de Volta: <?=(isset($voo->userflight)) ? $voo->userflight->flight_back_id : ''?></option>
+                <select class="form-control form visaocompra" name="planeplace" title="Lugar no avião">
+                    <option class="form-control form" value="<?=$lugar?>"selected>Lugar no avião: <?=$lugar?></option>
                 </select>
 
                 <select class="form-control form visaocompra" name="price" title="Preço">
                     <option class="form-control form" value="<?= $voo->price?>"selected>Preço: <?=$voo->price ?>€</option>
-                </select>
-
-                <select class="form-control form visaocompra" name="planeplace" title="Lugar no avião">
-                    <option class="form-control form" value="<?=$lugar?>"selected>Lugar no avião: <?=$lugar?></option>
                 </select>
 
                 <?php if($voosvolta != null){ ?>
@@ -70,17 +66,18 @@ switch ($_SESSION['tipoUser']) {
                     </div>
                 <?php } ?>
 
-                <select class="form-control form voovolta" title="Escolher voo de volta">
-                    <?php foreach ($voosvolta as $dados){ ?>
-                        <option class="form-control form" value="<?=$dados->flights_id?>"><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></option>
-                    <?php } ?>
-                </select>
+                <div class="voovolta">
+                    <select class="form-control form" title="Escolher voo de volta" onchange="MudarPrecoVolta(this)">
+                        <?php foreach ($voosvolta as $dados){ ?>
+                            <option class="form-control form" value="<?//=$dados->flights_id?>">Data: <?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?> Preço: <?=$dados->price?> €</option>
+                        <?php } ?>
+                    </select>
+                </div>
 
                 <input class="btn botaosignin" type="submit" value="Pagamento">
 
             </form>
         </div>
-        </ul>
     </div>
 </div>
 
