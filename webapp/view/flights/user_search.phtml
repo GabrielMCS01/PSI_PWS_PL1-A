@@ -1,4 +1,6 @@
 <?php
+
+use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
@@ -6,15 +8,19 @@ use ArmoredCore\WebObjects\URL;
 // Recebe os dados do controller
 $paises = Data::get('paises');
 
+
 // Página que permite criar/registar voos na base de dados
 ?>
+
+<script src="<?= Asset::js('script.js')?>"></script>
+
     <div class="cxfloatvoosusersearch">
         <div class="cardvooscreate">
             <ul class="firstline">
-                <li class="textoAdicionarAviao">Pesquisar por voos</li>
+                <li class="textoAdicionarAviao buttonshowhide" onclick="VooVolta()">Pesquisar por voos</li>
             </ul>
             <div class="tabelaPlaceVoos">
-                <form class="formulario-todo" action="<?=Url::toRoute('flights/index')?>" method="post">
+                <form class="formulario-todo voovolta" action="<?=Url::toRoute('flights/index')?>" method="post">
 
                     <div class="conteinersearch">
 

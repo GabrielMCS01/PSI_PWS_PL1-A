@@ -1,5 +1,9 @@
+document.addEventListener('DOMContentLoaded', function() {
+    $('.voovolta').hide();;
+});
+
 function VooVolta(){
-    if(document.querySelector('#checkbutton').checked == true){
+    if(document.querySelector('.voovolta').style.display == 'none'){
         $('.voovolta').show();
     }else{
         $('.voovolta').hide();

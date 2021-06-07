@@ -26,10 +26,11 @@ switch ($_SESSION['tipoUser']) {
     $user = Data::get('user');
     $voo = Data::get('voo');
     $lugar = Data::get('lugar');
+    $voosvolta = Data::get('voosvolta');
 ?>
 
 <!--Importar funções JS-->
-<script src="<?= Asset::js('script.js')?>" xmlns="http://www.w3.org/1999/html"></script>
+<script src="<?= Asset::js('script.js')?>"></script>
 
 <div class="cxfloatvooscreate">
     <div class="cardavioescreate">
@@ -62,13 +63,17 @@ switch ($_SESSION['tipoUser']) {
                     <option class="form-control form" value="<?=$lugar?>"selected>Lugar no avião: <?=$lugar?></option>
                 </select>
 
-                <div class="checkcontainer">
-                    <input id="checkbutton" type="checkbox" onclick="VooVolta()">
-                    <label for="checkbutton">Comprar Voo de volta</label>
-                </div>
+                <?php if($voosvolta != null){ ?>
+                    <div class="checkcontainer">
+                        <input id="checkbutton" type="checkbox" onclick="VooVolta()">
+                        <label for="checkbutton">Comprar Voo de volta</label>
+                    </div>
+                <?php } ?>
 
                 <select class="form-control form voovolta" title="Escolher voo de volta">
-
+                    <?php foreach ($voosvolta as $dados){ ?>
+                        <option class="form-control form" value="<?=$dados->flights_id?>"><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></option>
+                    <?php } ?>
                 </select>
 
                 <input class="btn botaosignin" type="submit" value="Pagamento">
