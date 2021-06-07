@@ -140,3 +140,15 @@
   color: red;
   text-align: center
 }
+
+.checkcontainer{
+  margin: 2vh 0 0 3vw;
+
+  label{
+    color: $secundary-color;
+  }
+}
+
+.voovolta{
+  display: none;
+}

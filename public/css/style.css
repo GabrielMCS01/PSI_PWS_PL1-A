@@ -197,6 +197,17 @@ a:hover {
   text-align: center;
 }
 
+.checkcontainer {
+  margin: 2vh 0 0 3vw;
+}
+.checkcontainer label {
+  color: #FFF;
+}
+
+.voovolta {
+  display: none;
+}
+
 /* =================================================================
                     AVIOES
 ================================================================*/
