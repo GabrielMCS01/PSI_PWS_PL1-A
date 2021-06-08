@@ -59,25 +59,25 @@ class FlightController extends BaseController implements ResourceControllerInter
                 // Faz a pesquisa consuante o número de dados pedidos
                 switch(count($pesquisa)){
                     case 1:
-                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0]"]);
+                        $voos = Flight::all(['order' => 'datehourdeparture asc'], ['conditions' => "$pesquisa[0]"]);
                         break;
                     case 2:
-                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1]"]);
+                        $voos = Flight::all(['order' => 'datehourdeparture asc'], ['conditions' => "$pesquisa[0] AND $pesquisa[1]"]);
                         break;
                     case 3:
-                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2]"]);
+                        $voos = Flight::all(['order' => 'datehourdeparture asc'], ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2]"]);
                         break;
                     case 3:
-                        $voos = Flight::find('all', ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2] AND $pesquisa[3]"]);
+                        $voos = Flight::all(['order' => 'datehourdeparture asc'], ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2] AND $pesquisa[3]"]);
                         break;
                     default:
-                        $voos = Flight::all();
+                        $voos = Flight::all(['order' => 'datehourdeparture asc']);
                         break;
                 }
 
             } else {
                 // A variável recebe todos os Voos existentes
-                $voos = Flight::all();
+                $voos = Flight::all(['order' => 'datehourdeparture asc']);
             }
             // Retorna a View com a variável com todos os Voos
             return View::make('flights.index', ['voos' => $voos, 'searchbar' => '', 'paises' => $this->user_search()]);

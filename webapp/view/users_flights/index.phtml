@@ -29,12 +29,19 @@ switch ($_SESSION['tipoUser']) {
 ?>
 
 <?php $compras = Data::get('users_flights');
+$searchbar = Data::get('searchbar');
 ?>
 
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao">Compras</li>
+            <li class="textoAviao"><a href="<?=Url::toRoute('users_flights/index')?>">Voos</a></li>
+            <li>
+                <form class="formSearch" method="post" action="<?=Url::toRoute('users_flights/search')?>">
+                    <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
+                    <input type="submit" class="btn botaosearch" value="Procurar">
+                </form>
+            </li>
         </ul>
         <div class="tabelaPlace">
             <table class="table table-hover">
@@ -42,9 +49,10 @@ switch ($_SESSION['tipoUser']) {
                 <tr>
                     <th scope="col">Voo</th>
                     <th scope="col">Voo de Volta</th>
-                    <th scope="col">Preço</th>
+                    <th scope="col">Passageiro</th>
                     <th scope="col">Data de Compra</th>
                     <th scope="col">Lugar no Avião</th>
+                    <th scope="col">Preço</th>
                     <th scope="col">Check-In</th>
                     <th scope="col"></th>
 
@@ -60,10 +68,11 @@ switch ($_SESSION['tipoUser']) {
                 <?php foreach ($compras as $dados){ ?>
                     <tr>
                         <td><?=$dados->flight->flightname?></td>
-                        <td><?=(isset($dados->flight_back->flightname)) ? $dados->flight_back->flightname : 'X' ?></td>
-                        <td><?=$dados->price.'€'?></td>
+                        <td><?=($dados->flight_back_id != null) ? $dados->flight_back->flightname : 'X' ?></td>
+                        <td><?=$dados->client->fullname?></td>
                         <td><?=date('d/m/Y H:i',strtotime($dados->purchasedate))?></td>
                         <td><?=$dados->planeplace?></td>
+                        <td><?=$dados->price+$dados->flight_back->price.'€'?></td>
                         <td><?=($dados->checkin == 0) ? 'Pendente' : 'Concluído'?></td>
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
                             <td><a href="<?=Url::toRoute('users_flights/edit', $dados->users_flights_id)?>"><img title="Fazer Check-in" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>

@@ -64,10 +64,17 @@ else{
     $checkin = "Concluído";
 }
 
-$flightback = ($compra->flight_back_id != null) ?
-    '<br><tr><td><b>Voo de Regresso:</b></td><td>'.$compra->flight_back->flightname.'</td></tr>
-    <tr><td><b>Data de Regresso:</b></td><td>' .date('d/m/Y', strtotime($compra->flight_back->datehourdeparture)).'</td></tr>
-    <tr><td><b>Hora de Regresso:</b></td><td>' .date('H:i', strtotime($compra->flight_back->datehourdeparture)).'</td></tr>' : '';
+$totalprice = $compra->price;
+
+if($compra->flight_back_id != null){
+    $totalprice += $compra->flight_back->price;
+    $flightback = '<br><tr><td><b>Voo de Regresso:</b></td><td>'.$compra->flight_back->flightname.'</td></tr>
+        <tr><td><b>Data de Regresso:</b></td><td>'.date('d/m/Y', strtotime($compra->flight_back->datehourdeparture)).'</td></tr>
+        <tr><td><b>Hora de Regresso:</b></td><td>'.date('H:i', strtotime($compra->flight_back->datehourdeparture)).'</td></tr>
+        <tr><td><b>Preço:</b></td><td>'.$compra->flight_back->price.'€</td></tr>';
+}else{
+    $flightback = '';
+}
 
 $html = '<h2>Obrigador por ter Comprado uma Viagem</h2><br><h3>Descrição da Viagem<br> </h3> '.
 '<table>
@@ -75,9 +82,10 @@ $html = '<h2>Obrigador por ter Comprado uma Viagem</h2><br><h3>Descrição da Vi
 <tr><td><b>Data de Compra:</b></td><td>' .date('d/m/Y', strtotime($compra->purchasedate)).'</td></tr>
 <tr><td><b>Hora de Compra:</b></td><td>' .date('H:i', strtotime($compra->purchasedate)).'</td></tr>
 <tr><td><b>Lugar no Avião:</b></td><td>'.$compra->planeplace.'</td></tr>
-<tr><td><b>Preço:</b></td><td>'.$compra->price.'€'.'</td></tr>'
+<tr><td><b>Preço:</b></td><td>'.$compra->price.'€</td></tr>'
     .$flightback.
 '<br><tr><td><b>Estado do Check-in:</b></td><td>'.$checkin.'</td></tr>
+<br><br><tr><td><b>Preço Total: </b></td><td>'.$totalprice.'€</td></tr>
 </table>
 <br><br><p></p><br><h2>Desejamos-lhe uma Boa Viagem</h2>';
 

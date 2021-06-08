@@ -2,7 +2,6 @@
 
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Data;
-use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 // Recebe os dados do controller
@@ -17,7 +16,7 @@ $paises = Data::get('paises');
     <div class="cxfloatvoosusersearch">
         <div class="cardvooscreate">
             <ul class="firstline">
-                <li class="textoAdicionarAviao buttonshowhide" onclick="VooVolta()">Pesquisar por voos</li>
+                <li class="textoAdicionarAviao buttonshowhide" onclick="VooVolta()">Pesquisar por voos<img src="<?=Asset::image('seta.png')?>" id="exibirPesquisa"></img></li>
             </ul>
             <div class="tabelaPlaceVoos">
                 <form class="formulario-todo voovolta" action="<?=Url::toRoute('flights/index')?>" method="post">
@@ -46,7 +45,7 @@ $paises = Data::get('paises');
 
                     <div class="conteinersearch">
 
-                        <input type="date" id="" class="form-control form searchitem" name="datehourdeparture" title="Indique a data inicial de pesquisa do voo" placeholder="Data inicial de Partida">
+                        <input type="date" class="form-control form searchitem" name="datehourdeparture" title="Indique a data inicial de pesquisa do voo" placeholder="Data inicial de Partida">
 
                         <input type="date" class="form-control form searchitem" name="datehourdeparturefinal" title="Indique a data final de pesquisa do voo" placeholder="Data final de Partida">
 

@@ -61,15 +61,15 @@ switch ($_SESSION['tipoUser']) {
 
                 <?php if($voosvolta != null){ ?>
                     <div class="checkcontainer">
-                        <input id="checkbutton" type="checkbox" onclick="VooVolta()">
+                        <input id="checkbutton" type="checkbox" name="checkbutton" onclick="VooVolta()">
                         <label for="checkbutton">Comprar Voo de volta</label>
                     </div>
                 <?php } ?>
 
                 <div class="voovolta">
-                    <select class="form-control form" title="Escolher voo de volta" onchange="MudarPrecoVolta(this)">
+                    <select name="flight_back_id" class="form-control form" title="Escolher voo de volta">
                         <?php foreach ($voosvolta as $dados){ ?>
-                            <option class="form-control form" value="<?//=$dados->flights_id?>">Data: <?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?> Preço: <?=$dados->price?> €</option>
+                            <option class="form-control form" value="<?=$dados->flights_id?>">Data: <?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?> Preço: <?=$dados->price?> €</option>
                         <?php } ?>
                     </select>
                 </div>

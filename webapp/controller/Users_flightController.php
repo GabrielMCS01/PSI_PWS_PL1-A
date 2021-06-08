@@ -14,15 +14,15 @@ class Users_flightController extends BaseController implements ResourceControlle
         if (isset($_SESSION['username'])) {
             // Caso o utilizador seja passageiro carrega apenas as suas compras
             if ($_SESSION['tipoUser'] == 'passageiro') {
-                $bilhetes = Users_flight::all(['client_id'=>$_SESSION['userid']]);
+                $bilhetes = Users_flight::all(['order' => 'flight_id asc, purchasedate asc'], ['client_id'=>$_SESSION['userid']]);
             }
             // Para os restantes utilizadores são carregados
             else{
-                $bilhetes = Users_flight::all();
+                $bilhetes = Users_flight::all(['order' => 'flight_id asc, purchasedate asc']);
             }
 
             // Retorna a View com a variável com todos os aviões(array)
-            return View::make('users_flights.index', ['users_flights' => $bilhetes,'searchbar' => '']);
+            return View::make('users_flights.index', ['users_flights' => $bilhetes, 'searchbar' => '']);
         } else {
             Redirect::toRoute('users/index');
         }
@@ -76,7 +76,7 @@ class Users_flightController extends BaseController implements ResourceControlle
 
             $bilhete = ['client_id'=>$dadosBilhete['client_id']];
             $bilhete += ['flight_id'=>$dadosBilhete['flight_id']];
-            if ($dadosBilhete['flight_back_id'] != null) {
+            if (isset($dadosBilhete['checkbutton'])) {
                 $bilhete += ['flight_back_id'=>$dadosBilhete['flight_back_id']];
             }
             $bilhete += ['price'=>$dadosBilhete['price']];
@@ -155,6 +155,36 @@ class Users_flightController extends BaseController implements ResourceControlle
             $compra->delete();
 
             Redirect::toRoute('users_flights/index');
+        }else{
+            Redirect::toRoute('users/index');
+        }
+    }
+
+    public function search()
+    {
+        // Se tiver sessão iniciada, faz caso contrário é redirecionado para a página de Login
+        if(isset($_SESSION['username'])) {
+            // Recebe o que estava escrito na Pesquisa
+            $searching = Post::get('search');
+
+            // Procura pelo aeroporto e pelo avião pesquisado
+            $voo = Flight::first(['flightname' => $searching]);
+            $vooid = (isset($voo)? $voo->flights_id : '');
+            $passageiro = User::first(['fullname' => $searching]);
+            $passageiroid = (isset($passageiro)? $passageiro->users_id: '');
+
+            // Pesquisa todos por
+            $search = Users_flight::find('all', ['conditions' =>
+                "flight_id = '$vooid' OR 
+                flight_back_id = '$vooid' OR
+                client_id = '$passageiroid' OR
+                purchasedate LIKE '%$searching%' OR
+                planeplace LIKE '%$searching%' OR
+                price LIKE '%$searching%'
+                ", 'order' => 'flight_id asc, purchasedate asc']);
+
+            // Retorna a View com os argumentos de procura
+            return View::make('users_flights.index', ['users_flights' => $search, 'searchbar' => $searching]);
         }else{
             Redirect::toRoute('users/index');
         }
