@@ -55,8 +55,10 @@ class Users_flightController extends BaseController implements ResourceControlle
                 }
             }while($usersentado != null);
 
-            // Pesquisa os voos de volta
-            $voosvolta = Flight::all(['origin_airport_id' => $voo->destination_airport_id, 'destination_airport_id' => $voo->origin_airport_id]);
+            // Pesquisa os voos de volta que tenham data superior à data de partida
+            $voosvolta = Flight::all(['conditions' =>
+                ['datehourdeparture > ? AND origin_airport_id = ? AND destination_airport_id = ?', $voo->datehourarrival,
+                    $voo->destination_airport_id, $voo->origin_airport_id]]);
 
             return View::make('users_flights.create', ['user' => $user, 'voo' => $voo, 'lugar' => $lugar, 'voosvolta' => $voosvolta]);
         }else{
