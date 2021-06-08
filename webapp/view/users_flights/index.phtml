@@ -72,7 +72,7 @@ $searchbar = Data::get('searchbar');
                         <td><?=$dados->client->fullname?></td>
                         <td><?=date('d/m/Y H:i',strtotime($dados->purchasedate))?></td>
                         <td><?=$dados->planeplace?></td>
-                        <td><?=$dados->price+$dados->flight_back->price.'€'?></td>
+                        <td><?=($dados->flight_back != null)?$dados->price+$dados->flight_back->price:$dados->price.'€'?></td>
                         <td><?=($dados->checkin == 0) ? 'Pendente' : 'Concluído'?></td>
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
                             <td><a href="<?=Url::toRoute('users_flights/edit', $dados->users_flights_id)?>"><img title="Fazer Check-in" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
