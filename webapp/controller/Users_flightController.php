@@ -191,5 +191,20 @@ class Users_flightController extends BaseController implements ResourceControlle
             Redirect::toRoute('users/index');
         }
     }
+
+    public function showflight($id){
+        if(isset($_SESSION['username'])) {
+            $bilhete = Users_flight::first(['users_flights_id' => $id]);
+
+            $voos = Flight::all(['conditions' => "flights_id = '$bilhete->flight_id' OR flights_id = '$bilhete->flight_back_id'", 'order' => 'datehourdeparture asc']);
+
+            $paises = new Airport();
+            $paises = $paises->ListarPaises();
+
+            return View::make('flights.index', ['voos' => $voos, 'searchbar' => '', 'paises' => $paises]);
+        }else{
+            Redirect::toRoute('users/index');
+        }
+    }
 }
 ?>

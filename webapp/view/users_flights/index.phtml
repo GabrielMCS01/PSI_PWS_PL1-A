@@ -75,6 +75,7 @@ $searchbar = Data::get('searchbar');
                         <td><?=($dados->flight_back != null)?$dados->price+$dados->flight_back->price:$dados->price.'€'?></td>
                         <td><?=($dados->checkin == 0) ? 'Pendente' : 'Concluído'?></td>
                         <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                            <td><a href="<?=Url::toRoute('users_flights/showflight', $dados->users_flights_id)?>"><img title="Ver detalhes do voo" alt="Detalhes do voo" src="<?=Asset::image('escala.png')?>" height="32"></a></td>
                             <td><a href="<?=Url::toRoute('users_flights/edit', $dados->users_flights_id)?>"><img title="Fazer Check-in" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
                             <td><a href="<?=Url::toRoute('users_flights/destroy', $dados->users_flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                         <?php }else{ ?>

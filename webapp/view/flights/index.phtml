@@ -42,15 +42,17 @@ $searchbar = Data::get('searchbar');
     <div class="cardavioes">
         <ul class="firstline">
             <li class="textoAviao"><a href="<?=Url::toRoute('flights/index')?>">Voos</a></li>
-            <li>
-                <form class="formSearch" method="post" action="<?=Url::toRoute('flights/search')?>">
-                    <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
-                    <input type="submit" class="btn botaosearch" value="Procurar">
-                </form>
-            </li>
+            <?php if($_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
+                <li>
+                    <form class="formSearch" method="post" action="<?=Url::toRoute('flights/search')?>">
+                        <input type="text" class="form-control form" title="Escreva aqui o que quer procurar" placeholder="Procurar" name="search" value="<?=$searchbar?>" required>
+                        <input type="submit" class="btn botaosearch" value="Procurar">
+                    </form>
+                </li>
+            <?php } ?>
             <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
-                <a href="<?=Url::toRoute('flights/create')?>">
-                    <li class="adicionaraviao">Adicionar Voo</li>
+                <a href="<?=($_SESSION['tipoUser'] == 'operadordecheckin')?Url::toRoute('users_flights/index'):Url::toRoute('flights/create')?>">
+                    <li class="adicionaraviao"><?=($_SESSION['tipoUser'] == 'operadordecheckin')?'Voltar':'Adicionar Voo'?></li>
                 </a>
             <?php } ?>
         </ul>
@@ -83,10 +85,10 @@ $searchbar = Data::get('searchbar');
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
                         <td><?=$dados->origin_airport->airportname?>
-                            <img class="imgbandeiras" src="<?=$dados->origin_airport->flag?>" width="30">
+                            <img class="imgbandeiras" title="<?=$dados->origin_airport->country?>" src="<?=$dados->origin_airport->flag?>" width="30">
                         </td>
                         <td><?=$dados->destination_airport->airportname?>
-                            <img class="imgbandeiras" src="<?=$dados->destination_airport->flag?>" width="30">
+                            <img class="imgbandeiras" title="<?=$dados->destination_airport->country?>" src="<?=$dados->destination_airport->flag?>" width="30">
                         </td>
                         <td><?php
                             $escalasDistancia = 0;
