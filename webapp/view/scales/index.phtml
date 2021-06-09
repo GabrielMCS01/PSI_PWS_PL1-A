@@ -40,12 +40,12 @@ $voo = Data::get('voo');
         <ul class="firstline">
             <li class="textoAviao">Escalas do voo <?=$voo->flightname?></li>
 
-            <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+            <?php if($_SESSION['tipoUser'] != 'passageiro' && $_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
                 <a href="<?=Url::toRoute('scales/createfromvoo', $voo->flights_id)?>">
                     <li class="adicionaraviao">Adicionar Escala</li>
                 </a>
             <?php }else{ ?>
-                <a href="<?=Url::toRoute('flights/index')?>">
+                <a href="javascript:history.go(-1)">
                     <li class="adicionaraviao">Voltar</li>
                 </a>
             <?php }?>
@@ -64,10 +64,11 @@ $voo = Data::get('voo');
                     <th scope="col">Distância</th>
 
                     <!--Tirar a opção ao passageiro de poder alterar os voos-->
-                    <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                    <?php if($_SESSION['tipoUser'] != 'passageiro' && $_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
                         <th scope="col"></th>
                         <th scope="col"></th>
-                    <?php }?>
+                    <?php }elseif ($_SESSION['tipoUser'] == 'operadordecheckin'){?>
+                    <?php } ?>
 
                 </tr>
                 </thead>
@@ -86,7 +87,7 @@ $voo = Data::get('voo');
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->distance?> km</td>
                         <!--Tirar a opção ao passageiro de poder alterar os voos-->
-                        <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                        <?php if($_SESSION['tipoUser'] != 'passageiro' && $_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
                             <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
                             <td><a href="<?=Url::toRoute('scales/destroy', $dados->scales_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
                         <?php }?>
