@@ -16,6 +16,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             $pesquisa_user = Post::getAll();
             if($pesquisa_user != null){
 
+                // Array que recebe as pesquisas
                 $pesquisa = [];
 
                 // Verifica se foi pesquisado o aeroporto de origem

@@ -140,6 +140,7 @@ class AirportController extends BaseController implements ResourceControllerInte
         if (isset($_SESSION['username']) && $_SESSION['tipoUser'] != 'passageiro') {
             $searching = Post::get('search');
 
+            // Procura na base de dados os aeroportos que correspondem à pesquisa
             $search = Airport::find('all', array('conditions' =>
                 "airportname LIKE '%$searching%' OR 
                 country LIKE '%$searching%' OR
