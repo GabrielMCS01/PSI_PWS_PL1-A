@@ -18,7 +18,7 @@ Layout::includeLayout('loginheader')
                 </a>
             </ul>
             <form class="formulario-todo" method="post" action="<?=Url::toRoute('users/login', "logged")?>">
-                <input type="text" class="form-control form" name="username" title= "Insira um username" placeholder="Username" required>
+                <input type="text" class="form-control form" name="username" title= "Insira um utilizador" placeholder="Username" required>
                 <input type="password" class="form-control form" name="userpassword" title="Insira uma password" placeholder="Password" required>
                 <span id="mensagem"><?=(isset($_SERVER['mensagem']))?$_SERVER['mensagem']:""?></span>
                 <input class="btn botaosignin" type="submit" value="Entrar">
