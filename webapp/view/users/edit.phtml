@@ -44,10 +44,10 @@ $utilizador = Data::get('utilizador');
 
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('users/update', $utilizador->users_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$utilizador->fullname?>" name="fullname" title="Insira o seu nome" placeholder="Nome" required>
+                <input type="text" class="form-control form" value="<?=$utilizador->fullname?>" maxlength="100" name="fullname" title="Insira o seu nome" placeholder="Nome" required>
                 <input type="date" class="form-control form" value="<?=date('Y-m-d',strtotime($utilizador->birthdate))?>" name="birthdate" title="Insira a sua data de nascimento" required>
                 <input type="email" class="form-control form" value="<?=$utilizador->email?>" name="email" title="Insira o seu email" placeholder="email" required>
-                <input type="number" class="form-control form" value="<?=$utilizador->phonenumber?>" name="phonenumber" title="Insira o seu telefone" placeholder="Telefone" required>
+                <input type="tel" class="form-control form" value="<?=$utilizador->phonenumber?>" pattern="[0-9]{9}" maxlength="9" title="Insira o seu telefone, 9 digitos sem letras" name="phonenumber" title="Insira o seu telefone" placeholder="Telefone" required>
                 <input type="text" class="form-control form" value="<?=$utilizador->username?>" name="username" title="Insira o seu nome de utilizador" placeholder="Username" required>
                 <input type="password" class="form-control form" value="<?=$utilizador->userpassword?>" name="userpassword" title="Insira a sua password" placeholder="Password" required>
                 <?php if($_SESSION['tipoUser'] == 'administrador'){ ?>
