@@ -81,7 +81,7 @@ a:hover {
   padding-top: 20vh;
 }
 
-.card, .cardavioescreate, .cardvooscreate, .cardavioes, .cardcreate {
+.card, .cardavioescreate, .cardvooscreate, .cardavioes, .card2, .cardcreate {
   width: 30.3vw;
   height: 37vh;
   background-color: rgba(26, 29, 34, 0.7);
@@ -208,6 +208,23 @@ a:hover {
 
 .voovolta {
   display: none;
+}
+
+.card2 {
+  margin-top: 0;
+  padding-top: 0;
+  height: 6vh;
+  width: 20vw;
+  color: #FFF;
+  margin: 2rem;
+  position: fixed;
+  font-size: 1rem;
+}
+
+.h1card2 {
+  margin-top: 0;
+  padding-top: 0;
+  text-align: center;
 }
 
 /* =================================================================

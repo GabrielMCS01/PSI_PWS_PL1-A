@@ -15,7 +15,7 @@ use ArmoredCore\WebObjects\URL;
 
 <?php
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -33,7 +33,7 @@ switch ($_SESSION['tipoUser']) {
 
 <?php $avioes = Data::get('airplanes');
 $searchbar = Data::get('searchbar');
-//Página que mostra todos os aviões registados na base de dados
+// Página que mostra todos os aviões registados na base de dados
 ?>
 
 <div class="cxfloatvoos">
