@@ -32,10 +32,10 @@ $aviao = Data::get('airplane');
                 </a>
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('airplanes/update', $aviao->airplanes_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$aviao->airplanereference?>" name="airplanereference" title="Insira a referência do avião" placeholder="Referência"  required>
-                <input type="text" class="form-control form" value="<?=$aviao->airplanename?>" name="airplanename" title="Insira um nome para o avião" placeholder="Nome" required>
-                <input type="text" class="form-control form" value="<?=$aviao->shippingcompany?>" name="shippingcompany" title="Insira o nome da transportadora" placeholder="Transportadora" required>
-                <input min="1" type="number" class="form-control form" value="<?=$aviao->capacity?>" name="capacity" title="Insira a capacidade do avião" placeholder="Lotação Máxima" required>
+                <input type="text" class="form-control form" value="<?=$aviao->airplanereference?>" name="airplanereference" title="Insira a referência do avião" maxlength="100" placeholder="Referência"  required>
+                <input type="text" class="form-control form" value="<?=$aviao->airplanename?>" name="airplanename" title="Insira um nome para o avião" maxlength="100" placeholder="Nome" required>
+                <input type="text" class="form-control form" value="<?=$aviao->shippingcompany?>" name="shippingcompany" title="Insira o nome da transportadora" maxlength="100" placeholder="Transportadora" required>
+                <input min="1" type="number" class="form-control form" value="<?=$aviao->capacity?>" name="capacity" title="Insira a capacidade do avião" min="1" max="999" placeholder="Lotação Máxima" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>
