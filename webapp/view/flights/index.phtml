@@ -72,10 +72,12 @@ $searchbar = Data::get('searchbar');
                     <th scope="col">Preço</th>
                     <th scope="col"> </th>
 
+
                     <!--Tirar a opção ao passageiro de poder alterar os voos-->
-                    <?php if($_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
+                    <?php if($_SESSION['tipoUser'] != 'operadordecheckin' && $_SESSION['tipoUser'] != 'passageiro'){ ?>
                         <th scope="col"> </th>
-                    <?php } elseif ($_SESSION['tipoUser'] == 'operadordecheckin'){?>
+                        <th scope="col"> </th>
+                    <?php } else{?>
                         <th scope="col"> </th>
                     <?php } ?>
 
@@ -117,8 +119,8 @@ $searchbar = Data::get('searchbar');
                             case 'operadordecheckin': ?>
                                 <?php break;
                             default: ?>
-                                <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="32"></a></td>
-                                <td><a href="<?=Url::toRoute('flights/destroy', $dados->flights_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                                <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>" title="Editar"><?=imgcheckin()?></a></td>
+                                <td><a href="<?=Url::toRoute('flights/destroy', $dados->flights_id)?>" title="Apagar"><?=imgapagar()?></a></td>
                             <?php break;
                         } ?>
                     </tr>

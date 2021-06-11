@@ -67,8 +67,8 @@ $aero = new Airport();
                         <td><img src="<?=$dados->flag?>" width=30></td>
                         <td><?=$dados->country?></td>
                         <td><?=$dados->city?></td>
-                        <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                        <td><a href="<?=Url::toRoute('airports/destroy', $dados->airports_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                        <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>" title="Editar"><?=imgcheckin()?></a></td>
+                        <td><a href="<?=Url::toRoute('airports/destroy', $dados->airports_id)?>" title="Apagar"><?=imgapagar()?></a></td>
                     </tr>
                 <?php } ?>
                 </tbody>

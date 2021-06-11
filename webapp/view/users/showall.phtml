@@ -70,9 +70,9 @@ $user = new User();
                         <td><?=$dados->phonenumber?></td>
                         <td><?=$dados->username?></td>
                         <td><?=$user->TipoUserMostrar($dados->userprofile)?></td>
-                        <td><a href="<?=Url::toRoute('users/edit', $dados->users_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
+                        <td><a title="Editar" href="<?=Url::toRoute('users/edit', $dados->users_id)?>"><?=imgcheckin()?></a></td>
                         <?php if($dados->userprofile != 'administrador'){ ?>
-                            <td><a href="<?=Url::toRoute('users/destroy', $dados->users_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                            <td><a title="Apagar" href="<?=Url::toRoute('users/destroy', $dados->users_id)?>"><?=imgapagar()?></a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
