@@ -16,7 +16,7 @@ $paises = Data::get('paises');
     <div class="cxfloatvoosusersearch">
         <div class="cardvooscreate">
             <ul class="firstline">
-                <li class="textoAdicionarAviao buttonshowhide" onclick="VooVolta()">Pesquisar por voos<img src="<?=Asset::image('seta.png')?>" id="exibirPesquisa"></img></li>
+                <li class="textoAdicionarAviao buttonshowhide" onclick="VooVolta()">Pesquisar por voos <?=imgseta()?>
             </ul>
             <div class="tabelaPlaceVoos">
                 <form class="formulario-todo voovolta" action="<?=Url::toRoute('flights/index')?>" method="post">

@@ -70,12 +70,13 @@ $searchbar = Data::get('searchbar');
                     <th scope="col">Distância</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Preço</th>
+                    <th scope="col"> </th>
 
                     <!--Tirar a opção ao passageiro de poder alterar os voos-->
-                    <?php if($_SESSION['tipoUser'] != 'passageiro' && $_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
-                        <th scope="col"></th>
+                    <?php if($_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
+                        <th scope="col"> </th>
                     <?php } elseif ($_SESSION['tipoUser'] == 'operadordecheckin'){?>
-                        <th scope="col"></th>
+                        <th scope="col"> </th>
                     <?php } ?>
 
                 </tr>
@@ -87,10 +88,10 @@ $searchbar = Data::get('searchbar');
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
                         <td><?=$dados->origin_airport->airportname?>
-                            <img class="imgbandeiras" title="<?=$dados->origin_airport->country?>" src="<?=$dados->origin_airport->flag?>" width="30">
+                            <img class="imgbandeiras" title="<?=$dados->origin_airport->country?>" src="<?=$dados->origin_airport->flag?>" width="30" height="20">
                         </td>
                         <td><?=$dados->destination_airport->airportname?>
-                            <img class="imgbandeiras" title="<?=$dados->destination_airport->country?>" src="<?=$dados->destination_airport->flag?>" width="30">
+                            <img class="imgbandeiras" title="<?=$dados->destination_airport->country?>" src="<?=$dados->destination_airport->flag?>" width="30" height="20">
                         </td>
                         <td><?php
                             $escalasDistancia = 0;
@@ -105,13 +106,13 @@ $searchbar = Data::get('searchbar');
                         ?> km</td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->price.'€'?></td>
-                        <td><a href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><img title="Escalas" alt="escalas" src="<?=Asset::image('escala.png')?>"></a></td>
+                        <td><a title="Escalas" href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><?=imgscale()?></a></td>
 
                         <!-- Escolher os botões a mostrar na tabela -->
                         <?php switch($_SESSION['tipoUser']){
                             case 'passageiro':
                                 if($dados->airplane->capacity > count($dados->userflight)){ ?>
-                                    <td><a href="<?=Url::toRoute('users_flights/createPurchase', $dados->flights_id)?>"><img title="Comprar passagem" alt="apagar" src="<?=Asset::image('comprar.png')?>" width="32"></a></td>
+                                    <td><a title="Comprar voo" href="<?=Url::toRoute('users_flights/createPurchase', $dados->flights_id)?>"><?=imgcomprar()?></a></td>
                                 <?php } break;
                             case 'operadordecheckin': ?>
                                 <?php break;
