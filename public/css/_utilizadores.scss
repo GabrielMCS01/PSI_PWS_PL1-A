@@ -152,3 +152,21 @@
 .voovolta{
   display: none;
 }
+
+.card2{
+  @extend .card;
+  margin-top: 0;
+  padding-top: 0;
+  height: 6vh;
+  width: 20vw;
+  color: $secundary-color;
+  margin: 2rem;
+  position: fixed;
+  font-size: $Texto1;
+}
+
+.h1card2{
+  margin-top: 0;
+  padding-top: 0;
+  text-align: center;
+}
