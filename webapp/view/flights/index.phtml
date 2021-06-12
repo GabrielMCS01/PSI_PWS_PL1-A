@@ -43,7 +43,7 @@ $searchbar = Data::get('searchbar');
 <div class="cxfloatvoos">
     <div class="cardavioes">
         <ul class="firstline">
-            <li class="textoAviao"><?=($_SESSION['tipoUser'] != 'operadordecheckin')?'<a href="<?=Url::toRoute(´flights/index´)?>">Voos</a>':'Voos'?></li>
+            <li class="textoAviao"><?=($_SESSION['tipoUser'] != 'operadordecheckin')?"<a href=".Url::toRoute('flights/index').">Voos</a>":"Voos"?></li>
             <?php if($_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
                 <li>
                     <form class="formSearch" method="post" action="<?=Url::toRoute('flights/search')?>">
@@ -70,16 +70,22 @@ $searchbar = Data::get('searchbar');
                     <th scope="col">Distância</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Preço</th>
-                    <th scope="col"> </th>
 
-
-                    <!--Tirar a opção ao passageiro de poder alterar os voos-->
-                    <?php if($_SESSION['tipoUser'] != 'operadordecheckin' && $_SESSION['tipoUser'] != 'passageiro'){ ?>
-                        <th scope="col"> </th>
-                        <th scope="col"> </th>
-                    <?php } else{?>
-                        <th scope="col"> </th>
-                    <?php } ?>
+                    <!-- Dá os espaçamentos no titulo para os botões -->
+                    <?php switch ($_SESSION['tipoUser']){
+                        case 'operadordecheckin': ?>
+                            <th scope="col"> </th>
+                        <?php break;
+                        case 'passageiro': ?>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                            <?php break;
+                        case 'gestordevoo' || 'adminmaster': ?>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                            <?php break;
+                    } ?>
 
                 </tr>
                 </thead>
@@ -119,7 +125,7 @@ $searchbar = Data::get('searchbar');
                             case 'operadordecheckin': ?>
                                 <?php break;
                             default: ?>
-                                <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>" title="Editar"><?=imgcheckin()?></a></td>
+                                <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>" title="Editar"><?=imgeditar()?></a></td>
                                 <td><a href="<?=Url::toRoute('flights/destroy', $dados->flights_id)?>" title="Apagar"><?=imgapagar()?></a></td>
                             <?php break;
                         } ?>

@@ -45,7 +45,7 @@ $voo = Data::get('voo');
                     <li class="adicionaraviao">Adicionar Escala</li>
                 </a>
             <?php }else{ ?>
-                <a href="javascript:history.go(-1)">
+                <a href=<?=($_SESSION['tipoUser'] != 'passageiro')?"javascript:history.go(-1)":Url::toRoute('flights/index')?>>
                     <li class="adicionaraviao">Voltar</li>
                 </a>
             <?php }?>

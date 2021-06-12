@@ -64,10 +64,10 @@ $aero = new Airport();
                 <?php foreach ($aeroportos as $dados){ ?>
                     <tr>
                         <td><?=$dados->airportname?></td>
-                        <td><img src="<?=$dados->flag?>" width=30></td>
+                        <td><img src="<?=$dados->flag?>" width=30 height="20"></td>
                         <td><?=$dados->country?></td>
                         <td><?=$dados->city?></td>
-                        <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>" title="Editar"><?=imgcheckin()?></a></td>
+                        <td><a href="<?=Url::toRoute('airports/edit', $dados->airports_id)?>" title="Editar"><?=imgeditar()?></a></td>
                         <td><a href="<?=Url::toRoute('airports/destroy', $dados->airports_id)?>" title="Apagar"><?=imgapagar()?></a></td>
                     </tr>
                 <?php } ?>
