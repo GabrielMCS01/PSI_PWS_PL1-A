@@ -10,14 +10,14 @@ Layout::includeLayout('loginheader')
     <div class="cxfloat">
         <div class="card">
             <ul class="firstline">
-                <li class="textologin">LOGIN</li>
+                <li class="textologin">ENTRAR</li>
                 <a href="<?=Url::toRoute('users/create')?>">
                     <li class="createaccount">Criar conta</li>
                 </a>
             </ul>
             <form class="formulario-todo" method="post" action="<?=Url::toRoute('users/login', "logged")?>">
-                <input type="text" class="form-control form" name="username" title= "Insira um utilizador" placeholder="Username" required>
-                <input type="password" class="form-control form" name="userpassword" title="Insira uma password" placeholder="Password" required>
+                <input type="text" class="form-control form" name="username" title= "Insira um utilizador" placeholder="Utilizador" required>
+                <input type="password" class="form-control form" name="userpassword" title="Insira uma palavra-passe" placeholder="Palavra-passe" required>
                 <span id="mensagem"><?=(isset($_SERVER['mensagem']))?$_SERVER['mensagem']:""?></span>
                 <input class="btn botaosignin" type="submit" value="Entrar">
             </form>
