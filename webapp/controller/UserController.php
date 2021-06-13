@@ -38,19 +38,28 @@ class UserController extends BaseController implements ResourceControllerInterfa
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
 
         $hash = password_hash(Post::get('userpassword'), PASSWORD_DEFAULT);
-        $dados = [
-            'username' => Post::get('username'),
-            'fullname' => Post::get('fullname'),
-            'birthdate' => Post::get('birthdate'),
-            'email' => Post::get('email'),
-            'phonenumber' => Post::get('phonenumber'),
-            'userpassword' => $hash,
-            'userprofile' => 'passageiro'
+
+        $utilizadores = User::first(['username' => Post::get('username')]);
+        if($utilizadores == null) {
+
+            $dados = [
+                'username' => Post::get('username'),
+                'fullname' => Post::get('fullname'),
+                'birthdate' => Post::get('birthdate'),
+                'email' => Post::get('email'),
+                'phonenumber' => Post::get('phonenumber'),
+                'userpassword' => $hash,
+                'userprofile' => 'passageiro'
             ];
-        $utilizador = new User($dados);
-        $utilizador->save();
-        //No fim da inserção dos dados, o utilizador será redirecionado para a página de Login(users/index)
-        Redirect::toRoute('users/index');
+            $utilizador = new User($dados);
+            $utilizador->save();
+            //No fim da inserção dos dados, o utilizador será redirecionado para a página de Login(users/index)
+            Redirect::toRoute('users/index');
+        }else{
+            // Mensagem de erro caso já exista utilizador com esse nome
+            $_SERVER['usernameExistente'] = 'Nome de utilizador já existente';
+            return View::make('users.create');
+        }
     }
 
     //Função que permite mostrar o user (ainda não implementada)
@@ -77,19 +86,30 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         // Se tiver sessão iniciada corre a função
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
-        if(isset($_SESSION['username'])) {
+
+        if (isset($_SESSION['username'])) {
             $user = User::first([$id]);
             $editados = Post::getAll();
-            // Encripta a password antes de a guardar
-            $editados['userpassword'] = password_hash($editados['userpassword'], PASSWORD_DEFAULT);
-            $user->update_attributes($editados);
-            $user->save();
-            //Se o tipo de user for administrador mostra a lista de utilizadores
-            if($_SESSION['tipoUser'] == 'administrador') {
-                Redirect::toRoute('users/showall');
-            }else{
-                //Caso contrário devolve a página de voos
-                Redirect::toRoute('flights/index');
+
+            $utilizadores = User::first(['username' => $editados['username']]);
+            if ($utilizadores == null) {
+
+                // Encripta a password antes de a guardar
+                $editados['userpassword'] = password_hash($editados['userpassword'], PASSWORD_DEFAULT);
+                $user->update_attributes($editados);
+                $user->save();
+                //Se o tipo de user for administrador mostra a lista de utilizadores
+                if ($_SESSION['tipoUser'] == 'administrador') {
+                    Redirect::toRoute('users/showall');
+                } else {
+                    //Caso contrário devolve a página de voos
+                    Redirect::toRoute('flights/index');
+                }
+
+            } else {
+                // Mensagem de erro caso já exista utilizador com esse nome
+                $_SERVER['usernameExistente'] = 'Nome de utilizador já existente';
+                return View::make('users.edit', ['utilizador' => $user]);
             }
         }
     }

@@ -58,6 +58,7 @@ $utilizador = Data::get('utilizador');
                         <option value="passageiro" <?=($utilizador->userprofile == "passageiro")?'selected':''?>>Passageiro</option>
                     </select>
                 <?php } ?>
+                <p id="mensagem"><?=(isset($_SERVER['usernameExistente']))?$_SERVER['usernameExistente']:''?></p>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

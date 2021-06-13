@@ -24,6 +24,7 @@ Layout::includeLayout('loginheader')
                 <input type="email" class="form-control form" name="email" title="Insira o seu email" placeholder="Email" required>
                 <input type="tel" class="form-control form" name="phonenumber" pattern="[0-9]{9}" maxlength="9" title="Insira o seu telefone, 9 digitos sem letras" placeholder="Telefone" required>
                 <input type="password" class="form-control form" name="userpassword" title="Insira uma password" placeholder="Password" required>
+                <p id="mensagem"><?=(isset($_SERVER['usernameExistente']))?$_SERVER['usernameExistente']:''?></p>
                 <input class="btn botaosignin" type="submit" value="Criar">
             </form>
             </ul>
