@@ -36,8 +36,8 @@ class UserController extends BaseController implements ResourceControllerInterfa
     public function store()
     {
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
-        $hash = password_hash(Post::get('userpassword'),
-            PASSWORD_DEFAULT);
+
+        $hash = password_hash(Post::get('userpassword'), PASSWORD_DEFAULT);
         $dados = [
             'username' => Post::get('username'),
             'fullname' => Post::get('fullname'),
@@ -79,7 +79,10 @@ class UserController extends BaseController implements ResourceControllerInterfa
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
             $user = User::first([$id]);
-            $user->update_attributes(Post::getAll());
+            $editados = Post::getAll();
+            // Encripta a password antes de a guardar
+            $editados['userpassword'] = password_hash($editados['userpassword'], PASSWORD_DEFAULT);
+            $user->update_attributes($editados);
             $user->save();
             //Se o tipo de user for administrador mostra a lista de utilizadores
             if($_SESSION['tipoUser'] == 'administrador') {
