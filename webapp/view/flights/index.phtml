@@ -12,7 +12,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -37,7 +37,7 @@ if($_SESSION['tipoUser'] != 'operadordecheckin') {
 $voos = Data::get('voos');
 $searchbar = Data::get('searchbar');
 
-//Página que mostra todos os voos registados na base de dados
+// Página que mostra todos os voos registados na base de dados
 ?>
 
 <div class="cxfloatvoos">
@@ -90,6 +90,7 @@ $searchbar = Data::get('searchbar');
                 </tr>
                 </thead>
                 <tbody>
+                <!-- Preenche com os dados de cada Voo !-->
                 <?php foreach ($voos as $dados){ ?>
                     <tr>
                         <td><?=$dados->flightname?></td>

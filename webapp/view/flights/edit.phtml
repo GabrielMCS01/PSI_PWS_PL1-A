@@ -22,7 +22,7 @@ switch ($_SESSION['tipoUser']) {
 $voo = Data::get('voo');
 $aeroportos = Data::get('airports');
 $avioes = Data::get('airplanes');
-//Página que permite a edição de um voo selecionado pelo user
+// Página que permite a edição de um voo selecionado pelo utilizador
 ?>
 
     <div class="cxfloatvooscreate">
@@ -34,7 +34,7 @@ $avioes = Data::get('airplanes');
                 </a>
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('flights/update', $voo->flights_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$voo->flightname?>" name="flightname" title="Insira o nome do Voo" placeholder="Voo" required>
+                <input type="text" class="form-control form" value="<?=$voo->flightname?>" name="flightname" title="Insira o nome do Voo" maxlength="100" placeholder="Voo" required>
                 <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo->datehourdeparture))?>T<?=date('H:i',strtotime($voo->datehourdeparture))?>" name="datehourdeparture" title="Insira a data de partida do voo" placeholder="Data de Partida" required>
                 <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($voo->datehourarrival))?>T<?=date('H:i',strtotime($voo->datehourarrival))?>" name="datehourarrival" title="Insira a data de chegada do voo" placeholder="Data de Chegada" required>
                 <select class="form-control form" name="origin_airport_id" title="Insira o aeroporto de origem" required>
@@ -58,7 +58,7 @@ $avioes = Data::get('airplanes');
                     <?php } ?>
                 </select>
 
-                <input type="text" class="form-control form" value="<?=$voo->price?>" name="price" title="Insira o preço da viagem" placeholder="Preço" required>
+                <input type="text" class="form-control form" value="<?=$voo->price?>" name="price" title="Insira o preço da viagem" min="1" max="9999" placeholder="Preço" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

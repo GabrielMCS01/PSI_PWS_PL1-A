@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -22,7 +22,7 @@ switch ($_SESSION['tipoUser']) {
 $aeroportos = Data::get('airports');
 $avioes = Data::get('airplanes');
 $voos = Data::get('flights');
-//Página quer permite a criação de uma escala e inserção dos dados na base de dados
+// Página que permite a criação de uma escala e inserção desses dados na base de dados
 ?>
 
 <div class="cxfloatvooscreate">
@@ -36,9 +36,8 @@ $voos = Data::get('flights');
         <div class="tabelaPlaceVoos">
             <form class="formulario-todo" action="<?=Url::toRoute('scales/storefromvoo', $voos->flights_id)?>" method="post">
 
-                <input type="text" class="form-control form" name="flightname" title="Insira o nome da escala" placeholder="Nome da Escala" required>
+                <input type="text" class="form-control form" name="flightname" title="Insira o nome da escala" maxlength="100" placeholder="Nome da Escala" required>
                 <input type="datetime-local" class="form-control form" name="datehourdeparture" title="Insira a data e hora de descolagem da escala" placeholder="Data e hora de Partida" required>
-
                 <input type="datetime-local" class="form-control form" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
 
                 <select class="form-control form" name="originairport_id" title="Insira o aeroporto de origem" required>

@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -20,7 +20,7 @@ switch ($_SESSION['tipoUser']) {
 }
 
 $escala = Data::get('escala');
-//Página que permite a edição de uma escala  selecionado pelo utilizador
+// Página que permite a edição de uma escala selecionada pelo utilizador
 ?>
 
     <div class="cxfloatvooscreate">
@@ -32,7 +32,7 @@ $escala = Data::get('escala');
                 </a>
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala->flight_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$escala->flightname?>" name="flightname" title="Insira o nome da escala" placeholder="Escala" required>
+                <input type="text" class="form-control form" value="<?=$escala->flightname?>" name="flightname" title="Insira o nome da escala" maxlength="100" placeholder="Escala" required>
                 <input type="datetime-local" class="form-control form" value="<?=$escala->datehourdeparture?>T<?=$escala->datehourdeparture?>" name="datehourdeparture" title="Insira a data e hora de partida da escala" placeholder="Data e hora de Partida" required>
                 <input type="datetime-local" class="form-control form" value="<?=$escala->datehourarrival?>T<?=$escala->datehourarrival?>" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
                 <input type="text" class="form-control form" value="<?=$escala->originairport_id?>" name="originairport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
