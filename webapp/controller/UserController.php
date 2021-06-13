@@ -94,10 +94,14 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $utilizadores = User::first(['username' => $editados['username']]);
             if ($utilizadores == null) {
 
-                // Encripta a password antes de a guardar
-                $editados['userpassword'] = password_hash($editados['userpassword'], PASSWORD_DEFAULT);
+                // Encripta a password antes de a guardar se for diferente
+                if($editados['userpassword'] != $user->userpassword){
+                    $editados['userpassword'] = password_hash($editados['userpassword'], PASSWORD_DEFAULT);
+                }
+
                 $user->update_attributes($editados);
                 $user->save();
+
                 //Se o tipo de user for administrador mostra a lista de utilizadores
                 if ($_SESSION['tipoUser'] == 'administrador') {
                     Redirect::toRoute('users/showall');
