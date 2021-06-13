@@ -18,12 +18,12 @@ Layout::includeLayout('loginheader')
                 </a>
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('users/store')?>" method="post">
-                <input type="text" class="form-control form" name="username" title="Insira um username" maxlength="100" placeholder="Username" required>
+                <input type="text" class="form-control form" name="username" title="Insira um username" maxlength="100" placeholder="Nome de Utilizador" required>
                 <input type="text" class="form-control form" name="fullname" title="Insira o nome completo" placeholder="Nome completo" required>
                 <input type="date" class="form-control form" name="birthdate" title="Insira a sua data de nascimento" placeholder="Data de nascimento" required>
                 <input type="email" class="form-control form" name="email" title="Insira o seu email" placeholder="Email" required>
                 <input type="tel" class="form-control form" name="phonenumber" pattern="[0-9]{9}" maxlength="9" title="Insira o seu telefone, 9 digitos sem letras" placeholder="Telefone" required>
-                <input type="password" class="form-control form" name="userpassword" title="Insira uma password" placeholder="Password" required>
+                <input type="password" class="form-control form" name="userpassword" title="Insira uma password" placeholder="Palavra-passe" required>
                 <input class="btn botaosignin" type="submit" value="Criar">
             </form>
             </ul>

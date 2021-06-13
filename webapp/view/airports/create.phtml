@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -18,7 +18,7 @@ switch ($_SESSION['tipoUser']) {
         Layout::includeLayout('operadordecheckinheader');
         break;
 }
-//Página que permite a criação/registo de aeroportos na base de dados
+// Página que permite a criação/registo de aeroportos na base de dados
 $paises = Data::get('paises');
 ?>
 
@@ -31,7 +31,7 @@ $paises = Data::get('paises');
             </a>
         </ul>
         <form class="formulario-todo" action="<?=Url::toRoute('airports/store')?>" method="post">
-            <input type="text" class="form-control form" name="airportname" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
+            <input type="text" class="form-control form" name="airportname" title="Insira um nome para o Aeroporto" maxlength="100" placeholder="Nome do Aeroporto" required>
             <select class="form-control form" name="country" title="Insira o nome do País" required>
                 <option readonly="true" disabled>País</option>
                 <?php foreach ($paises as $pais){

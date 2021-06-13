@@ -4,7 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 switch ($_SESSION['tipoUser']) {
-    //Mostrar o header conforme o tipo de utilizador
+    // Mostrar o header conforme o tipo de utilizador
     case 'administrador':
         Layout::includeLayout('adminheader');
         break;
@@ -21,7 +21,7 @@ switch ($_SESSION['tipoUser']) {
 
 $aeroporto = Data::get('aeroporto');
 $paises = Data::get('paises');
-//Página que permite a edição de um aeroporto selecionado pelo user
+// Página que permite a edição de um aeroporto selecionado pelo utilizador
 ?>
 
     <div class="cxfloataeroportoscreate">
@@ -33,7 +33,7 @@ $paises = Data::get('paises');
                 </a>
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('airports/update', $aeroporto->airports_id)?>" method="post">
-                <input type="text" class="form-control form" value="<?=$aeroporto->airportname?>" name="airportname" title="Insira um nome para o Aeroporto" placeholder="Nome do Aeroporto" required>
+                <input type="text" class="form-control form" value="<?=$aeroporto->airportname?>" name="airportname" title="Insira um nome para o Aeroporto" maxlength="100" placeholder="Nome do Aeroporto" required>
                 <select class="form-control form" name="country" title="Insira o nome do País" required>
                     <option readonly="true" disabled>País</option>
                     <?php foreach ($paises as $pais){
