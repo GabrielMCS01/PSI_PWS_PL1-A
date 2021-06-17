@@ -92,7 +92,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $editados = Post::getAll();
 
             $utilizadores = User::first(['username' => $editados['username']]);
-            if ($utilizadores == null) {
+            if ($utilizadores == null || $user->username == $editados['username']) {
 
                 // Encripta a password antes de a guardar se for diferente
                 if($editados['userpassword'] != $user->userpassword){

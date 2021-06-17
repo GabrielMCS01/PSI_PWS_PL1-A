@@ -95,5 +95,5 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->lastPage();
 //Close and output PDF document
 ob_end_clean();
-$pdf->Output('bilhete_'.date("Y-m-d").'.pdf', 'D');
+$pdf->Output('bilhete_'.date("d-m-Y").'.pdf', 'D');
 ?>
