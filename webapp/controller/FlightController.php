@@ -68,7 +68,7 @@ class FlightController extends BaseController implements ResourceControllerInter
                     case 3:
                         $voos = Flight::all(['order' => 'datehourdeparture asc'], ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2]"]);
                         break;
-                    case 3:
+                    case 4:
                         $voos = Flight::all(['order' => 'datehourdeparture asc'], ['conditions' => "$pesquisa[0] AND $pesquisa[1] AND $pesquisa[2] AND $pesquisa[3]"]);
                         break;
                     default:

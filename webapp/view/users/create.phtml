@@ -13,9 +13,20 @@ Layout::includeLayout('loginheader')
         <div class="cardcreate">
             <ul class="firstline">
                 <li class="textologin">Criar conta</li>
-                <a href="<?=Url::toRoute('users/index')?>">
-                    <li class="createaccount">Entrar</li>
-                </a>
+
+                <?php
+                if(isset($_SESSION['tipoUser'])){
+                    if($_SESSION['tipoUser'] == 'administrador'){ ?>
+                        <a href="<?=Url::toRoute('users/showall')?>">
+                            <li class="veravioes">Ver utilizadores</li>
+                        </a>
+                    <?php }else{ ?>
+                        <a href="<?=Url::toRoute('users/index')?>">
+                            <li class="createaccount">Entrar</li>
+                        </a>
+                    <?php }
+                }
+                ?>
             </ul>
             <form class="formulario-todo" action="<?=Url::toRoute('users/store')?>" method="post">
                 <input type="text" class="form-control form" name="username" title="Insira um username" maxlength="100" placeholder="Nome de Utilizador" required>
