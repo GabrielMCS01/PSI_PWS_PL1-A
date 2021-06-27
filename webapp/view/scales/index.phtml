@@ -89,8 +89,8 @@ $voo = Data::get('voo');
                         <td><?=$dados->distance?> km</td>
                         <!--Tirar a opção ao passageiro de poder alterar os voos-->
                         <?php if($_SESSION['tipoUser'] != 'passageiro' && $_SESSION['tipoUser'] != 'operadordecheckin'){ ?>
-                            <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>"><img title="Editar" alt="editar" src="<?=Asset::image('editar.png')?>" width="30"></a></td>
-                            <td><a href="<?=Url::toRoute('scales/destroy', $dados->scales_id)?>"><img title="Apagar" alt="apagar" src="<?=Asset::image('apagar.png')?>" width="32"></a></td>
+                            <td><a href="<?=Url::toRoute('scales/edit', $dados->scales_id)?>" title="Editar"><?=imgeditar()?></a></td>
+                            <td><a href="<?=Url::toRoute('scales/destroy', $dados->scales_id)?>" title="Apagar"><?=imgapagar()?></a></td>
                         <?php }?>
 
                     </tr>
