@@ -119,10 +119,10 @@ $searchbar = Data::get('searchbar');
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->price.'€'?></td>
 
-                        //Contar o número de passageiros por voo
+                        <!--Contar o número de passageiros por voo !-->
                         <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->userflight).'</td>':''?>
 
-                        //Contar o número de escalas por voo
+                        <!--Contar o número de escalas por voo !-->
                         <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->scale).'</td>':''?>
 
                         <td><a title="Escalas" href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><?=imgscale()?></a></td>

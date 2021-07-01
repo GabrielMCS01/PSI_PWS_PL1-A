@@ -58,6 +58,7 @@ $searchbar = Data::get('searchbar');
                     <th scope="col">Nome do avião</th>
                     <th scope="col">Transportadora</th>
                     <th scope="col">Lotação Máxima</th>
+                    <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Voos</th>':''?>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -70,6 +71,8 @@ $searchbar = Data::get('searchbar');
                         <td><?=$dados->airplanename?></td>
                         <td><?=$dados->shippingcompany?></td>
                         <td><?=$dados->capacity?></td>
+                        <!--Conta quantos voos tem cada avião-->
+                        <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->flight).'</td>':''?>
                         <td><a href="<?=Url::toRoute('airplanes/edit', $dados->airplanes_id)?>" title="Editar"><?=imgeditar()?></a></td>
                         <td><a href="<?=Url::toRoute('airplanes/destroy', $dados->airplanes_id)?>" title="Apagar"><?=imgapagar()?></a></td>
                     </tr>

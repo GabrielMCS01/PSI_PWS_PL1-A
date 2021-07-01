@@ -57,6 +57,7 @@ $user = new User();
                     <th scope="col">Telefone</th>
                     <th scope="col">Utilizador</th>
                     <th scope="col">Perfil</th>
+                    <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Passagens Adequiridas</th>':''?>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -71,6 +72,10 @@ $user = new User();
                         <td><?=$dados->phonenumber?></td>
                         <td><?=$dados->username?></td>
                         <td><?=$user->TipoUserMostrar($dados->userprofile)?></td>
+
+                        <!--Contar o número de voos por user!-->
+                        <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->userflight).'</td>':''?>
+
                         <td><a title="Editar" href="<?=Url::toRoute('users/edit', $dados->users_id)?>"><?=imgeditar()?></a></td>
                         <?php if($dados->userprofile != 'administrador'){ ?>
                             <td><a title="Apagar" href="<?=Url::toRoute('users/destroy', $dados->users_id)?>"><?=imgapagar()?></a></td>
