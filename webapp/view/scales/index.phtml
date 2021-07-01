@@ -80,10 +80,10 @@ $voo = Data::get('voo');
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
                         <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
                         <td><?=$dados->origin_airport->airportname?>
-                            <img class="imgbandeiras" src="<?=$dados->origin_airport->flag?>" width="30">
+                            <img class="imgbandeiras" title="<?=$dados->origin_airport->country?>" src="<?=$dados->origin_airport->flag?>" width="30" height="20">
                         </td>
                         <td><?=$dados->destination_airport->airportname?>
-                            <img class="imgbandeiras" src="<?=$dados->destination_airport->flag?>" width="30">
+                            <img class="imgbandeiras" title="<?=$dados->destination_airport->country?>" src="<?=$dados->destination_airport->flag?>" width="30" height="20">
                         </td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->distance?> km</td>
