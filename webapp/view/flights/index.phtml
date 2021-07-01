@@ -72,6 +72,8 @@ $searchbar = Data::get('searchbar');
                     <th scope="col">Preço</th>
                     <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Número de passageiros</th>':''?>
 
+                    <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Escalas</th>':''?>
+
                     <!-- Dá os espaçamentos no titulo para os botões -->
                     <?php switch ($_SESSION['tipoUser']){
                         case 'operadordecheckin': ?>
@@ -117,7 +119,11 @@ $searchbar = Data::get('searchbar');
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->price.'€'?></td>
 
+                        //Contar o número de passageiros por voo
                         <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->userflight).'</td>':''?>
+
+                        //Contar o número de escalas por voo
+                        <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->scale).'</td>':''?>
 
                         <td><a title="Escalas" href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><?=imgscale()?></a></td>
 
