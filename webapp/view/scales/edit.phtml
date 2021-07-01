@@ -20,7 +20,11 @@ switch ($_SESSION['tipoUser']) {
 }
 
 $escala = Data::get('escala');
+$aeroportos = Data::get('aeroportos');
+$avioes = Data::get('avioes');
+
 // Página que permite a edição de uma escala selecionada pelo utilizador
+
 ?>
 
     <div class="cxfloatvooscreate">
@@ -31,14 +35,33 @@ $escala = Data::get('escala');
                     <li class="veravioes">Ver Escalas</li>
                 </a>
             </ul>
-            <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala->flight_id)?>" method="post">
+            <form class="formulario-todo" action="<?=Url::toRoute('scales/update', $escala->scales_id)?>" method="post">
                 <input type="text" class="form-control form" value="<?=$escala->flightname?>" name="flightname" title="Insira o nome da escala" maxlength="100" placeholder="Escala" required>
-                <input type="datetime-local" class="form-control form" value="<?=$escala->datehourdeparture?>T<?=$escala->datehourdeparture?>" name="datehourdeparture" title="Insira a data e hora de partida da escala" placeholder="Data e hora de Partida" required>
-                <input type="datetime-local" class="form-control form" value="<?=$escala->datehourarrival?>T<?=$escala->datehourarrival?>" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
-                <input type="text" class="form-control form" value="<?=$escala->origin_airport->airportname?>" name="originairport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
-                <input type="text" class="form-control form" value="<?=$escala->destination_airport->airportname?>" name="destinationairport_id" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
-                <input type="text" class="form-control form" value="<?=$escala->airplane->airplanename?>" name="airplane_id" title="Insira o avião" placeholder="Avião" required>
-                <input class="btn botaosignin" type="submit" value="Alterar">
+                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($escala->datehourdeparture))?>T<?=date('H:i',strtotime($escala->datehourdeparture))?>" name="datehourdeparture" title="Insira a data e hora de partida da escala" placeholder="Data e hora de Partida" required>
+                <input type="datetime-local" class="form-control form" value="<?=date('Y-m-d',strtotime($escala->datehourarrival))?>T<?=date('H:i',strtotime($escala->datehourarrival))?>" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
+
+                <select class="form-control form" name="originairport_id" title="Insira o aeroporto de origem" required>
+                    <option disabled selected>Aeroporto de Paragem</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->airports_id?>" <?=($dados->airports_id == $escala->originairport_id)?'selected':''?>><?=$dados->airportname?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="destinationairport_id" title="Insira o aeroporto de destino" required>
+                    <option disabled selected>Aeroporto de Destino</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->airports_id?>" <?=($dados->airports_id == $escala->destinationairport_id)?'selected':''?>><?=$dados->airportname?></option>
+                    <?php } ?>
+                </select>
+
+                <select class="form-control form" name="airplane_id" title="Insira o avião" required>
+                    <option disabled selected>Avião de Partida</option>
+                    <?php foreach ($avioes as $dados){ ?>
+                        <option value="<?=$dados->airplanes_id?>" <?=($dados->airplanes_id == $escala->airplane_id)?'selected':''?>><?=$dados->airplanename?></option>
+                    <?php } ?>
+                </select>
+
+               <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>
         </div>

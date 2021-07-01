@@ -72,7 +72,8 @@ class ScalesController extends BaseController implements ResourceControllerInter
         if(isset($_SESSION['username'])) {
             $escala = Scale::first([$id]);
             $aeroportos = Airport::all();
-            return View::make('scales.edit', ['escala' => $escala, 'airports' => [$aeroportos]]);
+            $avioes = Airplane::all();
+            return View::make('scales.edit', ['escala' => $escala, 'aeroportos' => $aeroportos, 'avioes' => $avioes]);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -84,19 +85,21 @@ class ScalesController extends BaseController implements ResourceControllerInter
         // Se tiver sessão iniciada faz caso contrário é redirecionado para a página de Login
         ActiveRecord\Connection::$datetime_format = 'Y-m-d H:i:s';
         if(isset($_SESSION['username'])) {
-            $escala = Scale::first([$id]);
+            $escala = Scale::first(['scales_id' => $id]);
+
+            $atualizacao = Post::getAll();
 
             // Calcular a distancia dos aeroportos
             $aeroporto = new Airport();
-            $origin_name = $aeroporto::first(Post::get('origin_airport_id'))->country;
-            $destination_name = $aeroporto::first(Post::get('destination_airport_id'))->country;
+            $origin_name = $aeroporto::first(Post::get('originairport_id'))->country;
+            $destination_name = $aeroporto::first(Post::get('destinationairport_id'))->country;
 
             $distancia = $aeroporto->DevolverDistancia($origin_name, $destination_name);
-            $escala += ['distance' => $distancia];
+            $atualizacao += ['distance' => $distancia];
 
-            $escala->update_attributes(Post::getAll());
+            $escala->update_attributes($atualizacao);
             $escala->save();
-            Redirect::toRoute('scales/show/'.$id);
+            Redirect::toRoute('scales/show', $escala->flight_id);
         }else{
             Redirect::toRoute('users/index');
         }
@@ -149,7 +152,7 @@ class ScalesController extends BaseController implements ResourceControllerInter
             // Guardar escala
             $escalas = new Scale($escala);
             $escalas->save();
-            Redirect::toRoute('scales/index');
+            Redirect::toRoute('scales/show', $escalas->flight_id);
         }else{
             Redirect::toRoute('users/index');
         }
