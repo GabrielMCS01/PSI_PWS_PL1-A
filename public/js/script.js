@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    $('.voovolta').hide();;
+    $('.voovolta').hide();
 });
 
 function VooVolta(){

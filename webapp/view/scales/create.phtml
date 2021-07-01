@@ -22,6 +22,7 @@ switch ($_SESSION['tipoUser']) {
 $aeroportos = Data::get('airports');
 $avioes = Data::get('airplanes');
 $voos = Data::get('flights');
+
 // Página que permite a criação de uma escala e inserção desses dados na base de dados
 ?>
 
@@ -29,7 +30,7 @@ $voos = Data::get('flights');
     <div class="cardvooscreate">
         <ul class="firstline">
             <li class="textoAdicionarAviao">Adicionar Escalas ao voo <?=$voos->flightname?></li>
-            <a href="<?=Url::toRoute('scales/index')?>">
+            <a href="<?=Url::toRoute('scales/show', $voos->flights_id)?>">
                 <li class="veravioes">Ver Escalas</li>
             </a>
         </ul>

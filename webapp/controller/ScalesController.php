@@ -96,7 +96,7 @@ class ScalesController extends BaseController implements ResourceControllerInter
 
             $escala->update_attributes(Post::getAll());
             $escala->save();
-            Redirect::toRoute('scales/index');
+            Redirect::toRoute('scales/show/'.$id);
         }else{
             Redirect::toRoute('users/index');
         }

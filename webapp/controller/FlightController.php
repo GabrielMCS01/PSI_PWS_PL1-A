@@ -79,6 +79,14 @@ class FlightController extends BaseController implements ResourceControllerInter
             } else {
                 // A variável recebe todos os Voos existentes
                 $voos = Flight::all(['order' => 'datehourdeparture asc']);
+
+                //Count dos voos do projeto
+                    //$voos2 = Flight::count(['order' => 'datehourdeparture asc']);
+                    //\Tracy\Dumper::dump($voos2);
+
+                //Count número de passageiros por voo, neste caso o voo [0]
+                    //\Tracy\Dumper::dump(count($voos[0]->userflight));
+
             }
             // Retorna a View com a variável com todos os Voos
             return View::make('flights.index', ['voos' => $voos, 'searchbar' => '', 'paises' => $this->user_search()]);

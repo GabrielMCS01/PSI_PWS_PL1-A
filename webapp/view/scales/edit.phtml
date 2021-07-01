@@ -27,7 +27,7 @@ $escala = Data::get('escala');
         <div class="cardavioescreate">
             <ul class="firstline">
                 <li class="textoAdicionarAviao">Alterar Escala</li>
-                <a href="<?=Url::toRoute('scales/index')?>">
+                <a href="<?=Url::toRoute('scales/show', $escala->flight->flights_id)?>">
                     <li class="veravioes">Ver Escalas</li>
                 </a>
             </ul>
@@ -35,9 +35,9 @@ $escala = Data::get('escala');
                 <input type="text" class="form-control form" value="<?=$escala->flightname?>" name="flightname" title="Insira o nome da escala" maxlength="100" placeholder="Escala" required>
                 <input type="datetime-local" class="form-control form" value="<?=$escala->datehourdeparture?>T<?=$escala->datehourdeparture?>" name="datehourdeparture" title="Insira a data e hora de partida da escala" placeholder="Data e hora de Partida" required>
                 <input type="datetime-local" class="form-control form" value="<?=$escala->datehourarrival?>T<?=$escala->datehourarrival?>" name="datehourarrival" title="Insira a data e hora de chegada da escala" placeholder="Data e hora de Chegada" required>
-                <input type="text" class="form-control form" value="<?=$escala->originairport_id?>" name="originairport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
-                <input type="text" class="form-control form" value="<?=$escala->destinationairport_id?>" name="destinationairport_id" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
-                <input type="text" class="form-control form" value="<?=$escala->airplane_id?>" name="airplane_id" title="Insira o avião" placeholder="Avião" required>
+                <input type="text" class="form-control form" value="<?=$escala->origin_airport->airportname?>" name="originairport_id" title="Insira o aeroporto de origem" placeholder="Aeroporto de Origem" required>
+                <input type="text" class="form-control form" value="<?=$escala->destination_airport->airportname?>" name="destinationairport_id" title="Insira o aeroporto de destino" placeholder="Aeroporto de Destino" required>
+                <input type="text" class="form-control form" value="<?=$escala->airplane->airplanename?>" name="airplane_id" title="Insira o avião" placeholder="Avião" required>
                 <input class="btn botaosignin" type="submit" value="Alterar">
             </form>
             </ul>

@@ -70,6 +70,7 @@ $searchbar = Data::get('searchbar');
                     <th scope="col">Distância</th>
                     <th scope="col">Avião</th>
                     <th scope="col">Preço</th>
+                    <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Número de passageiros</th>':''?>
 
                     <!-- Dá os espaçamentos no titulo para os botões -->
                     <?php switch ($_SESSION['tipoUser']){
@@ -86,8 +87,8 @@ $searchbar = Data::get('searchbar');
                             <th scope="col"> </th>
                             <?php break;
                     } ?>
-
                 </tr>
+
                 </thead>
                 <tbody>
                 <!-- Preenche com os dados de cada Voo !-->
@@ -115,6 +116,9 @@ $searchbar = Data::get('searchbar');
                         ?> km</td>
                         <td><?=$dados->airplane->airplanename?></td>
                         <td><?=$dados->price.'€'?></td>
+
+                        <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->userflight).'</td>':''?>
+
                         <td><a title="Escalas" href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><?=imgscale()?></a></td>
 
                         <!-- Escolher os botões a mostrar na tabela -->
