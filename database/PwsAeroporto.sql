@@ -81,5 +81,14 @@ CONSTRAINT fk_users_flights_flight_id FOREIGN KEY(flight_id) REFERENCES flights(
 CONSTRAINT fk_users_flights_flight_back_id FOREIGN KEY(flight_back_id) REFERENCES flights(flights_id)
 )ENGINE=InnoDB;
 
+Create table if not exists oficinas_hangar(
+oficina_id INT UNSIGNED AUTO_INCREMENT,
+descricao varchar(100) not null,
+capacidade int UNSIGNED not null,
+airports_id int UNSIGNED,
+CONSTRAINT pk_oficinas_hangar_oficina_id PRIMARY KEY(oficina_id),
+CONSTRAINT fk_oficinas_hangar_airports_id FOREIGN KEY(airports_id) REFERENCES airports(airports_id)
+)ENGINE=InnoDB;
+
 INSERT INTO users
 VALUES (null, 'Admin Master', '2000-01-01', 'adminmaster@localhost.com', '912345678', 'adminmaster', 'adminmaster', 'administrador');

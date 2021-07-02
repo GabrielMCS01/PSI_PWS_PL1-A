@@ -1,0 +1,56 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+switch ($_SESSION['tipoUser']) {
+    // Mostrar o header conforme o tipo de utilizador
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    case 'passageiro':
+        Layout::includeLayout('passageiroheader');
+        break;
+    case 'gestordevoo':
+        Layout::includeLayout('gestordevooheader');
+        break;
+    case 'operadordecheckin':
+        Layout::includeLayout('operadordecheckinheader');
+        break;
+}
+
+$aeroportos = Data::get('airports');
+// Página que permite criar/registar oficinas na base de dados
+?>
+
+<div class="cxfloatvooscreate">
+    <div class="cardvooscreate">
+        <ul class="firstline">
+            <li class="textoAdicionarAviao">Adicionar oficinas</li>
+            <a href="<?=Url::toRoute('flights/index')?>">
+                <li class="veravioes">Ver Voos</li>
+            </a>
+        </ul>
+        <div class="tabelaPlaceVoos">
+            <form class="formulario-todo" action="<?=Url::toRoute('defesa/store')?>" method="post">
+
+                <input type="text" class="form-control form" name="descricao" title="Insira o nome do voo" maxlength="100" placeholder="Nome do Voo" required>
+
+                <input type="number" class="form-control form" name="capacidade" title="Insira o preço do voo" min="1" max="9999" placeholder="Preço da Viagem" required>
+
+                <select class="form-control form" name="airports_id" title="Insira o aeroporto de origem" required>
+                    <option disabled selected>Aeroporto</option>
+                    <?php foreach ($aeroportos as $dados){ ?>
+                        <option value="<?=$dados->airports_id?>"><?=$dados->airportname?></option>
+                    <?php } ?>
+                </select>
+
+                <input class="btn botaosignin" type="submit" value="Adicionar">
+
+            </form>
+        </div>
+        </ul>
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer')?>

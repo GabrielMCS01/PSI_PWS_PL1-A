@@ -33,6 +33,8 @@ Router::resource('scales', 'ScalesController');
 
 Router::resource('users_flights', 'Users_flightController');
 
+Router::resource('defesa', 'DefesaPLController');
+
 //Página de routing do projeto
 
 

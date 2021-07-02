@@ -1,0 +1,152 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: smendes
+ * Date: 19-04-2017
+ * Time: 18:57
+ */
+
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+switch ($_SESSION['tipoUser']) {
+    // Mostrar o header conforme o tipo de utilizador
+    case 'administrador':
+        Layout::includeLayout('adminheader');
+        break;
+    case 'passageiro':
+        Layout::includeLayout('passageiroheader');
+        break;
+    case 'gestordevoo':
+        Layout::includeLayout('gestordevooheader');
+        break;
+    case 'operadordecheckin':
+        Layout::includeLayout('operadordecheckinheader');
+        break;
+    default:
+        Redirect::toRoute('users/index');
+        break;
+}
+
+$voos = Data::get('voos');
+// Página que mostra todos os voos registados na base de dados
+
+?>
+
+<div class="cxfloatvoos">
+    <div class="cardavioes">
+        <ul class="firstline">
+            <li class="textoAviao"><?=($_SESSION['tipoUser'] != 'operadordecheckin')?"<a href=".Url::toRoute('flights/index').">Voos</a>":"Voos"?></li>
+            <?php if($_SESSION['tipoUser'] != 'passageiro'){ ?>
+                <a href="<?=($_SESSION['tipoUser'] == 'operadordecheckin')?Url::toRoute('users_flights/index'):Url::toRoute('flights/create')?>">
+                    <li class="adicionaraviao"><?=($_SESSION['tipoUser'] == 'operadordecheckin')?'Voltar':'Adicionar Voo'?></li>
+                </a>
+            <?php } ?>
+        </ul>
+        <div class="tabelaPlace">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Voo</th>
+                    <th scope="col">Data de Partida</th>
+                    <th scope="col">Data de Chegada</th>
+                    <th scope="col">Aeroporto de Origem</th>
+                    <th scope="col">Aeroporto de Chegada</th>
+                    <th scope="col">Distância</th>
+                    <th scope="col">Avião</th>
+                    <th scope="col">Preço</th>
+                    <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Número de passageiros</th>':''?>
+
+                    <?=($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Escalas</th>':''?>
+
+                    <!-- Dá os espaçamentos no titulo para os botões -->
+                    <?php switch ($_SESSION['tipoUser']){
+                        case 'operadordecheckin': ?>
+                            <th scope="col"> </th>
+                        <?php break;
+                        case 'passageiro': ?>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                            <?php break;
+                        case 'gestordevoo' || 'adminmaster': ?>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                            <th scope="col"> </th>
+                            <?php break;
+                    } ?>
+                </tr>
+
+                </thead>
+                <tbody>
+                <!-- Preenche com os dados de cada Voo !-->
+                <?php foreach ($voos as $dados){ ?>
+                    <tr>
+                        <td><?=$dados->flightname?></td>
+                        <td><?=date('d/m/Y H:i', strtotime($dados->datehourdeparture))?></td>
+                        <td><?=date('d/m/Y H:i', strtotime($dados->datehourarrival))?></td>
+                        <td><?=$dados->origin_airport->airportname?>
+                            <img class="imgbandeiras" title="<?=$dados->origin_airport->country?>" src="<?=$dados->origin_airport->flag?>" width="30" height="20">
+                        </td>
+                        <td><?=$dados->destination_airport->airportname?>
+                            <img class="imgbandeiras" title="<?=$dados->destination_airport->country?>" src="<?=$dados->destination_airport->flag?>" width="30" height="20">
+                        </td>
+                        <td><?php
+                            $escalasDistancia = 0;
+                        if ($dados->scale != null){
+                            foreach ($dados->scale as $escalas){
+                                $escalasDistancia += $escalas->distance;
+                            }
+                            echo $escalasDistancia;
+                        }else{
+                            echo $dados->distance;
+                        }
+                        ?> km</td>
+                        <td><?=$dados->airplane->airplanename?></td>
+                        <td><?=$dados->price.'€'?></td>
+
+                        <!--Contar o número de passageiros por voo !-->
+                        <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->userflight).'</td>':''?>
+
+                        <!--Contar o número de escalas por voo !-->
+                        <?=($_SESSION['tipoUser']!='passageiro')?'<td>'.count($dados->scale).'</td>':''?>
+
+                        <td><a title="Escalas" href="<?=Url::toRoute('scales/show', $dados->flights_id)?>"><?=imgscale()?></a></td>
+
+                        <!-- Escolher os botões a mostrar na tabela -->
+                        <?php switch($_SESSION['tipoUser']){
+                            case 'passageiro':
+                                if($dados->airplane->capacity > count($dados->userflight)){ ?>
+                                    <td><a title="Comprar voo" href="<?=Url::toRoute('users_flights/createPurchase', $dados->flights_id)?>"><?=imgcomprar()?></a></td>
+                                <?php } break;
+                            case 'operadordecheckin': ?>
+                                <?php break;
+                            default: ?>
+                                <td><a href="<?=Url::toRoute('flights/edit', $dados->flights_id)?>" title="Editar"><?=imgeditar()?></a></td>
+                                <td><a href="<?=Url::toRoute('flights/destroy', $dados->flights_id)?>" title="Apagar"><?=imgapagar()?></a></td>
+                            <?php break;
+                        } ?>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+            <!--Mensagem de nenhum voo encontrado-->
+            <?=(empty($voos))?'<p class="nenhumVoo">Nenhum voo encontrado</p>':''?>
+
+        </div>
+
+        <!--Mensagem de erro ao tentar eliminar chaves estrangeiras-->
+        <?=(isset($_SESSION['mensagemErro']))?'<p class="nenhumVoo">'.$_SESSION['mensagemErro'].'</p>':''?>
+        <?php unset($_SESSION['mensagemErro']); ?>
+
+    </div>
+</div>
+
+<?=Layout::includeLayout('footer');?>
+
+<!--Contar o número de !-->
+
+<?=/*($_SESSION['tipoUser']!='passageiro')?'<th scope="col">Check-in</th>':''?>
+<?= '<td>'.count($dados->userflight->checkin == 1).'</td>' */ ''?>
